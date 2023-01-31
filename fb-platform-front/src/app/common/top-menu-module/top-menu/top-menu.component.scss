@@ -1,0 +1,39 @@
+#topBar{
+  height: 67px;
+  /*
+  background-color: $blue-gray-700;
+  */
+  background-color: #334155;
+  padding: 15px 50px;
+  .logo{
+    width: 156px;
+    height: 36px;
+  }
+  .account{
+    min-width: 163px;
+    height: 36px;
+  }
+  .user-img{
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    border: 1px solid white;
+    margin-right: 10px;
+  }
+  .angle-down{
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    color: white;
+    margin-left: 10px;
+  }
+  .angle-down:hover{
+    color: #334155;
+    background-color: white;
+    cursor: pointer;
+    }
+
+}
+::ng-deep{
+
+}

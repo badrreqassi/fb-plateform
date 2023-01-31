@@ -1,0 +1,15 @@
+<div id="topBar" fxLayout="row" fxLayoutAlign="space-between center">
+  <img src="/assets/img/topBarLogo.svg"  alt ="topBarLogo" class="logo">
+  <div class="account" fxLayout="row" fxLayoutAlign="end center" >
+    <div fxLayoutAlign="center center" >
+      <img src="assets/img/users.svg" alt="users" class="user-img">
+      <span style="color: #f1f5ff "> {{'BADR REQASSI OMAR '}} </span>
+    </div>
+
+    <div class="pi pi-angle-down angle-down"  fxLayoutAlign="center center" (click)="menu.toggle($event)" ></div>
+    <p-menu #menu [popup]="true" [model]="items" ></p-menu>
+
+
+  </div>
+
+</div>

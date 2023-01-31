@@ -1,0 +1,61 @@
+<div id="login-page">
+
+<img src="./assets/img/testing_campaign_bg.svg" style="position: absolute">
+<div fxFlex="100%" fxLayout="row" fxLayoutAlign="center center" >
+  <div class="container" fxLayoutAlign="end center" style="margin-right:45px">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <img src="./assets/img/logo.svg" class="logo">
+      <img src="./assets/img/Frame.svg" class="frame">
+      <img src="./assets/img/team.svg" class="team">
+    </div>
+
+  </div>
+  <div class="container" fxLayoutAlign="start center" style="margin-left:45px">
+    <p-card fxLayoutAlign="start center">
+      <div fxLayout="column" fxLayoutAlign="center center" class="container-form">
+        <div class="container-title">
+          <div class="title"><span style="color:#4C6FBF">Connectez </span> vous<span style="color:#4C6FBF ; border-radius: 100%">. </span> </div>
+        </div>
+        <div fxFlexFill>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div fxLayout="column" fxLayoutAlign="center start" fxFlex="100%">
+
+
+                   <label class="block default-margin">Email</label>
+                  <div class="p-input-icon-left" style="width: 100% ; margin-bottom: 10px">
+                    <i class="pi pi-user"></i>
+                    <input style="width: 100%"
+                           type="text" pInputText
+                           placeholder="enter votre email ..."
+                           [class]="valid?'' : 'ng-invalid ng-dirty'"
+                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                           [formControlName]="'email'">
+                  </div>
+
+
+                  <label class="block default-margin">Mot de passe</label>
+                  <div class="p-input-icon-left p-input-icon-right" style="width: 100%">
+                    <i class="pi pi-lock"></i><i [class]=" showPassWord? 'pi pi-eye-slash': 'pi pi-eye'" (click)="click($event)"></i>
+                    <input style="width: 100%"
+                           [type]=" showPassWord ? 'text' :'password'"  pInputText
+                           placeholder="enter votre mot de passe ..."
+                           [class]="valid? '' : 'ng-invalid ng-dirty'"
+                           [formControlName]="'passWord'"
+                    />
+                  </div>
+
+
+              <p-button   label="Connectez vous" class="button-submit" type="submit"></p-button>
+
+
+              </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </p-card>
+  </div>
+</div>
+</div>
