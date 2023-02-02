@@ -25,10 +25,12 @@ export class ListCreatureComponent implements OnInit {
     this.facebookService.authenticateUserSubject.subscribe(response => {
       if (response) {
         this.user = response;
-        this.creators = this.facebookService.getAllCompaigns();
-        setTimeout(() => {
-          this.totalRecords = this.creators.length;
-        }, 1000)
+        this.facebookService.getAllCompaigns().subscribe(
+          response => {
+            this.creators = response;
+            this.totalRecords = this.creators.length;
+          }
+        );
         this.loggedIn = true;
         this.disabled = false;
       } else {

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { CoreRoutingModule } from './core-routing.module';
 import { MainComponent } from './main.component';
 import {TopMenuModuleModule} from "../../common/top-menu-module/top-menu-module.module";

@@ -28,6 +28,7 @@ export class TopMenuComponent implements OnInit {
 
   logOut():void{
     this.facebookService.logoutFacebook();
+    localStorage.removeItem('token');
     this.router.navigate(['/Auth/login'])
   }
 }

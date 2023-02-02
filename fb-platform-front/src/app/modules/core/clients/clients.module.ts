@@ -26,6 +26,6 @@ import {FormsModule} from "@angular/forms";
     InputSwitchModule,
     FormsModule
   ],
-  providers: []
+  providers: [FacebookService]
 })
 export class ClientsModule { }

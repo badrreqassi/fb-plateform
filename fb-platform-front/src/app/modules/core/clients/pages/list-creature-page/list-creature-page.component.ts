@@ -10,6 +10,7 @@ export class ListCreaturePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('test');
   }
 
 }

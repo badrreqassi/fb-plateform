@@ -10,6 +10,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
 import {TagModule} from "primeng/tag";
 import {ButtonModule} from "primeng/button";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -27,6 +28,8 @@ import {ButtonModule} from "primeng/button";
     PasswordModule,
     TagModule,
     ButtonModule,
-  ]
+    HttpClientModule
+  ],
+
 })
 export class AuthModule { }

@@ -1,16 +1,24 @@
-#main::ng-deep{
-.p-card .p-card-body {
+#main::ng-deep {
+  .p-card .p-card-body {
     padding: 25px;
     width: 1820px;
 
 }
-    .p-card .p-card-content {
-      padding: 0 !important;
-    }
+  .p-card .p-card-content {
+    padding: 0 !important;
+  }
+
+  .card {
+    position: absolute;
+    margin: 50px;
+
+  }
 }
 
-.card{
-  position: absolute;
-  margin: 50px;
-
+body {
+  background-image: url(/assets/img/testing_campaign_bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
 }

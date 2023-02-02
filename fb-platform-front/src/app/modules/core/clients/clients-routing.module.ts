@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {ListCreaturePageComponent} from "./pages/list-creature-page/list-creature-page.component";
 
 const routes: Routes = [
-  {path: '', component:ListCreaturePageComponent}
+  {path: '', component:ListCreaturePageComponent }
 ];
 
 @NgModule({
