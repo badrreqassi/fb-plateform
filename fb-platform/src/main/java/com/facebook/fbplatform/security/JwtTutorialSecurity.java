@@ -43,7 +43,7 @@ public class JwtTutorialSecurity {
                     try {
                         auth
                                 .antMatchers("/user").hasRole("USER")
-                                .antMatchers("/admin").hasRole("ADMIN")
+                                .antMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                                 .and()
                                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
