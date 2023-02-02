@@ -1,1 +1,111 @@
-<p>list-creature works!</p>
+<div id="creature-card">
+  <div fxFlexFill fxLayout="row">
+    <div class="creature-title" fxFlex="50">
+      <span ><span class="bold">Hello</span> {{user?.name}},<span class="bold"> welcome back.</span></span>
+    </div>
+    <div fxFlex="50" fxLayoutAlign="end center">
+      <button pButton class="p-button-outlined p-button-secondary create-btn" label="Créer un nouveau test" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
+    </div>
+  </div>
+  <div class="connect-fb-section" fxLayoutAlign="center center" *ngIf="!loggedIn else LogIn">
+    <div fxLayout="column" fxLayoutGap="20px">
+      <div fxFlex class="connect-message">
+        <i class="pi pi-info-circle"></i>
+        <h3>Vous devez connecter votre compte Facebook</h3>
+      </div>
+      <div fxFlex class="connect-btn">
+        <button pButton class="p-button-outlined create-btn" label="Liez votre compte Facebook" icon="pi pi-facebook" (click)="onLogin()"></button>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #LogIn >
+    <div class="creators-list">
+      <p-table #dt
+               [value]="creators"
+               dataKey="id"
+               [rowHover]="true"
+               styleClass="p-datatable-gridlines"
+               [(first)]="first"
+               [(rows)]="rows"
+               [showCurrentPageReport]="true"
+               [rowsPerPageOptions]="[10,25,50]"
+               [totalRecords]="totalRecords"
+               [paginator]="true"
+               stateStorage="local"
+               currentPageReportTemplate="{first} - {last} sur {totalRecords}"
+               scrollHeight="500px"
+               [scrollable]="true"
+      >
+        <ng-template pTemplate="caption">
+          <div class="table-header">
+            List of Creators
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 80px; max-width: 80px">
+              <div class="align-center">
+                Actif
+              </div>
+            </th>
+            <th>
+              <div class="flex justify-content-between align-items-center">
+                Créateur
+              </div>
+            </th>
+            <th style="min-width: 200px; max-width: 200px">
+              <div class="flex justify-content-between align-items-center">
+                Nombre de test
+              </div>
+            </th>
+            <th style="min-width: 200px; max-width: 200px">
+              <div class="flex justify-content-between align-items-center">
+                Diffusion
+              </div>
+            </th>
+            <th style="min-width: 200px; max-width: 200px">
+              <div class="flex justify-content-between align-items-center">
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-creator>
+          <tr class="p-selectable-row">
+            <td style="min-width: 80px; max-width: 80px">
+              <ng-container [ngSwitch]="creator.status">
+                <div *ngSwitchCase="'ACTIVE'">
+                  <p-inputSwitch [trueValue]="true"></p-inputSwitch>
+                </div>
+                <div *ngSwitchDefault>
+                  <p-inputSwitch [falseValue]="false"></p-inputSwitch>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              {{creator.name}}
+            </td>
+            <td style="min-width: 200px; max-width: 200px">
+              {{creator.ads.data.length}}
+            </td>
+            <td style="min-width: 200px; max-width: 200px">
+              {{creator.status}}
+            </td>
+            <td style="min-width: 200px; max-width: 200px">
+              <div class="align-center">
+                <button pButton class="p-button-outlined create-btn" label="Voir les test"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No customers found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+  </ng-template>
+</div>

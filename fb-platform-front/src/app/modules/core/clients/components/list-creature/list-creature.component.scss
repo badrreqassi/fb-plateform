@@ -1,0 +1,36 @@
+#creature-card::ng-deep {
+    .creature-title {
+      max-height: 35px;
+      span {
+        font-size: 30px;
+        color: #374151;
+        font-weight: 300;
+        span.bold {
+          font-weight: 800;
+        }
+      }
+
+    }
+
+  .connect-fb-section {
+    margin-top: 20px;
+    height: 640px;
+    width: 100%;
+    background: #f1f5f9;
+    text-align: center;
+
+
+    .connect-message{
+      color: #3B82F6;
+    }
+  }
+
+  .creators-list{
+    margin-top: 36px;
+
+    .align-center{
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
