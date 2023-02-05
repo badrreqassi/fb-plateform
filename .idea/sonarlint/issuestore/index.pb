@@ -175,3 +175,5 @@ a
 1fb-platform/.mvn/wrapper/maven-wrapper.properties,7/9/791dc54a45eb9b8fb0a511f554f4227c06f38ada
 Å
 Qfb-platform/src/test/java/com/facebook/fbplatform/FbPlatformApplicationTests.java,2/1/219fe7aaa20814f0a27081fb72fb560cc0af1055
+C
+fb-platform/pom.xml,5/6/5693e29a4daa7def9b488ab846c3c63d4dbaa038

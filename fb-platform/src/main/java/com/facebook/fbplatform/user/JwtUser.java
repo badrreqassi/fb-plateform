@@ -29,6 +29,12 @@ public class JwtUser implements UserDetails {
     private String uuid = UUID.randomUUID().toString();
 
     @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
     private String username;
 
     @Column(unique = true)

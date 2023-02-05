@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -22,6 +24,12 @@ public class UserController {
     @PostMapping("/admin/creation")
     public JwtUser creationUser(@RequestBody JwtUser jwtUser) throws Exception {
        return  jwtUserService.createUser(jwtUser);
+
+    }
+
+    @GetMapping("/admin/all/users")
+    public List<JwtUser> getAllUser() throws Exception {
+        return  jwtUserService.getAllUsers();
 
     }
 

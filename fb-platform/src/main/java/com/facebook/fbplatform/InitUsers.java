@@ -22,6 +22,8 @@ public class InitUsers implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (jwtUserService.findJwtUserByEmail("admin@test.com").isEmpty()) {
             JwtUser u = jwtUserService.save(JwtUser.builder()
+                    .firstName("Admin")
+                    .lastName("Admin")
                     .username("Admin")
                     .email("admin@test.com")
                     .password(passwordEncoder.encode("test123"))
@@ -32,6 +34,8 @@ public class InitUsers implements CommandLineRunner {
         }
         if (jwtUserService.findJwtUserByEmail("user@test.com").isEmpty()) {
             JwtUser u = jwtUserService.save(JwtUser.builder()
+                    .firstName("User")
+                    .lastName("User")
                     .username("User")
                     .email("user@test.com")
                     .password(passwordEncoder.encode("test123"))

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
@@ -36,11 +37,17 @@ public class JwtUserService {
 
     public JwtUser createUser(JwtUser jwtUser) throws Exception {
        JwtUser jwtUsers = new JwtUser();
+       jwtUsers.setFirstName(jwtUser.getFirstName());
+       jwtUsers.setLastName(jwtUser.getLastName());
        jwtUsers.setUsername(jwtUser.getUsername());
         jwtUsers.setEmail(jwtUser.getEmail());
         jwtUsers.setPassword(passwordEncoder.encode(jwtUser.getPassword()));
        jwtUsers.setRole(Collections.singleton(Role.ROLE_USER));
        jwtUsers.setEnabled(true);
        return jwtUserRepository.save(jwtUsers);
+    }
+
+    public List<JwtUser> getAllUsers() {
+        return jwtUserRepository.findAll();
     }
 }
