@@ -1,0 +1,128 @@
+<p-toast></p-toast>
+<div id="createAd" fxLayout="column" [fxLayoutGap]="'37px'">
+  <div fxLayout="row" style="width: 100%">
+    <div fxFlex="95%" class="title">
+      <span class="bold">
+        Nouveau
+        </span>
+      <span>
+          Testing
+        </span>
+      <span class="bold">.</span>
+    </div>
+    <div fxFlex="5%">
+      <button pButton class="p-button-rounded buttonTime" icon="pi pi-times"
+              (click)="close()"
+      ></button>
+    </div>
+  </div>
+  <div>
+    <form [formGroup]="beanAds" (ngSubmit)="onSubmit()">
+      <div fxLayout="row wrap" fxLayoutAlign="none start">
+
+        <div fxLayout="column" class="default-margin" style="width: 100% ">
+          <label class="default-margin">Nom de test</label>
+          <input
+            [formControlName]="'name'"
+            type="text" pInputText
+            placeholder="enter un nom pour le test..."
+            [class]="valid?'' : 'ng-invalid ng-dirty'">
+        </div>
+
+        <div fxLayout="row" style="width: 100%">
+          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px) ; margin-right: 50px">
+            <label class="default-margin">Pour le Créateur</label>
+            <p-dropdown [options]="compaigns"
+                        [formControlName]="'campaign'"
+                        (onChange)="onchangeCompaigns($event)"
+                        [class]="valid?'' : 'ng-invalid ng-dirty'"
+                        placeholder="Choisissez une créateur ..."
+                        optionLabel="name"></p-dropdown>
+          </div>
+          <div fxLayout="column" style="width: calc(60% - 50px)" class="default-margin" fxLayoutAlign="center center" [fxLayoutGap]="'15px'">
+            <div fxLayout="row" [fxLayoutGap]="'8px'" class="default-margin">
+              <p-checkbox value="YES"></p-checkbox>
+              <span>Ajuster le montant a déposer </span> <span class="Bold"> 000 €</span></div>
+            <div style="width: 100%;">
+              <p-slider [min]="0" [max]="50" [formControlName]="'budget'" [class]="valid?'' : 'ng-invalid ng-dirty'"></p-slider>
+            </div>
+          </div>
+        </div>
+        <div style="width: 100%">
+          <p-divider></p-divider>
+        </div>
+        <!--  upload-->
+        <div fxLayout="row" style="width: 100%; height: 220px" class="default-margin">
+          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px); margin-right: 50px">
+            <label class="default-margin">Importez vos videos </label>
+            <p-fileUpload
+              [class]="valid?'' : 'ng-invalid ng-dirty'"
+              [auto]="true"
+              [multiple]="true"
+              chooseIcon="pi pi-upload"
+              chooseLabel="Upload"
+              (onSelect)="onUploadVideo($event)">
+              <ng-template let-file pTemplate="file">
+              </ng-template>
+              <ng-template pTemplate="content" let-files>
+                <div style="max-height: 150px; overflow: auto">
+                  <app-show-upload-files [files]="uploadedFilesVideo"></app-show-upload-files>
+                </div>
+              </ng-template>
+            </p-fileUpload>
+
+
+          </div>
+          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px);">
+            <label class="default-margin">Importez vos thumbnails </label>
+            <p-fileUpload
+              [class]="valid?'' : 'ng-invalid ng-dirty'"
+              (onSelect)="onUpload($event)"
+              accept="image/*"
+              chooseIcon=" pi pi-upload"
+              chooseLabel="Upload"
+              [multiple]="true"
+              [auto]="true">
+              <ng-template let-file pTemplate="file">
+              </ng-template>
+              <ng-template pTemplate="content" let-files>
+                <div style="max-height: 150px; overflow: auto">
+                  <app-show-upload-files [uploadTypeIcon]="'pi pi-image'" [files]="uploadedFiles"></app-show-upload-files>
+                </div>
+              </ng-template>
+            </p-fileUpload>
+          </div>
+        </div>
+        <!--  end upload-->
+        <!--  title-->
+        <div fxLayout="column" style="width: calc(50% - 50px)" class="default-margin" fxLayoutAlign="center center" [fxLayoutGap]="'15px'">
+          <div fxLayout="column" class="default-margin" style="width: 100% ">
+            <label class="default-margin">Titre 1 : </label>
+            <input
+              type="text" pInputText
+              placeholder="enter un titre..."
+              [class]="valid?'' : 'ng-invalid ng-dirty'">
+          </div>
+          <div fxLayout="column" class="default-margin" style="width: 100% ">
+            <label class="default-margin">Titre 2 :</label>
+            <input
+              type="text" pInputText
+              placeholder="enter un titre..."
+              [class]="valid?'' : 'ng-invalid ng-dirty'">
+          </div>
+        </div>
+
+        <!--  end title-->
+
+        <!-- creer-->
+        <div fxLayout="column" style="width:100% ; margin-top: 25px" class="default-margin" fxLayoutAlign="center center">
+          <button pButton style="width: 35%;" type="submit" label="Créer" class="p-button-rounded"></button>
+        </div>
+
+        <!--end creer-->
+
+      </div>
+    </form>
+  </div>
+
+</div>

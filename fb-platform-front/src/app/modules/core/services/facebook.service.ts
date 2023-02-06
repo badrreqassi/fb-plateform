@@ -83,7 +83,6 @@ export class FacebookService {
     const fbApiAsObservable = bindCallback(FB.api);
     const observables : Observable<{ data: Campaign[] }>[] = [];
     this.facebookUser.campaigns = [];
-    console.log(this.facebookUser.adAccounts.length)
     for (let adAccount of this.facebookUser.adAccounts){
       // @ts-ignore
       observables.push(fbApiAsObservable(`${adAccount.id}/campaigns?fields=id, name,status,ads`));

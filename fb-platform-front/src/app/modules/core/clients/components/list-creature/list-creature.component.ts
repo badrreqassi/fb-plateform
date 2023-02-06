@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FacebookService} from "../../../services/facebook.service";
 import {Campaign} from "../../../../../models/campaign";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {CreateAdsComponent} from "../create-ads/create-ads.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-list-creature',
@@ -17,8 +20,9 @@ export class ListCreatureComponent implements OnInit {
   totalRecords = 0;
   first = 0;
   rows = 10;
+  ref: DynamicDialogRef | undefined;
 
-  constructor(private facebookService: FacebookService) {
+  constructor(private facebookService: FacebookService,public dialogService: DialogService ) {
   }
 
   ngOnInit(): void {
@@ -42,5 +46,20 @@ export class ListCreatureComponent implements OnInit {
 
   onLogin() {
     this.facebookService.logWithFacebook();
+  }
+  show() {
+    this.ref = this.dialogService.open(CreateAdsComponent, {
+      width: '70%',
+      showHeader: false,
+      contentStyle: {"max-height": "850", "overflow": "auto", "border-radius":"10px", "max-width" :"968px"},
+      baseZIndex: 10000
+    });
+
+  }
+
+  ngOnDestroy() {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 }

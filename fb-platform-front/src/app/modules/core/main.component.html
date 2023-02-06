@@ -1,10 +1,11 @@
-<app-top-menu></app-top-menu>
-<div id="main">
-<!--
-  <img src="assets/img/testing_campaign_bg.svg" alt="testing_campaign_bg" style="position: absolute">
--->
- <p-card class="card">
-    <router-outlet></router-outlet>
-  </p-card>
-
+<p-toast></p-toast>
+<div  id="main" style="background-image: url(assets/img/testing_campaign_bg.svg);" fxLayout="column"   >
+  <app-top-menu></app-top-menu>
+  <div  fxLayout="column" fxLayoutAlign="space-around center" style="height: 100%"  >
+    <div fxLayoutAlign="center center" fxFlexFill  >
+      <p-card class="card" fxFlex="100%" >
+        <router-outlet></router-outlet>
+      </p-card>
+    </div>
+  </div>
 </div>

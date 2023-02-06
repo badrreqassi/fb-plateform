@@ -9,13 +9,27 @@ import {ButtonModule} from "primeng/button";
 import {FacebookService} from "../services/facebook.service";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CreateAdsComponent } from './components/create-ads/create-ads.component';
+import {DialogService} from "primeng/dynamicdialog";
+import {MessageService} from "primeng/api";
+import {InputTextModule} from "primeng/inputtext";
+import {DropdownModule} from "primeng/dropdown";
+import {SliderModule} from "primeng/slider";
+import {CheckboxModule} from "primeng/checkbox";
+import {DividerModule} from "primeng/divider";
+import {FileUploadModule} from "primeng/fileupload";
+import { ShowUploadFilesComponent } from './components/utils/show-upload-files/show-upload-files.component';
+import {TooltipModule} from "primeng/tooltip";
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
   declarations: [
     ListCreatureComponent,
-    ListCreaturePageComponent
+    ListCreaturePageComponent,
+    CreateAdsComponent,
+    ShowUploadFilesComponent
   ],
   imports: [
     CommonModule,
@@ -24,8 +38,18 @@ import {FormsModule} from "@angular/forms";
     ButtonModule,
     TableModule,
     InputSwitchModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    DropdownModule,
+    SliderModule,
+    CheckboxModule,
+    DividerModule,
+    FileUploadModule,
+    TooltipModule,
+    ToastModule,
+
   ],
-  providers: [FacebookService]
+  providers: [FacebookService,DialogService,MessageService]
 })
 export class ClientsModule { }

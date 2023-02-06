@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {AuthModule} from "./modules/auth/auth.module";
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {TokenInerceptorService} from "./service/token-inerceptor.service";
+import {ClientsModule} from "./modules/core/clients/clients.module";
 
 
 @NgModule({
@@ -29,7 +30,6 @@ import {TokenInerceptorService} from "./service/token-inerceptor.service";
     CardModule,
     TopMenuModuleModule,
     AuthModule,
-    HttpClientModule,
 
   ],
   providers: [

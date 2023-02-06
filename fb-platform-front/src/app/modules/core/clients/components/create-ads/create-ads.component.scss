@@ -1,0 +1,63 @@
+#createAd {
+  padding: 25px;
+
+  .title {
+    span {
+      font-size: 30px;
+      color: #374151;
+      font-weight: 300;
+    }
+
+    .bold {
+      font-weight: 800;
+    }
+
+  }
+
+  .buttonTime {
+    border-color: white;
+    background-color: white;
+    color: darkgray;
+  }
+
+}
+
+::ng-deep {
+  .p-dialog .p-dialog-content {
+    padding: 0 !important;
+  }
+
+  .p-inputtext {
+    width: 100% !important;
+  }
+
+  .p-dropdown {
+    width: 100% !important;
+  }
+
+  .p-fileupload .p-fileupload-buttonbar {
+    background: #f8f9fa;
+    padding: 0;
+    border: none;
+    color: #343a40;
+    border-bottom: 0 none;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  .p-button.p-fileupload-choose{
+    margin-right: 0;
+    width: 100%;
+  }
+  .p-fileupload .p-fileupload-content {
+    background: white;
+    padding: 2px;
+    border: none;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .p-progressbar{
+    background-color: white !important;
+  }
+
+}
