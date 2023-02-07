@@ -27,6 +27,12 @@ public class UserController {
 
     }
 
+    @PostMapping("/user/update/{userId}")
+    public JwtUser creationUser(Long userId,@RequestBody JwtUser jwtUser) throws Exception {
+        return  jwtUserService.updateUser(userId,jwtUser);
+
+    }
+
     @GetMapping("/admin/all/users")
     public List<JwtUser> getAllUser() throws Exception {
         return  jwtUserService.getAllUsers();

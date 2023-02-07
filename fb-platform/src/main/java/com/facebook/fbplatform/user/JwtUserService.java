@@ -50,4 +50,17 @@ public class JwtUserService {
     public List<JwtUser> getAllUsers() {
         return jwtUserRepository.findAll();
     }
+
+    public JwtUser updateUser(Long userId, JwtUser jwtUser) {
+        JwtUser jwtUsers = new JwtUser();
+        jwtUsers.setFirstName(jwtUser.getFirstName());
+        jwtUsers.setLastName(jwtUser.getLastName());
+        jwtUsers.setUsername(jwtUser.getUsername());
+        jwtUsers.setEmail(jwtUser.getEmail());
+        jwtUsers.setPassword(passwordEncoder.encode(jwtUser.getPassword()));
+        jwtUsers.setRole(Collections.singleton(Role.ROLE_USER));
+        jwtUsers.setEnabled(true);
+        jwtUsers.setId(userId);
+        return jwtUsers;
+    }
 }

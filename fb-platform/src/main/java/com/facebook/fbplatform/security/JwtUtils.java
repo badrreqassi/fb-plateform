@@ -4,7 +4,6 @@ package com.facebook.fbplatform.security;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -16,7 +15,7 @@ import com.auth0.jwt.JWT;
 @Component
 @RequiredArgsConstructor
 public class JwtUtils {
-    private static final int expTime = 60000 ;
+    private static final int expTime = 6000000 ;
 
 
     private static final String secret = "secret";
