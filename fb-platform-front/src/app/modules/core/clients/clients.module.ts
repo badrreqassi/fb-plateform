@@ -22,6 +22,7 @@ import {FileUploadModule} from "primeng/fileupload";
 import { ShowUploadFilesComponent } from './components/utils/show-upload-files/show-upload-files.component';
 import {TooltipModule} from "primeng/tooltip";
 import {ToastModule} from "primeng/toast";
+import { ContentEmptyComponent } from './components/utils/content-empty/content-empty.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {ToastModule} from "primeng/toast";
     ListCreatureComponent,
     ListCreaturePageComponent,
     CreateAdsComponent,
-    ShowUploadFilesComponent
+    ShowUploadFilesComponent,
+    ContentEmptyComponent
   ],
   imports: [
     CommonModule,

@@ -21,6 +21,8 @@
     border-radius: 100%;
     border: 1px solid white;
     margin-right: 10px;
+    color : white;
+    background-color: #4C6FBF;
   }
   .angle-down{
     width: 32px;
@@ -30,8 +32,7 @@
     margin-left: 10px;
   }
   .angle-down:hover{
-    color: #334155;
-    background-color: white;
+
     cursor: pointer;
     }
 

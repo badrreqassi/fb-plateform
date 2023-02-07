@@ -1,10 +1,10 @@
 <div id="creature-card">
   <div fxFlexFill fxLayout="row">
     <div class="creature-title" fxFlex="50">
-      <span ><span class="bold">Hello</span> {{user?.name}},<span class="bold"> welcome back.</span></span>
+      <span ><span class="bold">Hello</span> Badr REQASSI </span>
     </div>
     <div fxFlex="50" fxLayoutAlign="end center">
-      <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Créer un nouveau test" icon="pi pi-plus" iconPos="right" [disabled]="false"></button>
+      <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Créer un nouveau test" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
     </div>
   </div>
   <div class="connect-fb-section" fxLayoutAlign="center center" *ngIf="!loggedIn else LogIn">
@@ -65,10 +65,10 @@
                 Diffusion
               </div>
             </th>
-            <th style="min-width: 200px; max-width: 200px">
+            <!--<th style="min-width: 200px; max-width: 200px">
               <div class="flex justify-content-between align-items-center">
               </div>
-            </th>
+            </th>-->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-creator>
@@ -92,11 +92,11 @@
             <td style="min-width: 200px; max-width: 200px">
               {{creator.status}}
             </td>
-            <td style="min-width: 200px; max-width: 200px">
+          <!--  <td style="min-width: 200px; max-width: 200px">
               <div class="align-center">
                 <button pButton class="p-button-outlined create-btn" label="Voir les test"></button>
               </div>
-            </td>
+            </td>-->
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">

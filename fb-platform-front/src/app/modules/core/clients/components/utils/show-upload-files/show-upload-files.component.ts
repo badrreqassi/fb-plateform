@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class ShowUploadFilesComponent implements OnInit {
   @Input() files: any[] = [];
   @Input() uploadTypeIcon: string = 'pi pi-video';
+  @Input() operationType = 'files'
 
 
 

@@ -23,10 +23,10 @@
 }
 
 .long-text-ellipsis span{
-  width: 470px;
+  width: 250px;
   height: 20px;
   white-space: nowrap;
   overflow: hidden;
-  display: block;
+  display: inline-block;
   text-overflow: ellipsis;
 }

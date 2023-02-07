@@ -49,9 +49,9 @@ export class ListCreatureComponent implements OnInit {
   }
   show() {
     this.ref = this.dialogService.open(CreateAdsComponent, {
-      width: '70%',
+      width: '50%',
       showHeader: false,
-      contentStyle: {"max-height": "850", "overflow": "auto", "border-radius":"10px", "max-width" :"968px"},
+      contentStyle: {"max-height": "900px", "overflow": "auto", "border-radius":"10px"},
       baseZIndex: 10000
     });
 

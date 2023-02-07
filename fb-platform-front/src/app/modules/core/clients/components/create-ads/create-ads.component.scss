@@ -7,17 +7,25 @@
       color: #374151;
       font-weight: 300;
     }
+  }
 
-    .bold {
-      font-weight: 800;
-    }
-
+  .bold {
+    font-weight: 800 !important;
   }
 
   .buttonTime {
     border-color: white;
     background-color: white;
     color: darkgray;
+  }
+
+  .button-add-list {
+    width: 50%;
+    background-color: #EFF6FF;
+  }
+
+  .message {
+    color: #9CA3AF;
   }
 
 }
@@ -45,10 +53,11 @@
     border-top-left-radius: 0;
   }
 
-  .p-button.p-fileupload-choose{
+  .p-button.p-fileupload-choose {
     margin-right: 0;
     width: 100%;
   }
+
   .p-fileupload .p-fileupload-content {
     background: white;
     padding: 2px;
@@ -56,8 +65,12 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
-  .p-progressbar{
+
+  .p-progressbar {
     background-color: white !important;
   }
 
+ /*.p-disabled {
+   opacity: 1%;
+ }*/
 }

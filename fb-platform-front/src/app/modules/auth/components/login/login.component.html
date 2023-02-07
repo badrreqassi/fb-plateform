@@ -26,7 +26,7 @@
                     <i class="pi pi-user"></i>
                     <input style="width: 100%"
                            type="text" pInputText
-                           placeholder="enter votre email ..."
+                           placeholder="Entrez votre email ..."
                            [class]="valid?'' : 'ng-invalid ng-dirty'"
                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                            [formControlName]="'email'">
@@ -38,7 +38,7 @@
                     <i class="pi pi-lock"></i><i [class]=" showPassWord? 'pi pi-eye-slash': 'pi pi-eye'" (click)="click($event)"></i>
                     <input style="width: 100%"
                            [type]=" showPassWord ? 'text' :'password'"  pInputText
-                           placeholder="enter votre mot de passe ..."
+                           placeholder="Entrez votre mot de passe ..."
                            [class]="valid? '' : 'ng-invalid ng-dirty'"
                            [formControlName]="'passWord'"
                     />
