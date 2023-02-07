@@ -4,7 +4,6 @@ import {ApiEndPoints} from "../../../constants/ApiEndPoints";
 import {FacebookUser} from "../../../models/facebookUser";
 import {AdAccount} from "../../../models/adAccount";
 import {Campaign} from "../../../models/campaign";
-import {Page} from "../../../models/page";
 import {HttpClient} from "@angular/common/http";
 
 let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, ads_management, ads_read';
