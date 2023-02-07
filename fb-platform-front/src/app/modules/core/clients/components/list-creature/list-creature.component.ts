@@ -35,6 +35,14 @@ export class ListCreatureComponent implements OnInit {
             this.totalRecords = this.creators.length;
           }
         );
+        //
+        // this.facebookService.getAdSetById().subscribe(adSetData => {
+        //   console.log('adSetData', adSetData);
+        //
+        //   this.facebookService.duplicateAdSets(adSetData).subscribe(data => {
+        //     console.log('adSet has been created', data)
+        //   })
+        // })
         this.loggedIn = true;
         this.disabled = false;
       } else {

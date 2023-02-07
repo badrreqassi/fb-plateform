@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormArrayName, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {FacebookService} from "../../../services/facebook.service";
 import {Campaign} from "../../../../../models/campaign";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
@@ -16,7 +16,7 @@ export class CreateAdsComponent implements OnInit {
   valid = true;
   beanAds = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    campaign: new FormControl([Validators.required]),
+    campaign: new FormControl( [Validators.required]),
     budget: new FormControl(50, [Validators.required]),
     title: new FormControl(''),
   });
@@ -48,6 +48,20 @@ export class CreateAdsComponent implements OnInit {
       this.valid = this.beanAds.valid;
       console.log(this.combinationTesting())
 
+      /*
+        this.facebookApi.getAdSetById(this.beanAds.value.campaign.ads.data[0].adset_id).subscribe(oldAdSet => {
+      this.facebookApi.duplicateAdSets(oldAdSet).subscribe(newAdSet => {
+        console.log("duplicateAdSets",newAdSet);
+        this.facebookApi.createAdCreative().subscribe(creativeAd => {
+          console.log("adCreative has been created",creativeAd);
+          this.facebookApi.createAd(newAdSet.id, creativeAd.id).subscribe(data => {
+            console.log('ad has been created', data);
+          })
+        })
+      })
+    })
+      */
+
     } else {
       this.valid = false;
     }
@@ -55,7 +69,7 @@ export class CreateAdsComponent implements OnInit {
   }
 
   onchangeCompaigns($event: any): void {
-    console.log($event);
+    console.log('compaign values', $event);
   }
 
   close(): void {
