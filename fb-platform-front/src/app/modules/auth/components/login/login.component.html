@@ -21,31 +21,30 @@
             <div fxLayout="column" fxLayoutAlign="center start" fxFlex="100%">
 
 
-                   <label class="block default-margin">Email</label>
+                   <label class="block default-margin">Username</label>
                   <div class="p-input-icon-left" style="width: 100% ; margin-bottom: 10px">
                     <i class="pi pi-user"></i>
                     <input style="width: 100%"
                            type="text" pInputText
-                           placeholder="Entrez votre email ..."
+                           placeholder="Type username"
                            [class]="valid?'' : 'ng-invalid ng-dirty'"
-                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                           [formControlName]="'email'">
+                           [formControlName]="'username'">
                   </div>
 
 
-                  <label class="block default-margin">Mot de passe</label>
+                  <label class="block default-margin">Password</label>
                   <div class="p-input-icon-left p-input-icon-right" style="width: 100%">
                     <i class="pi pi-lock"></i><i [class]=" showPassWord? 'pi pi-eye-slash': 'pi pi-eye'" (click)="click($event)"></i>
                     <input style="width: 100%"
                            [type]=" showPassWord ? 'text' :'password'"  pInputText
-                           placeholder="Entrez votre mot de passe ..."
+                           placeholder="Enter password"
                            [class]="valid? '' : 'ng-invalid ng-dirty'"
                            [formControlName]="'passWord'"
                     />
                   </div>
 
 
-              <p-button   label="Connectez vous" class="button-submit" type="submit"></p-button>
+              <p-button   label="Connect" class="button-submit" type="submit"></p-button>
 
 
               </div>

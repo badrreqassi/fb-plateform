@@ -1,22 +1,34 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from "./main.component";
-import {AuthGuard} from "../../service/auth.guard";
+import {AccountManagementComponent} from "./shared/account-management/account-management.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {AdminGuard} from "./guards/admin.guard";
 
 const routes: Routes = [
   {
     path: '',
-    component :MainComponent,
+    component: MainComponent,
     canActivate:[AuthGuard],
-    children : [
+    children: [
       {
-        path: '',
+        path: 'client',
         loadChildren: () =>
           import('./clients/clients.module').then((m) => m.ClientsModule),
-      },{
+      }, {
         path: 'users',
         loadChildren: () =>
           import('./user/user.module').then((m) => m.UserModule),
+      },
+      {
+        path: 'admin',
+        canActivate: [AdminGuard],
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
+      },
+      {
+        path: 'my-account',
+        component: AccountManagementComponent
       },
     ]
   }
@@ -26,4 +38,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CoreRoutingModule { }
+export class CoreRoutingModule {
+}

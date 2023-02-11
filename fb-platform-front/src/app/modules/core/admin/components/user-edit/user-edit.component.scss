@@ -1,0 +1,17 @@
+#user-edit::ng-deep {
+  .w-100 {
+    width: 100%;
+
+    .p-dropdown {
+      width: 100%;
+    }
+  }
+
+  .required-indicator{
+    color: red;
+  }
+
+  .submit-section{
+    margin: 70px 20px 20px;
+  }
+}

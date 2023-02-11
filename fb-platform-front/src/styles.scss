@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./styles/varStylePlat-marketer";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 /*$title-color: #4C6FBF;*/
 
 body{
@@ -9,6 +10,10 @@ body{
 }
 .default-margin{
   margin-bottom: 8px;
+}
+
+*{
+  font-family: 'Poppins', sans-serif;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
   padding :8px

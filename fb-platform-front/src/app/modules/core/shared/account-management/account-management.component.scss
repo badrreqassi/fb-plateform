@@ -1,0 +1,48 @@
+#my-account::ng-deep {
+  .account-title {
+    max-height: 35px;
+
+    span {
+      font-size: 30px;
+      color: #374151;
+      font-weight: 300;
+
+      span.bold {
+        font-weight: 800;
+      }
+    }
+  }
+
+  .w-100 {
+    width: 100%;
+
+    .p-dropdown {
+      width: 100%;
+    }
+  }
+
+  .required-indicator{
+    color: red;
+  }
+
+  .facebook-info .connect-facebook {
+    margin-top: 20px;
+    height: 350px;
+    width: 100%;
+    background: #f1f5f9;
+    text-align: center;
+    .connect-btn{
+      margin-top: 140px;
+    }
+  }
+
+  .submit-section{
+    margin: 100px 0;
+
+    .submit-btn{
+      width: 370px;
+      height: 48px;
+      border-radius: 64px;
+    }
+  }
+}

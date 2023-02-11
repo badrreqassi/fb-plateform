@@ -7,23 +7,35 @@ import {CardModule} from "primeng/card";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ToastModule} from "primeng/toast";
 import {FacebookService} from "./services/facebook.service";
-import {DialogService} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
+import {DialogService} from "primeng/dynamicdialog";
+import {AccountManagementComponent} from "./shared/account-management/account-management.component";
+import {ReactiveFormsModule} from "@angular/forms";
+import {InputTextModule} from "primeng/inputtext";
+import {DividerModule} from "primeng/divider";
+import {ButtonModule} from "primeng/button";
+import {PasswordModule} from "primeng/password";
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    AccountManagementComponent
   ],
-    imports: [
-        CommonModule,
-        CoreRoutingModule,
-        TopMenuModuleModule,
-        CardModule,
-        FlexLayoutModule,
-        ToastModule,
-    ],
-  providers: [FacebookService,MessageService]
+  imports: [
+    CommonModule,
+    CoreRoutingModule,
+    TopMenuModuleModule,
+    CardModule,
+    FlexLayoutModule,
+    ToastModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    DividerModule,
+    ButtonModule,
+    PasswordModule,
+  ],
+  providers: [FacebookService, MessageService, DialogService]
 
 })
 export class CoreModule {

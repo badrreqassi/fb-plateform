@@ -3,13 +3,10 @@
   <div class="account" fxLayout="row" fxLayoutAlign="end center" >
     <div fxLayoutAlign="center center" >
       <div class="user-img" fxLayoutAlign="center center" > BR </div>
-      <span style="color: #f1f5ff "> {{'BADR REQASSI'}} </span>
+      <span style="color: #f1f5ff "> {{username}} </span>
     </div>
-
     <div class="pi pi-angle-down angle-down"  fxLayoutAlign="center center" (click)="menu.toggle($event)" ></div>
     <p-menu #menu [popup]="true" [model]="items" ></p-menu>
-
-
   </div>
 
 </div>

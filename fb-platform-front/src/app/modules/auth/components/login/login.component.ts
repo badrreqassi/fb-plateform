@@ -10,7 +10,7 @@ import {JWTsecurityService} from "../../service/jwtsecurity.service";
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required]),
     passWord: new FormControl('', [Validators.required]),
   });
   showPassWord = false;
@@ -28,14 +28,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('submit')
     this.valid = this.loginForm.valid;
-    let email = this.loginForm.value.email;
+    let username = this.loginForm.value.username;
     let password = this.loginForm.value.passWord;
     if (this.loginForm.valid) {
-      console.log(email);
-      console.log(password)
-      this.Jwt.authenticate(email, password).subscribe((respanse) => {
-        respanse ?this.router.navigate(['/CompaignsTesting']) : ''
+      this.Jwt.authenticate(username, password).subscribe((response) => {
+        response ?this.router.navigate(['/client']) : ''
       })
 
     }

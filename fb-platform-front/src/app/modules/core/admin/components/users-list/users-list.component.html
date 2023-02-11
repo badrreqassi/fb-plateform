@@ -1,0 +1,104 @@
+<div id="users-list">
+  <div fxFlex="100" fxLayout="column">
+    <div fxFlex="100" fxLayoutAlign="end center" style="margin: 20px">
+      <button pButton class="p-button-outlined create-btn" label="New User" icon="pi pi-plus" (click)="showCreationDialog()"></button>
+    </div>
+    <div fxFlex="100">
+      <p-table #dt
+               [value]="users"
+               dataKey="id"
+               [rowHover]="true"
+               styleClass="p-datatable-gridlines users-table"
+               [(first)]="first"
+               [(rows)]="rows"
+               [showCurrentPageReport]="true"
+               [rowsPerPageOptions]="rowPerPageOptions"
+               [totalRecords]="totalRecords"
+               [paginator]="true"
+               stateStorage="local"
+               currentPageReportTemplate="{first} - {last} of {totalRecords}"
+               scrollHeight="500px"
+               [scrollable]="true"
+      >
+        <ng-template pTemplate="caption">
+          <div class="table-header">
+            List of Users
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 80px; max-width: 80px">
+              <div class="align-center">
+                Active
+              </div>
+            </th>
+            <th>
+              <div class="flex justify-content-between align-items-center">
+                FullName
+              </div>
+            </th>
+            <th style="min-width: 200px; max-width: 200px">
+              <div class="flex justify-content-between align-items-center">
+                Username
+              </div>
+            </th>
+            <th style="min-width: 300px; max-width: 300px">
+              <div class="flex justify-content-between align-items-center">
+                Email
+              </div>
+            </th>
+            <th style="min-width: 200px; max-width: 200px">
+              <div class="flex justify-content-between align-items-center">
+                Role
+              </div>
+            </th>
+            <th style="min-width: 200px; max-width: 200px">
+              <div fxFlexFill fxLayoutAlign="center center">
+                Actions
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr class="p-selectable-row">
+            <td style="min-width: 80px; max-width: 80px">
+              <p-inputSwitch [disabled]="true" [trueValue]="!user.active"></p-inputSwitch>
+            </td>
+            <td>
+              {{user.firstName + ' ' + user.lastName}}
+            </td>
+            <td style="min-width: 200px; max-width: 200px">
+              {{ user.username }}
+            </td>
+            <td style="min-width: 300px; max-width: 300px">
+              {{ user.email }}
+            </td>
+            <td style="min-width: 200px; max-width: 200px">
+              <span *ngFor="let role of user.roles">{{ ' ' + (role.name | json) }}</span>
+            </td>
+            <td style="min-width: 200px; max-width: 200px">
+              <div fxFlexFill fxLayout="row" fxLayoutAlign="space-around center">
+                <button pButton pRipple type="button" icon="pi pi-pencil"
+                        class="p-button-rounded p-button-outlined" (click)="showEditDialog(user)"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger p-button-outlined" (click)="confirmDelete(user)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No Users found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+  <ng-template pTemplate="footer">
+    <button type="button" class="p-button-outlined p-button-danger" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button type="button" class="p-button-danger" pButton icon="pi pi-trash" label="Delete" (click)="cd.accept()"></button>
+  </ng-template>
+</p-confirmDialog>

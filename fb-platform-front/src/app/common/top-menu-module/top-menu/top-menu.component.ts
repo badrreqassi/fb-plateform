@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
 import {Router} from "@angular/router";
-import {FacebookService} from "../../../modules/core/services/facebook.service";
 
 @Component({
   selector: 'app-top-menu',
@@ -10,25 +9,41 @@ import {FacebookService} from "../../../modules/core/services/facebook.service";
 })
 export class TopMenuComponent implements OnInit {
 
-  constructor( public  router :Router, private facebookService: FacebookService) { }
-  items: MenuItem[] = [] as MenuItem[];
-  ngOnInit(): void {
-    this.items = [{
-      label: 'Account',
-      items: [
-        {label: 'Se déconnecter',
-          icon: 'pi pi-sign-out',
-          command :() => {
-          this.logOut();
-          }
-        }
-      ]
-    }] as MenuItem[];
+  constructor(public router: Router) {
   }
 
-  logOut():void{
-    this.facebookService.logoutFacebook();
+  items: MenuItem[] = [] as MenuItem[];
+
+  username!: string;
+
+  ngOnInit(): void {
+    // @ts-ignore
+    this.username = localStorage.getItem("username");
+    this.items = [
+      {
+        label: 'Settings',
+        icon: 'pi pi-sliders-v',
+        items: [
+          {
+            label: 'My account',
+            icon: 'pi pi-user',
+            routerLink: '/my-account'
+          },
+          {
+            label: 'Logout',
+            icon: 'pi pi-sign-out',
+            command: () => {
+              this.logOut();
+            }
+          }
+        ]
+      }] as MenuItem[];
+  }
+
+  logOut(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('roles');
     this.router.navigate(['/Auth/login'])
   }
 }

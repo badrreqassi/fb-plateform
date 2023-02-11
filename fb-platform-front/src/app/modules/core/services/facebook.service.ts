@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, bindCallback, concat, from, map, Observable, reduce} from "rxjs";
+import {BehaviorSubject, bindCallback, concat, from, Observable, reduce} from "rxjs";
 import {ApiEndPoints} from "../../../constants/ApiEndPoints";
 import {FacebookUser} from "../../../models/facebookUser";
 import {AdAccount} from "../../../models/adAccount";

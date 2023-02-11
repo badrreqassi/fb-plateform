@@ -30,11 +30,11 @@
                [(first)]="first"
                [(rows)]="rows"
                [showCurrentPageReport]="true"
-               [rowsPerPageOptions]="[10,25,50]"
+               [rowsPerPageOptions]="rowPerPageOptions"
                [totalRecords]="totalRecords"
                [paginator]="true"
                stateStorage="local"
-               currentPageReportTemplate="{first} - {last} sur {totalRecords}"
+               currentPageReportTemplate="{first} - {last} of {totalRecords}"
                scrollHeight="500px"
                [scrollable]="true"
       >
@@ -47,17 +47,17 @@
           <tr>
             <th style="min-width: 80px; max-width: 80px">
               <div class="align-center">
-                Actif
+                Active
               </div>
             </th>
             <th>
               <div class="flex justify-content-between align-items-center">
-                Créateur
+                Creator
               </div>
             </th>
             <th style="min-width: 200px; max-width: 200px">
               <div class="flex justify-content-between align-items-center">
-                Nombre de test
+                Number of tests
               </div>
             </th>
             <th style="min-width: 200px; max-width: 200px">
@@ -65,10 +65,6 @@
                 Diffusion
               </div>
             </th>
-            <!--<th style="min-width: 200px; max-width: 200px">
-              <div class="flex justify-content-between align-items-center">
-              </div>
-            </th>-->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-creator>
@@ -92,20 +88,14 @@
             <td style="min-width: 200px; max-width: 200px">
               {{creator.status}}
             </td>
-          <!--  <td style="min-width: 200px; max-width: 200px">
-              <div class="align-center">
-                <button pButton class="p-button-outlined create-btn" label="Voir les test"></button>
-              </div>
-            </td>-->
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="8">No customers found.</td>
+            <td colspan="8">No Creators found.</td>
           </tr>
         </ng-template>
       </p-table>
     </div>
-
   </ng-template>
 </div>

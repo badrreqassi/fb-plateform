@@ -11,7 +11,7 @@ import {FacebookService} from "./modules/core/services/facebook.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthModule} from "./modules/auth/auth.module";
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
-import {TokenInerceptorService} from "./service/token-inerceptor.service";
+import {TokenInterceptorService} from "./service/token-interceptor.service";
 import {ClientsModule} from "./modules/core/clients/clients.module";
 
 
@@ -34,7 +34,7 @@ import {ClientsModule} from "./modules/core/clients/clients.module";
   ],
   providers: [
     FacebookService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInerceptorService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

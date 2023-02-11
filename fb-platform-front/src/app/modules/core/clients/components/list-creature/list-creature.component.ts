@@ -20,6 +20,8 @@ export class ListCreatureComponent implements OnInit {
   totalRecords = 0;
   first = 0;
   rows = 10;
+
+  rowPerPageOptions = [5, 10, 15, 20, 50, 100];
   ref: DynamicDialogRef | undefined;
 
   constructor(private facebookService: FacebookService,public dialogService: DialogService ) {

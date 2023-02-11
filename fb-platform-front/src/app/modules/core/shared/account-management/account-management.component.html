@@ -1,0 +1,70 @@
+<div id="my-account">
+  <div class="account-title">
+    <span>Manage your account.</span>
+  </div>
+  <p-divider></p-divider>
+  <div fxFlexFill fxLayout="row">
+    <div class="account-info" fxFlex="50">
+      <h2><i class="pi pi-user"></i> Account information.</h2>
+      <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <div fxLayout="row wrap" fxLayoutAlign="none start">
+          <div fxFlex="100" fxLayout="row wrap" fxLayoutGap="10px">
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">Username <span class="required-indicator">*</span></label>
+              <input
+                [formControlName]="'username'"
+                type="text" pInputText
+                placeholder="Type username"
+                [class]="accountForm.controls['username'].invalid && accountForm.controls['username'].touched ?'ng-invalid ng-dirty password-area' : 'password-area'">
+            </div>
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">Password <span class="required-indicator">*</span></label>
+              <input
+                pPassword
+                type="password"
+                [formControlName]="'password'"
+                [feedback]="false"
+                placeholder="Type password"
+                [class]="accountForm.controls['password'].invalid && accountForm.controls['password'].touched ?'ng-invalid ng-dirty' : ''"/>
+            </div>
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">LastName <span class="required-indicator">*</span></label>
+              <input
+                [formControlName]="'nom'"
+                type="text" pInputText
+                placeholder="Type lastname"
+                [class]="accountForm.controls['nom'].invalid && accountForm.controls['nom'].touched ?'ng-invalid ng-dirty' : ''">
+            </div>
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">FirstName <span class="required-indicator">*</span></label>
+              <input
+                [formControlName]="'prenom'"
+                type="text" pInputText
+                placeholder="Type firstname"
+                [class]="accountForm.controls['prenom'].invalid && accountForm.controls['prenom'].touched ?'ng-invalid ng-dirty' : ''">
+            </div>
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">Email <span class="required-indicator">*</span></label>
+              <input
+                [formControlName]="'email'"
+                type="text" pInputText
+                placeholder="Type email"
+                [class]="accountForm.controls['email'].invalid && accountForm.controls['email'].touched ?'ng-invalid ng-dirty' : ''">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="facebook-info" fxFlex="50">
+      <h2><i class="pi pi-facebook"></i> Facebook Account</h2>
+      <div class="connect-facebook" fxLayout="column" fxLayoutGap="20px">
+        <div fxFlex class="connect-btn">
+          <button pButton class="p-button-outlined create-btn" label="Link your facebook account" icon="pi pi-facebook" (click)="onLogin()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="submit-section" fxLayoutAlign="center spacearound">
+    <button pButton class="submit-btn" icon="pi pi-save" label="Save" (click)="onSubmit()"></button>
+  </div>
+</div>

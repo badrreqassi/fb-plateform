@@ -12,13 +12,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/auth/auth.module').then((m) => m.AuthModule),
       }, {
-        path: 'CompaignsTesting',
+        path: '',
         loadChildren: () =>
           import('./modules/core/core.module').then((m) => m.CoreModule),
       }, {
-        path: '',
+        path: '**',
         redirectTo: 'Auth/login',
-        pathMatch:'full'
       }
       // TODO
       /* {
