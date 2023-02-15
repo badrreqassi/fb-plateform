@@ -4,9 +4,8 @@ import {ApiEndPoints} from "../../../constants/ApiEndPoints";
 import {FacebookUser} from "../../../models/facebookUser";
 import {AdAccount} from "../../../models/adAccount";
 import {Campaign} from "../../../models/campaign";
-import {HttpClient} from "@angular/common/http";
 
-let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, ads_management, ads_read';
+let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, ads_management, ads_read, publish_video';
 
 
 @Injectable({
@@ -18,10 +17,6 @@ export class FacebookService {
   facebookUser = {} as FacebookUser;
 
   accountId = "";
-
-
-  constructor(private http: HttpClient) {
-  }
 
   initFacebook() {
     FB.init({
@@ -125,6 +120,7 @@ export class FacebookService {
       billing_event: adSetData.billing_event,
       targeting: adSetData.targeting
     };
+
     return from(new Promise((resolve) => {
       FB.api(`/act_${this.accountId}/adsets?fields=name,campaign_id,billing_event`, "post", duplicateAdSetData, (response: any) => {
         resolve(response);
@@ -133,8 +129,33 @@ export class FacebookService {
   }
 
 
+  createVideo(videoFile: File): Observable<any> {
+    return new Observable((observer) => {
+      const videoData = new FormData();
+      videoData.append("source", videoFile);
+      videoData.append("title", "test title");
+
+
+      FB.api(`/act_${this.accountId}/advideos?fields=id,name`, "post", videoData, (response: any) => {
+        observer.next(response);
+        observer.complete();
+      });
+    });
+  }
+
+
+  createThumbNail(thumbnailFile: File, videoId: number): Observable<any> {
+    const thumbnailData = new FormData();
+    thumbnailData.append("file", thumbnailFile, thumbnailFile.name);
+    return from(new Promise((resolve) => {
+      FB.api(`/act_${this.accountId}/${videoId}/thumbnails?fields=id`, "post", thumbnailData, (response: any) => {
+        resolve(response);
+      });
+    }));
+  }
+
   createAdCreative(): Observable<any> {
-    console.log('accountId',this.accountId)
+    console.log('accountId', this.accountId)
     const adCreative = {
       name: "name of adcreative",
       body: "body of ad",
@@ -154,12 +175,12 @@ export class FacebookService {
   }
 
 
-  createAd(adsetId: string, creative_id: string): Observable<any> {
+  createAd(adsetId: string, creativeAd: string): Observable<any> {
 
     const ad = {
-      name: "Ad 3",
+      name: "Ad title",
       creative: {
-        creative_id: creative_id
+        creative_id: creativeAd
       },
       tracking_specs: [
         {

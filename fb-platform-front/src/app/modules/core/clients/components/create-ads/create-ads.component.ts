@@ -44,23 +44,31 @@ export class CreateAdsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.beanAds.valid && this.uploadedFilesVideo.length > 0 && this.listTitre.length > 0) {
+    if (this.beanAds.valid) {
       this.valid = this.beanAds.valid;
-      console.log(this.combinationTesting())
+      let combinationTesting1 = this.combinationTesting();
+      console.log('formValue', combinationTesting1[0])
 
-      /*
-        this.facebookApi.getAdSetById(this.beanAds.value.campaign.ads.data[0].adset_id).subscribe(oldAdSet => {
-      this.facebookApi.duplicateAdSets(oldAdSet).subscribe(newAdSet => {
-        console.log("duplicateAdSets",newAdSet);
-        this.facebookApi.createAdCreative().subscribe(creativeAd => {
-          console.log("adCreative has been created",creativeAd);
-          this.facebookApi.createAd(newAdSet.id, creativeAd.id).subscribe(data => {
-            console.log('ad has been created', data);
+      this.facebookApi.getAdSetById(this.beanAds.value.campaign.ads.data[0].adset_id).subscribe(oldAdSet => {
+          this.facebookApi.createVideo(combinationTesting1[0].video).subscribe(value => {
+            console.log('video has been created successfully', value)
           })
-        })
-      })
-    })
-      */
+          // this.facebookApi.duplicateAdSets(oldAdSet).subscribe(newAdSet => {
+          //     console.log("duplicateAdSets", newAdSet);
+          //     /**
+          //      * TODO creat adCreative and pass it's id to the following method
+          //      */
+          //     this.facebookApi.createAdCreative().subscribe(value => {
+          //       console.log('adcreative', value)
+          //       this.facebookApi.createAd(newAdSet.id, value.id).subscribe(data => {
+          //         console.log('ad has been created', data);
+          //       })
+          //     })
+          //
+          //   }
+          // )
+        }
+      )
 
     } else {
       this.valid = false;
