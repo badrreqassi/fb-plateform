@@ -10,9 +10,10 @@ import {TopMenuModuleModule} from "./common/top-menu-module/top-menu-module.modu
 import {FacebookService} from "./modules/core/services/facebook.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthModule} from "./modules/auth/auth.module";
-import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
-import {TokenInterceptorService} from "./service/token-interceptor.service";
-import {ClientsModule} from "./modules/core/clients/clients.module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {JwtInterceptor} from "./interceptors/jwt.interceptor";
+import {MessageService} from "primeng/api";
+import {ErrorInterceptor} from "./interceptors/error.interceptor";
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import {ClientsModule} from "./modules/core/clients/clients.module";
   ],
   providers: [
     FacebookService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}
+    MessageService,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

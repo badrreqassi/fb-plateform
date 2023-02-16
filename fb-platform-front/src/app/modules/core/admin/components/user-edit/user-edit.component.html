@@ -16,14 +16,12 @@
               [class]="userForm.controls['username'].invalid && userForm.controls['username'].touched ?'ng-invalid ng-dirty password-area' : 'password-area'">
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-            <label class="default-margin">Password <span class="required-indicator">*</span></label>
-            <input
-              pPassword
-              type="password"
-              [formControlName]="'password'"
-              [feedback]="false"
-              placeholder="Type password"
-              [class]="userForm.controls['password'].invalid && userForm.controls['password'].touched ?'ng-invalid ng-dirty' : ''"/>
+            <label class="default-margin">Role <span class="required-indicator">*</span></label>
+            <p-dropdown [options]="roles"
+                        [formControlName]="'role'"
+                        [class]="userForm.controls['role'].invalid && userForm.controls['role'].touched ? 'ng-invalid ng-dirty w-100' : 'w-100'"
+                        placeholder="Select a role"
+                        optionLabel="name"></p-dropdown>
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
             <label class="default-margin">FirstName <span class="required-indicator">*</span></label>
@@ -48,14 +46,6 @@
               type="text" pInputText
               placeholder="Type email"
               [class]="userForm.controls['email'].invalid && userForm.controls['email'].touched ?'ng-invalid ng-dirty' : ''">
-          </div>
-          <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-            <label class="default-margin">Role <span class="required-indicator">*</span></label>
-            <p-dropdown [options]="roles"
-                        [formControlName]="'role'"
-                        [class]="userForm.controls['role'].invalid && userForm.controls['role'].touched ? 'ng-invalid ng-dirty w-100' : 'w-100'"
-                        placeholder="Select a role"
-                        optionLabel="name"></p-dropdown>
           </div>
         </div>
       </div>

@@ -17,13 +17,12 @@
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
             <label class="default-margin">Password <span class="required-indicator">*</span></label>
-            <input
-              pPassword
-              type="password"
+            <p-password
               [formControlName]="'password'"
               [feedback]="false"
+              [toggleMask]="userForm.controls['password'].touched"
               placeholder="Type password"
-              [class]="userForm.controls['password'].invalid && userForm.controls['password'].touched ?'ng-invalid ng-dirty' : ''"/>
+              [class]="userForm.controls['password'].invalid && userForm.controls['password'].touched ?'ng-invalid ng-dirty' : ''"></p-password>
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
             <label class="default-margin">FirstName <span class="required-indicator">*</span></label>

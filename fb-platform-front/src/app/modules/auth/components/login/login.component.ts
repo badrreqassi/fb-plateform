@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   showPassWord = false;
   valid = true;
 
-  constructor(  public router: Router, private Jwt : JWTsecurityService) {
+  constructor(public router: Router,
+              private Jwt: JWTsecurityService) {
   }
 
   ngOnInit(): void {
@@ -24,21 +25,17 @@ export class LoginComponent implements OnInit {
 
   click($event: MouseEvent): void {
     this.showPassWord = !this.showPassWord;
-
   }
 
   onSubmit() {
-    console.log('submit')
     this.valid = this.loginForm.valid;
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.passWord;
     if (this.loginForm.valid) {
       this.Jwt.authenticate(username, password).subscribe((response) => {
-        response ?this.router.navigate(['/client']) : ''
+        response ? this.router.navigate(['/client']) : ''
       })
-
     }
-
   }
 }
 

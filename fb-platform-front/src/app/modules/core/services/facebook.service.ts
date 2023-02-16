@@ -4,6 +4,7 @@ import {ApiEndPoints} from "../../../constants/ApiEndPoints";
 import {FacebookUser} from "../../../models/facebookUser";
 import {AdAccount} from "../../../models/adAccount";
 import {Campaign} from "../../../models/campaign";
+import {HttpClient} from "@angular/common/http";
 
 let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, ads_management, ads_read, publish_video';
 
@@ -15,6 +16,9 @@ let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, a
 export class FacebookService {
   authenticateUserSubject = new BehaviorSubject<any>(null);
   facebookUser = {} as FacebookUser;
+
+  constructor(private http: HttpClient) {
+  }
 
   accountId = "";
 
@@ -46,7 +50,6 @@ export class FacebookService {
     FB.login(response => {
       localStorage.setItem('facebookAccessToken', JSON.stringify(response));
       if (response.status === "connected") {
-        console.log('facebook', this.facebookUser)
         if (this.facebookUser) {
           this.facebookUser.authResponse = response.authResponse;
         }
@@ -55,9 +58,21 @@ export class FacebookService {
     }, {scope: PERMISSION_SCOPES});
   }
 
+
+  getLoginStatus() {
+    FB.getLoginStatus((response => {
+      if (response.status === "connected") {
+        if (this.facebookUser) {
+          this.facebookUser.authResponse = response.authResponse;
+        }
+        this.storeLoggedUser();
+      }
+    }))
+  }
+
+
   storeLoggedUser() {
     FB.api(`${ApiEndPoints.ME}?fields=id,name,adaccounts`, (response: { id: number, name: string, adaccounts: { data: AdAccount[] } }) => {
-      console.log(response)
       if (this.facebookUser) {
         this.facebookUser.id = response?.id;
         this.facebookUser.name = response?.name;

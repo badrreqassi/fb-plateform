@@ -1,10 +1,11 @@
+import {Role} from "./Role";
+
 export interface User {
-  id?: number;
+  userId?: number;
   firstName: string;
   lastName: string;
   username: string;
-  password: string;
+  password?: string;
   email: string;
-  roles: string[];
-  active:boolean;
+  roles: Role[] | number[];
 }

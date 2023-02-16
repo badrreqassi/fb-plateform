@@ -6,6 +6,8 @@ export const environment = {
   server: {
     mainApiUrl: 'http://localhost:8080',
   },
+  APP_ID: '864152144854304',
+  APP_SECRET: 'af968977fc816dffc09a29c504811e14',
   production: false
 };
 

@@ -25,9 +25,20 @@ export class TopMenuComponent implements OnInit {
         icon: 'pi pi-sliders-v',
         items: [
           {
+            label: 'Users list',
+            icon: 'pi pi-list',
+            visible: this.hasAdmin(),
+            routerLink: '/admin/users/list'
+          },
+          {
             label: 'My account',
             icon: 'pi pi-user',
             routerLink: '/my-account'
+          },
+          {
+            label: 'Change password',
+            icon: 'pi pi-lock',
+            routerLink: '/change-password'
           },
           {
             label: 'Logout',
@@ -38,6 +49,12 @@ export class TopMenuComponent implements OnInit {
           }
         ]
       }] as MenuItem[];
+  }
+
+  hasAdmin(): boolean {
+    const roles = localStorage.getItem('roles');
+    // @ts-ignore
+    return roles.includes('ADMIN');
   }
 
   logOut(): void {

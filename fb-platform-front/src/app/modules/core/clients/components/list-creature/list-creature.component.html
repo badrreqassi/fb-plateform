@@ -1,10 +1,10 @@
 <div id="creature-card">
   <div fxFlexFill fxLayout="row">
     <div class="creature-title" fxFlex="50">
-      <span ><span class="bold">Hello</span> Badr REQASSI </span>
+      <span ><span class="bold">Hello</span> {{username}} </span>
     </div>
     <div fxFlex="50" fxLayoutAlign="end center">
-      <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Créer un nouveau test" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
+      <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Create new ad" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
     </div>
   </div>
   <div class="connect-fb-section" fxLayoutAlign="center center" *ngIf="!loggedIn else LogIn">
@@ -14,7 +14,7 @@
         <h3>Vous devez connecter votre compte Facebook</h3>
       </div>
       <div fxFlex class="connect-btn">
-        <button pButton class="p-button-outlined create-btn" label="Liez votre compte Facebook" icon="pi pi-facebook" (click)="onLogin()"></button>
+        <button pButton class="p-button-outlined create-btn" label="Link your Facebook account" icon="pi pi-facebook" (click)="onLogin()"></button>
       </div>
     </div>
 

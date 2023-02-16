@@ -15,12 +15,14 @@ import {InputTextModule} from "primeng/inputtext";
 import {DividerModule} from "primeng/divider";
 import {ButtonModule} from "primeng/button";
 import {PasswordModule} from "primeng/password";
+import { ChangePasswordComponent } from './shared/change-password/change-password.component';
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    AccountManagementComponent
+    AccountManagementComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

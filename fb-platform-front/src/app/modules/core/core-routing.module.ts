@@ -4,6 +4,7 @@ import {MainComponent} from "./main.component";
 import {AccountManagementComponent} from "./shared/account-management/account-management.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
+import {ChangePasswordComponent} from "./shared/change-password/change-password.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'my-account',
         component: AccountManagementComponent
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent
       },
     ]
   }

@@ -1,6 +1,11 @@
 <div id="my-account">
-  <div class="account-title">
-    <span>Manage your account.</span>
+  <div>
+    <div fxFlex="100">
+      <span fxFlex="85" class="account-title">Manage your account.</span>
+      <div fxFlex="15" fxLayoutAlign="end center">
+        <button pButton type="button" label="Change Password" routerLink="/change-password" class="p-button-secondary"></button>
+      </div>
+    </div>
   </div>
   <p-divider></p-divider>
   <div fxFlexFill fxLayout="row">
@@ -18,38 +23,28 @@
                 [class]="accountForm.controls['username'].invalid && accountForm.controls['username'].touched ?'ng-invalid ng-dirty password-area' : 'password-area'">
             </div>
             <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-              <label class="default-margin">Password <span class="required-indicator">*</span></label>
-              <input
-                pPassword
-                type="password"
-                [formControlName]="'password'"
-                [feedback]="false"
-                placeholder="Type password"
-                [class]="accountForm.controls['password'].invalid && accountForm.controls['password'].touched ?'ng-invalid ng-dirty' : ''"/>
-            </div>
-            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-              <label class="default-margin">LastName <span class="required-indicator">*</span></label>
-              <input
-                [formControlName]="'nom'"
-                type="text" pInputText
-                placeholder="Type lastname"
-                [class]="accountForm.controls['nom'].invalid && accountForm.controls['nom'].touched ?'ng-invalid ng-dirty' : ''">
-            </div>
-            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-              <label class="default-margin">FirstName <span class="required-indicator">*</span></label>
-              <input
-                [formControlName]="'prenom'"
-                type="text" pInputText
-                placeholder="Type firstname"
-                [class]="accountForm.controls['prenom'].invalid && accountForm.controls['prenom'].touched ?'ng-invalid ng-dirty' : ''">
-            </div>
-            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
               <label class="default-margin">Email <span class="required-indicator">*</span></label>
               <input
                 [formControlName]="'email'"
                 type="text" pInputText
                 placeholder="Type email"
                 [class]="accountForm.controls['email'].invalid && accountForm.controls['email'].touched ?'ng-invalid ng-dirty' : ''">
+            </div>
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">LastName <span class="required-indicator">*</span></label>
+              <input
+                [formControlName]="'lastName'"
+                type="text" pInputText
+                placeholder="Type lastname"
+                [class]="accountForm.controls['lastName'].invalid && accountForm.controls['lastName'].touched ?'ng-invalid ng-dirty' : ''">
+            </div>
+            <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
+              <label class="default-margin">FirstName <span class="required-indicator">*</span></label>
+              <input
+                [formControlName]="'firstName'"
+                type="text" pInputText
+                placeholder="Type firstname"
+                [class]="accountForm.controls['firstName'].invalid && accountForm.controls['firstName'].touched ?'ng-invalid ng-dirty' : ''">
             </div>
           </div>
         </div>
@@ -64,7 +59,7 @@
       </div>
     </div>
   </div>
-  <div class="submit-section" fxLayoutAlign="center spacearound">
+  <div class="submit-section" fxLayoutAlign="center space-around">
     <button pButton class="submit-btn" icon="pi pi-save" label="Save" (click)="onSubmit()"></button>
   </div>
 </div>
