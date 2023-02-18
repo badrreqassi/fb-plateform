@@ -1,0 +1,99 @@
+<div id="adSetList" style="max-width: 1804px">
+  <div fxLayout="column" [fxLayoutGap]="'10px'">
+    <div fxFlexFill fxLayout="row">
+      <div class="title" fxFlex="50%">
+        <span class="bold"><span> List des ads  </span> {{name}} </span>
+      </div>
+    </div>
+    <div fxLayout="row" [fxLayoutGap]="'10px'">
+      <div class="adSetList-list" fxFlex="calc(70%-10px)">
+        <p-table #dt
+                 [value]="adsList"
+                 [columns]="cols"
+                 [rowHover]="true"
+                 styleClass="p-datatable-gridlines"
+                 [(first)]="first"
+                 [(rows)]="rows"
+                 [reorderableColumns]="true"
+                 [resizableColumns]="true"
+                 [showCurrentPageReport]="true"
+                 [rowsPerPageOptions]="[10,25,50]"
+                 [totalRecords]="totalRecords"
+                 [paginator]="true"
+                 (onRowSelect)="onRowSelect($event)"
+                 (onRowUnselect)="close($event)"
+                 selectionMode="single"
+                 stateStorage="local"
+                 dataKey="id"
+                 currentPageReportTemplate="{first} - {last} sur {totalRecords}"
+                 scrollHeight="450px"
+                 [scrollable]="true"
+        >
+          <ng-template pTemplate="caption">
+            <div class="table-header">
+              List des tests
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+
+              <th pReorderableColumn
+                  pResizableColumn style="max-width: 70px">
+                Actif
+              </th>
+              <th *ngFor="let col of columns"
+                  pReorderableColumn
+                  pResizableColumn
+                  style="width: 200px">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td style="max-width: 70px">
+                <p-inputSwitch [trueValue]="rowData.active"></p-inputSwitch>
+              </td>
+              <td *ngFor="let col of columns" style="width: 200px">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="8">No customers found.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div fxFlex="calc(30%-10px)" *ngIf="openChart">
+        <p-card>
+          <div fxLayout="column" fxLayoutAlign="center center" [fxLayoutGap]="'5px'" fxFlex="100%">
+            <div style="width: 100% ; height: 24px"  fxLayoutAlign="end center">  <span class="pi pi-times" style="cursor: pointer" (click)="close()"> </span></div>
+            <div class="tilte">
+              <div><strong> Titre selectione - </strong> {{ titre }}</div>
+              <span> IN PROGRESS </span>
+            </div>
+            <div class="video">
+              <div *ngIf="videoSelection else video">
+                <video></video>
+              </div>
+              <ng-template #video>
+                <app-content-empty [message]="'No video'" [height]="'150'"></app-content-empty>
+              </ng-template>
+            </div>
+            <div class="chart"  >
+              <canvas [id]="'MyChart'"></canvas>
+              <!--               chart primeng
+                            <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+              -->
+            </div>
+          </div>
+        </p-card>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -29,7 +29,7 @@
         </div>
 
         <div fxLayout="row" style="width: 100%">
-          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px) ; margin-right: 50px">
+          <div fxLayout="column"  style="width:calc(60% - 50px) ; margin-right: 50px">
             <label class="default-margin">Pour le Créateur <strong style="color: red ">&nbsp;*</strong></label>
             <p-dropdown [options]="compaigns"
                         [formControlName]="'campaign'"
@@ -39,7 +39,7 @@
                         optionLabel="name"></p-dropdown>
           </div>
           <!--slider-->
-          <div fxLayout="column" style="width: calc(60% - 50px)" class="default-margin" fxLayoutAlign="center center" [fxLayoutGap]="'15px'">
+          <div fxLayout="column" style="width: calc(60% - 50px)"  fxLayoutAlign="center center" [fxLayoutGap]="'10px'">
             <div fxLayout="row" style="width: 100%;" [fxLayoutGap]="'8px'" fxLayoutAlign="start center" class="default-margin">
               <p-checkbox value="true" [binary]="true" (onChange)="activeBugetManul($event)"></p-checkbox>
               <span>Ajuster le montant à déposer </span> <span class="bold" *ngIf="!disableSlider">{{ budgetValue}} €</span>
@@ -54,12 +54,12 @@
           </div>
           <!-- end slider-->
         </div>
-        <div style="width: 100%">
+        <div style="width: 100%; height: 26px">
           <p-divider></p-divider>
         </div>
         <!--  upload-->
         <div fxLayout="row" style="width: 100%; height: 200px" class="default-margin">
-          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px); margin-right: 50px">
+          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px); margin-right: 50px" >
             <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
               <label fxFlex="70%" class="default-margin"> Importez vos videos <strong style="color: red ">&nbsp;*</strong> </label>
               <div fxFlex="30%" fxLayoutAlign="end center" class="message default-margin"> jusqu'à 5 videos</div>
@@ -74,7 +74,7 @@
               <ng-template let-file pTemplate="file">
               </ng-template>
               <ng-template pTemplate="content" let-files>
-                <div style="max-height: 150px; overflow: auto">
+                <div style="max-height: 150px; overflow: auto" class="default-margin" >
                   <div *ngIf="uploadedFilesVideo.length>0 else video">
                     <app-show-upload-files [files]="uploadedFilesVideo"></app-show-upload-files>
                   </div>
@@ -103,8 +103,8 @@
               <ng-template let-file pTemplate="file">
               </ng-template>
               <ng-template pTemplate="content" let-files>
-                <div style="max-height: 150px; overflow: auto">
-                  <div *ngIf="uploadedFiles.length>0 else thumbnail">
+                <div style="max-height: 150px; overflow: auto" class="default-margin" >
+                  <div *ngIf="uploadedFiles.length>0 else thumbnail" >
                     <app-show-upload-files [uploadTypeIcon]="'pi pi-image'" [files]="uploadedFiles"></app-show-upload-files>
                   </div>
                   <ng-template #thumbnail>
@@ -117,13 +117,13 @@
           </div>
         </div>
         <!--  end upload-->
-        <div style="width: 100%">
+        <div style="width: 100% ;margin-top: 15px ;height: 26px">
           <p-divider></p-divider>
         </div>
         <!--  title-->
         <div fxLayout="column" style="width:100%" fxLayoutAlign="center center">
           <div fxLayout="row" style="width: 100%; height: 200px">
-            <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px) ; margin-right: 50px" [fxLayoutGap]="'15px'">
+            <div fxLayout="column" style="width:calc(60% - 50px) ; margin-right: 50px" [fxLayoutGap]="'15px'">
               <label class="default-margin">Ajoutez vos titres : <strong style="color: red ">&nbsp;*</strong> </label>
               <input
                 type="text" pInputText
@@ -140,10 +140,10 @@
               </div>
 
             </div>
-            <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px);">
+            <div fxLayout="column" style="width:calc(60% - 50px);">
               <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
-                <label fxFlex="70%" class="default-margin"> Votre titres </label>
-                <div fxFlex="30%" fxLayoutAlign="end center" class="message default-margin"> jusqu'à 5 titres</div>
+                <label fxFlex="70%" > Votre titres </label>
+                <div fxFlex="30%" fxLayoutAlign="end center" class="message"> jusqu'à 5 titres</div>
               </div>
               <div style="max-height: 150px; overflow: auto">
 

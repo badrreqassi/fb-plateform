@@ -68,7 +68,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-creator>
-          <tr class="p-selectable-row">
+          <tr class="p-selectable-row" (dblclick)="NavigateIntoListAdSet(creator)">
             <td style="min-width: 80px; max-width: 80px">
               <ng-container [ngSwitch]="creator.status">
                 <div *ngSwitchCase="'ACTIVE'">

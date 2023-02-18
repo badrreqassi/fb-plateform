@@ -1,25 +1,13 @@
-import {StatisticsResults} from "./StatisticsResults";
 import {CampaignStatusEnum} from "../Enums/campaign-status.enum";
+import {Ad} from "./ad";
+import {StatisticsResults} from "./StatisticsResults";
 
-interface Title {
-  id: string;
+export interface AdSet {
+  adSetId: string
+  cimpaignId: string;
   name: string;
-  StatisticsResults: StatisticsResults;
-  active: boolean;
-}
-
-export interface Ad {
-
-  /*
-    adset_id: string
-  */
-  id: string;
-  name: string;
+  status: CampaignStatusEnum;
   budget: number;
-  video: string;
-  thumbnails: string;
-  title: string;
- /* StatisticsResults: StatisticsResults;*/
   cost_per_results: number
   avg_vid_play_time: number;
   video_playback_25: number
@@ -35,7 +23,5 @@ export interface Ad {
 
   couverture: string
   impression: string
-  status: CampaignStatusEnum;
-
-
+  ads: Ad[];
 }

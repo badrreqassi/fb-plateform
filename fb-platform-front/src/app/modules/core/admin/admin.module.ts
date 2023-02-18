@@ -15,7 +15,7 @@ import {PasswordModule} from "primeng/password";
 import {DropdownModule} from "primeng/dropdown";
 import {InputTextModule} from "primeng/inputtext";
 import {UserEditComponent} from './components/user-edit/user-edit.component';
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {BadgeModule} from "primeng/badge";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -48,7 +48,7 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
     OverlayPanelModule,
     MenuModule
   ],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService,MessageService]
 
 })
 export class AdminModule {

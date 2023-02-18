@@ -1,0 +1,35 @@
+#adSetList ::ng-deep{
+
+  .title {
+    span {
+      font-size: 30px;
+      color: #374151;
+      font-weight: 300;
+    }
+  }
+
+  .bold {
+    font-weight: 800 !important;
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    max-height: 6px;
+    border-radius: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+ }

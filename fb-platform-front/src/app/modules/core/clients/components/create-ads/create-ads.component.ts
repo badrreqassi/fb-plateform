@@ -120,7 +120,8 @@ export class CreateAdsComponent implements OnInit {
 
   addTitle(): void {
     if (this.beanAds.value.title) {
-      if (this.listTitre.length <= 5) {
+      console.log(this.listTitre.length )
+      if (this.listTitre.length < 5) {
         this.listTitre.push({name: this.beanAds.value.title});
         this.beanAds.get('title')?.setValue('')
       } else {

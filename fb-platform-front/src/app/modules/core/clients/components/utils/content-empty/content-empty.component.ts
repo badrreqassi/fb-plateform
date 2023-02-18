@@ -9,6 +9,7 @@ export class ContentEmptyComponent implements OnInit {
   @Input() icon = 'pi pi-video'
   @Input() message = 'Aucune vidéo importée'
   @Input()  valid = true;
+  @Input() height = '130'
 
   constructor() {
   }
