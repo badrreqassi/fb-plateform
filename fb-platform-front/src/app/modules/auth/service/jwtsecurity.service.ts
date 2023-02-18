@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 
@@ -14,24 +14,28 @@ export class JWTsecurityService {
               private router: Router) {
   }
 
-  authenticate(username: string, password: string): Observable<any> {
-    return this.http
-      .post<any>("http://localhost:8080/api/auth/token", {username, password})
-      .pipe(
-        map(data => {
-            localStorage.setItem("token", data?.token);
-            localStorage.setItem("roles", data?.roles);
-            localStorage.setItem("username", data?.username);
-            localStorage.setItem("userId", data?.userId);
-            const admin = (data.roles as string[]).find(role => role === 'ADMIN');
-            if (admin) {
-              this.router.navigate(['admin']);
-            } else {
-              this.router.navigate(['client']);
-            }
-          }
-        )
-      );
+  authenticate(username: string, password: string) {
+     this.http.post<any>("http://localhost:8080/api/auth/token", {username, password}).subscribe(response => {
+      localStorage.setItem("token", response?.token);
+      localStorage.setItem("roles", response?.roles);
+      localStorage.setItem("username", response?.username);
+      localStorage.setItem("userId", response?.userId);
+       this.messageService.add({
+         severity: 'success',
+         summary: 'Authenticated Successfully'
+       })
+      const admin = (response.roles as string[]).find(role => role === 'ADMIN');
+      if (admin) {
+        this.router.navigate(['admin']);
+      } else {
+        this.router.navigate(['client']);
+      }
+    }, () => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Failed to authenticate'
+      })
+    })
   }
 
 }

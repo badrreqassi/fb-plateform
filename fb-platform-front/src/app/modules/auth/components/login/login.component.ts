@@ -32,9 +32,7 @@ export class LoginComponent implements OnInit {
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.passWord;
     if (this.loginForm.valid) {
-      this.Jwt.authenticate(username, password).subscribe((response) => {
-        response ? this.router.navigate(['/client']) : ''
-      })
+      this.Jwt.authenticate(username, password);
     }
   }
 }

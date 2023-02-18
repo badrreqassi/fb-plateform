@@ -14,6 +14,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtInterceptor} from "./interceptors/jwt.interceptor";
 import {MessageService} from "primeng/api";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {ErrorInterceptor} from "./interceptors/error.interceptor";
     CardModule,
     TopMenuModuleModule,
     AuthModule,
+    ToastModule,
 
   ],
   providers: [

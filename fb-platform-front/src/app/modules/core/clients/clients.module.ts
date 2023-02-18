@@ -50,7 +50,6 @@ import {PasswordModule} from "primeng/password";
     DividerModule,
     FileUploadModule,
     TooltipModule,
-    ToastModule,
     PasswordModule,
 
   ],

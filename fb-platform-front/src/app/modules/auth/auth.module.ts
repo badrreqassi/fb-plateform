@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthRoutingModule } from './auth-routing.module';
-import { LoginComponent } from './components/login/login.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AuthRoutingModule} from './auth-routing.module';
+import {LoginComponent} from './components/login/login.component';
+import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {CardModule} from "primeng/card";
 import {FlexModule} from "@angular/flex-layout";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -28,8 +28,9 @@ import {HttpClientModule} from "@angular/common/http";
     PasswordModule,
     TagModule,
     ButtonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 
 })
-export class AuthModule { }
+export class AuthModule {
+}
