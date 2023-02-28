@@ -42,11 +42,11 @@
           <div fxLayout="column" style="width: calc(60% - 50px)"  fxLayoutAlign="center center" [fxLayoutGap]="'10px'">
             <div fxLayout="row" style="width: 100%;" [fxLayoutGap]="'8px'" fxLayoutAlign="start center" class="default-margin">
               <p-checkbox value="true" [binary]="true" (onChange)="activeBugetManul($event)"></p-checkbox>
-              <span>Ajuster le montant à déposer </span> <span class="bold" *ngIf="!disableSlider">{{ budgetValue}} €</span>
+              <span>Ajuster le montant à déposer </span> <span class="bold">{{ beanAds.value.budget }} €</span>
             </div>
             <div style="width: 100%;">
               <p-slider [min]="0" [max]="50"
-                        (ngModelChange)="changeBudget($event)"
+                        (ngModelChange)="setMinBudgetPerAd($event)"
                         [disabled]="disableSlider"
                         [formControlName]="'budget'"
                         [class]="valid?'' : 'ng-invalid ng-dirty'"></p-slider>
@@ -76,7 +76,7 @@
               <ng-template pTemplate="content" let-files>
                 <div style="max-height: 150px; overflow: auto" class="default-margin" >
                   <div *ngIf="uploadedFilesVideo.length>0 else video">
-                    <app-show-upload-files [files]="uploadedFilesVideo"></app-show-upload-files>
+                    <app-show-upload-files [files]="uploadedFilesVideo" (onDelete)="setMinBudgetPerAd()"></app-show-upload-files>
                   </div>
                   <ng-template #video>
                     <app-content-empty [valid]="valid"></app-content-empty>
@@ -105,7 +105,7 @@
               <ng-template pTemplate="content" let-files>
                 <div style="max-height: 150px; overflow: auto" class="default-margin" >
                   <div *ngIf="uploadedFiles.length>0 else thumbnail" >
-                    <app-show-upload-files [uploadTypeIcon]="'pi pi-image'" [files]="uploadedFiles"></app-show-upload-files>
+                    <app-show-upload-files [uploadTypeIcon]="'pi pi-image'" [files]="uploadedFiles" (onDelete)="setMinBudgetPerAd()"></app-show-upload-files>
                   </div>
                   <ng-template #thumbnail>
                     <app-content-empty [valid]="valid" [icon]="'pi pi-image'" [message]="'Aucune thumbnail importée'"></app-content-empty>
@@ -166,7 +166,7 @@
         <!-- creer-->
 
         <div fxLayout="column" style="width:100% " class="default-margin" fxLayoutAlign="center center">
-          <button pButton style="width: 35%;" type="submit" label="Créer" class="p-button-rounded"></button>
+          <button pButton style="width: 35%;" type="submit" label="Créer" class="p-button-rounded" [loading]="isLoading"></button>
         </div>
 
         <!--end creer-->

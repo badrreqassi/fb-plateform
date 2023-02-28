@@ -22,7 +22,6 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "@types/facebook-js-sdk": "^3.3.6",
     "canvasjs": "^1.8.3",
     "chart.js": "^4.2.1",
     "primeflex": "^3.2.1",
@@ -44,6 +43,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.5.2"
+    "typescript": "~4.5.2",
+    "@types/facebook-js-sdk": "^3.3.6"
   }
 }

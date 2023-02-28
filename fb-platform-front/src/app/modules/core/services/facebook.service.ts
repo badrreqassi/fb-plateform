@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, bindCallback, concat, from, Observable, reduce} from "rxjs";
+import {BehaviorSubject, bindCallback, concat, from, Observable, reduce, map} from "rxjs";
 import {ApiEndPoints} from "../../../constants/ApiEndPoints";
 import {FacebookUser} from "../../../models/facebookUser";
 import {AdAccount} from "../../../models/adAccount";
 import {Campaign} from "../../../models/campaign";
 import {HttpClient} from "@angular/common/http";
+import { CampaignStatusEnum } from 'src/app/Enums/campaign-status.enum';
+import Combination from 'src/app/models/Combination';
 
 let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, ads_management, ads_read, publish_video';
 
@@ -119,102 +121,111 @@ export class FacebookService {
 
   getAdSetById(adsetId: number): Observable<any> {
     return from(new Promise((resolve) => {
-      FB.api(`/${adsetId}?fields=name,campaign_id,billing_event,targeting,bid_amount,daily_budget,account_id`, (response: any) => {
+      FB.api(`/${adsetId}?fields=name,campaign_id,billing_event,targeting,bid_amount,daily_budget,account_id,promoted_object`, (response: any) => {
         resolve(response);
         this.accountId = response.account_id;
       });
     }));
   }
 
-  duplicateAdSets(adSetData: any): Observable<any> {
+  duplicateAdSets(name:string, adSetData: any, budget: number): Observable<any> {
     const duplicateAdSetData = {
-      name: adSetData.name + " - Copy",
+      name: name,
       campaign_id: adSetData.campaign_id,
-      bid_amount: adSetData.bid_amount,
-      daily_budget: adSetData.daily_budget,
+      bid_amount: adSetData.bid_amount ?? 2,
+      daily_budget: budget * 100, // 100 is used to convert the budget to cents
       billing_event: adSetData.billing_event,
-      targeting: adSetData.targeting
+      targeting: adSetData.targeting,
+      status: CampaignStatusEnum.PAUSED
     };
 
-    return from(new Promise((resolve) => {
+    return from(new Promise((resolve, reject) => {
       FB.api(`/act_${this.accountId}/adsets?fields=name,campaign_id,billing_event`, "post", duplicateAdSetData, (response: any) => {
-        resolve(response);
+        if(response?.error){
+          reject(response?.error)
+        } else {
+          resolve(response);
+        }
       });
     }));
   }
 
 
   createVideo(videoFile: File): Observable<any> {
-    return new Observable((observer) => {
-      const videoData = new FormData();
-      videoData.append("source", videoFile);
-      videoData.append("title", "test title");
-
-
-      FB.api(`/act_${this.accountId}/advideos?fields=id,name`, "post", videoData, (response: any) => {
-        observer.next(response);
-        observer.complete();
-      });
-    });
+    const videoData = new FormData();
+    videoData.append("source", videoFile);
+    const authResponse = FB.getAuthResponse();
+    return this.http
+        .post(
+          `https://graph.facebook.com/v16.0/act_${this.accountId}/advideos?access_token=${authResponse?.accessToken}`,
+          videoData
+        )
+        .pipe(
+          map((result: any) => result.id)
+        );
   }
 
 
-  createThumbNail(thumbnailFile: File, videoId: number): Observable<any> {
+  createThumbNail(thumbnailFile: File): Observable<any> {
     const thumbnailData = new FormData();
     thumbnailData.append("file", thumbnailFile, thumbnailFile.name);
-    return from(new Promise((resolve) => {
-      FB.api(`/act_${this.accountId}/${videoId}/thumbnails?fields=id`, "post", thumbnailData, (response: any) => {
-        resolve(response);
-      });
-    }));
+    const authResponse = FB.getAuthResponse();
+    return this.http
+    .post(
+      `https://graph.facebook.com/v16.0/act_${this.accountId}/adimages?access_token=${authResponse?.accessToken}`,
+      thumbnailData
+    )
+    .pipe(
+      map((result: any) => ({hash: result.images[thumbnailFile.name].hash, url: result.images[thumbnailFile.name].url}))
+    );
   }
 
-  createAdCreative(): Observable<any> {
-    console.log('accountId', this.accountId)
-    const adCreative = {
-      name: "name of adcreative",
-      body: "body of ad",
-      object_story_spec: {
-        page_id: "506841523177050",
-        photo_data: {
-          caption: "test ad 2",
-          image_hash: "547f6196e4b02ce70e2e6d13ad2837e2"
-        }
-      }
-    }
-    return from(new Promise((resolve) => {
-      FB.api(`/act_${this.accountId}/adcreatives?fields=id,name,object_story_spec`, "post", adCreative, (response: any) => {
-        resolve(response);
-      });
-    }));
+  getVideoStatus(videoId: string): Observable<any> {
+    const authResponse = FB.getAuthResponse();
+    return this.http
+    .get(
+      `https://graph.facebook.com/v16.0/${videoId}?fields=status&access_token=${authResponse?.accessToken}`
+    )
+    .pipe(
+      map((result: any) => result.status.video_status)
+    );
   }
 
-
-  createAd(adsetId: string, creativeAd: string): Observable<any> {
-
+  createAd(adset: any, combiniation: Combination, index: number): Observable<any> {
+    const suffix = index + 1;
     const ad = {
-      name: "Ad title",
+      name: `Ad ${suffix}`,
       creative: {
-        creative_id: creativeAd
+        name: `Creative ${suffix}`,
+        asset_feed_spec: {
+          titles: combiniation.titles,
+          optimization_type: 'DEGREES_OF_FREEDOM',
+        },
+        object_story_spec: {
+          page_id: adset.promoted_object?.page_id,
+          video_data: {
+            video_id: combiniation.videoId,
+            call_to_action: {
+              type: 'LEARN_MORE',
+              value: {
+                link: 'https://lemarketer.fr',
+              },
+            },
+            image_hash: combiniation.thumbnail?.hash,
+          },
+        },
       },
-      tracking_specs: [
-        {
-          "action.type": [
-            "post_engagement"
-          ],
-          page: [
-            "506841523177050"
-          ],
-        }
-      ],
-      adset_id: adsetId,
-      status: "PAUSED"
-    }
-    return from(new Promise((resolve) => {
+      adset_id: adset.id,
+      status: CampaignStatusEnum.PAUSED,
+    };
+    return from(new Promise((resolve, reject) => {
       FB.api(`/act_${this.accountId}/ads?fields=name,creative,tracking_specs,adset`, "post", ad, (response: any) => {
-        resolve(response);
+        if(response?.error){
+          reject(response?.error)
+        } else {
+          resolve(response);
+        }
       });
     }));
   }
 }
-
