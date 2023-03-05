@@ -11,7 +11,6 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CreateAdsComponent} from './components/create-ads/create-ads.component';
 import {DialogService} from "primeng/dynamicdialog";
-import {MessageService} from "primeng/api";
 import {InputTextModule} from "primeng/inputtext";
 import {DropdownModule} from "primeng/dropdown";
 import {SliderModule} from "primeng/slider";
@@ -20,7 +19,6 @@ import {DividerModule} from "primeng/divider";
 import {FileUploadModule} from "primeng/fileupload";
 import {ShowUploadFilesComponent} from './components/utils/show-upload-files/show-upload-files.component';
 import {TooltipModule} from "primeng/tooltip";
-import {ToastModule} from "primeng/toast";
 import { ContentEmptyComponent } from './components/utils/content-empty/content-empty.component';
 import { AdSetListComponent } from './components/ad-set-list/ad-set-list.component';
 import { AdSetListPageComponent } from './pages/ad-set-list-page/ad-set-list-page.component';
@@ -69,7 +67,7 @@ import {ChartModule} from "primeng/chart";
         ChartModule,
 
     ],
-  providers: [FacebookService, DialogService, MessageService]
+  providers: [FacebookService, DialogService]
 })
 export class ClientsModule {
 }

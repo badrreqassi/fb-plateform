@@ -13,7 +13,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {DividerModule} from "primeng/divider";
 import {BreadcrumbModule} from "primeng/breadcrumb";
-import {MessageService} from "primeng/api";
 import { ChangePasswordComponent } from './shared/change-password/change-password.component';
 
 
@@ -37,9 +36,6 @@ import { ChangePasswordComponent } from './shared/change-password/change-passwor
     ButtonModule,
     PasswordModule,
   ],
-  providers :[MessageService]
-
-
 })
 export class CoreModule {
 }
