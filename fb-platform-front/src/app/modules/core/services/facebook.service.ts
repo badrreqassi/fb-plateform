@@ -152,7 +152,7 @@ export class FacebookService {
 
   getAdSetById(adsetId: number): Observable<any> {
     return from(new Promise((resolve) => {
-      FB.api(`/${adsetId}?fields=name,campaign_id,billing_event,targeting,bid_amount,daily_budget,account_id,promoted_object`, (response: any) => {
+      FB.api(`/${adsetId}?fields=name,campaign_id,billing_event,targeting,daily_budget,account_id,promoted_object,optimization_goal,destination_type,bid_strategy`, (response: any) => {
         resolve(response);
         this.accountId = response.account_id;
       });
@@ -163,15 +163,18 @@ export class FacebookService {
     const duplicateAdSetData = {
       name: name,
       campaign_id: adSetData.campaign_id,
-      bid_amount: adSetData.bid_amount ?? 2,
       daily_budget: budget * 100, // 100 is used to convert the budget to cents
       billing_event: adSetData.billing_event,
       targeting: adSetData.targeting,
-      status: CampaignStatusEnum.PAUSED
+      status: CampaignStatusEnum.PAUSED,
+      promoted_object: adSetData.promoted_object,
+      optimization_goal: adSetData.optimization_goal,
+      destination_type: adSetData.destination_type,
+      bid_strategy: adSetData.bid_strategy
     };
 
     return from(new Promise((resolve, reject) => {
-      FB.api(`/act_${this.accountId}/adsets?fields=name,campaign_id,billing_event`, "post", duplicateAdSetData, (response: any) => {
+      FB.api(`/act_${this.accountId}/adsets?fields=promoted_object`, "post", duplicateAdSetData, (response: any) => {
         if(response?.error){
           reject(response?.error)
         } else {
@@ -237,9 +240,10 @@ export class FacebookService {
           video_data: {
             video_id: combiniation.videoId,
             call_to_action: {
-              type: 'LEARN_MORE',
+              type: 'MESSAGE_PAGE',
               value: {
-                link: 'https://lemarketer.fr',
+                app_destination: 'MESSENGER',
+                link: 'https://fb.com/messenger_doc/',
               },
             },
             image_hash: combiniation.thumbnail?.hash,
