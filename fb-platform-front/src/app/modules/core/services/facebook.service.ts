@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
 import { CampaignStatusEnum } from 'src/app/Enums/campaign-status.enum';
 import Combination from 'src/app/models/Combination';
 
-let PERMISSION_SCOPES = 'public_profile, pages_show_list, business_management, ads_management, ads_read, publish_video';
+let PERMISSION_SCOPES = 'public_profile, pages_show_list,business_management, ads_management,ads_read,publish_video';
 
 
 @Injectable({

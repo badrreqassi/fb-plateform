@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./top-menu.component.scss']
 })
 export class TopMenuComponent implements OnInit {
+  logo = ''
 
   constructor(public router: Router) {
   }
@@ -19,6 +20,7 @@ export class TopMenuComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     this.username = localStorage.getItem("username");
+    this.logo = localStorage.getItem("logo") as string;
     this.items = [
       {
         label: 'Settings',

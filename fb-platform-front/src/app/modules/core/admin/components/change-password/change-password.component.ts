@@ -25,7 +25,7 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.dialogConfig.data) {
-      this.userId = this.dialogConfig.data.userId;
+      this.userId = this.dialogConfig.data.id;
     }
   }
 

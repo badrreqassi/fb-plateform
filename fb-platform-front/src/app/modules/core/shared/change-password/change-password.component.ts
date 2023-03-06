@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../admin/services/user.service";
-import {MessageService} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-change-password',
@@ -16,9 +16,11 @@ export class ChangePasswordComponent implements OnInit {
     confirmPassword: new FormControl('', [Validators.required])
   });
   constructor(private userService: UserService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              ) { }
 
   ngOnInit(): void {
+
   }
 
   onSubmit() {

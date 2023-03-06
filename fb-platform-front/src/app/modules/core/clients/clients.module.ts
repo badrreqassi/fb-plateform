@@ -11,6 +11,7 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CreateAdsComponent} from './components/create-ads/create-ads.component';
 import {DialogService} from "primeng/dynamicdialog";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {InputTextModule} from "primeng/inputtext";
 import {DropdownModule} from "primeng/dropdown";
 import {SliderModule} from "primeng/slider";
@@ -28,22 +29,28 @@ import {AdsListComponent} from "./components/adsList/adsList.component";
 import {PasswordModule} from "primeng/password";
 import {CardModule} from "primeng/card";
 import {ChartModule} from "primeng/chart";
+import { StatusComponent } from './components/utils/status/status.component';
+import {TagModule} from "primeng/tag";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { ConnectedAccountComponent } from './components/utils/connected-account/connected-account.component';
 
 
 
 @NgModule({
-  declarations: [
-    ListCreatureComponent,
-    ListCreaturePageComponent,
-    CreateAdsComponent,
-    ShowUploadFilesComponent,
-    ContentEmptyComponent,
-    ContentEmptyComponent,
-    AdSetListComponent,
-    AdSetListPageComponent,
-    AdsListPageComponent,
-    AdsListComponent
-  ],
+    declarations: [
+        ListCreatureComponent,
+        ListCreaturePageComponent,
+        CreateAdsComponent,
+        ShowUploadFilesComponent,
+        ContentEmptyComponent,
+        ContentEmptyComponent,
+        AdSetListComponent,
+        AdSetListPageComponent,
+        AdsListPageComponent,
+        AdsListComponent,
+        StatusComponent,
+        ConnectedAccountComponent
+    ],
     imports: [
         CommonModule,
         ClientsRoutingModule,
@@ -65,9 +72,14 @@ import {ChartModule} from "primeng/chart";
         BreadcrumbModule,
         CardModule,
         ChartModule,
+        TagModule,
+        ConfirmDialogModule,
 
     ],
-  providers: [FacebookService, DialogService]
+    exports: [
+        ConnectedAccountComponent
+    ],
+    providers: [FacebookService, DialogService, MessageService, ConfirmationService]
 })
 export class ClientsModule {
 }

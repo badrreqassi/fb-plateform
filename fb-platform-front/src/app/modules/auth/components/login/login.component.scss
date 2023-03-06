@@ -1,5 +1,4 @@
 
-
 #login-page {
   width: 100%;
   min-width: 100%;
@@ -8,10 +7,23 @@
   max-height: 100%;
   background-position: center center;
   background-size: cover;
+
   .login {
     max-width: 100%;
     max-height: 100%;
     position: relative;
+  }
+
+  .loginFailed {
+    height: 50px;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffe7e6;
+    color: #ff5757;
+
   }
 
   .container {
@@ -49,7 +61,7 @@
 
   .title {
     font-weight: 700;
-    font-size: 45px;
+    font-size: 45px !important;
     width: 241px;
     //color: global-variable-exists($title-color);
   }
@@ -74,21 +86,23 @@
     margin-top: 40px;
   }
 }
-  ::ng-deep {
-    .p-card .p-card-body {
-      padding: 0px;
-    }
 
-    .p-card .p-card-content {
-      padding: 0 !important;
-    }
-
-    .button-submit .p-button {
-      border-radius: 64px;
-      width: 100%;
-    }
-   /* body {
-      overflow: hidden
-    }*/
+::ng-deep {
+  .p-card .p-card-body {
+    padding: 0px;
   }
+
+  .p-card .p-card-content {
+    padding: 0 !important;
+  }
+
+  .button-submit .p-button {
+    border-radius: 64px;
+    width: 100%;
+  }
+
+  /* body {
+     overflow: hidden
+   }*/
+}
 

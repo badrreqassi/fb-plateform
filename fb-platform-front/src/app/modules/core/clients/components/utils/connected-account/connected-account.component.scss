@@ -1,0 +1,29 @@
+.connected-account {
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  border: 1px solid white;
+  background: #c4dcfc;
+  padding: 3px;
+
+  .facebook-profile {
+    height: 100%;
+    width: 44px;
+    border-radius: 100%;
+    background: #3B82F6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .account-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sign-out{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}

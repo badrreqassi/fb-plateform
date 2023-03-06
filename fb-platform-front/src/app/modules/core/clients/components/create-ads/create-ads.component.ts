@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FacebookService } from '../../../services/facebook.service';
-import { Campaign } from '../../../../../models/campaign';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MessageService } from 'primeng/api';
-import { FileUpload } from 'primeng/fileupload';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FacebookService} from "../../../services/facebook.service";
+import {Campaign} from "../../../../../models/campaign";
+import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {ConfirmationService, MessageService} from "primeng/api";
+import {FileUpload} from "primeng/fileupload";
 import { forkJoin, map, iif, of, switchMap, repeat, filter, take } from 'rxjs';
 import Combination, { Thumbnail } from 'src/app/models/Combination';
+
 
 @Component({
   selector: 'app-create-ads',
@@ -44,8 +45,8 @@ export class CreateAdsComponent implements OnInit {
   constructor(
     private facebookApi: FacebookService,
     private dialogRef: DynamicDialogRef,
-    public messageService: MessageService
-  ) {}
+    public messageService: MessageService,
+    private confirmationService: ConfirmationService) {}
 
   ngOnInit(): void {
     this.facebookApi.getAllCompaigns().subscribe((data) => {
@@ -117,6 +118,8 @@ export class CreateAdsComponent implements OnInit {
         .subscribe({
           next: (data) => {
             this.isLoading = false;
+          //  this.dialogRef.close()
+
             console.log(data)
           },
           error: (err) => {
@@ -138,7 +141,16 @@ export class CreateAdsComponent implements OnInit {
   }
 
   close(): void {
-    this.dialogRef.close();
+   // this.dialogRef.close();
+
+    this.confirmationService.confirm({
+      header: 'Confirmation',
+      message: 'Are you sure that you want to leave?',
+      dismissableMask: true,
+      accept: () => {
+        this.dialogRef.close()
+      }
+    });
   }
 
   onUpload(event: any): void {
@@ -175,6 +187,7 @@ export class CreateAdsComponent implements OnInit {
 
   addTitle(): void {
     if (this.beanAds.value.title) {
+      console.log(this.listTitre.length)
       if (this.listTitre.length < 5) {
         this.listTitre.push({ text: this.beanAds.value.title });
         this.beanAds.get('title')?.setValue('');
@@ -218,14 +231,11 @@ export class CreateAdsComponent implements OnInit {
     videos.forEach((videoId) => {
       if (thumbnails.length > 0) {
         thumbnails.forEach((thumbnail) => {
-          combinations.push({
-            videoId,
-            thumbnail,
-            titles,
+          combinations.push({videoId, thumbnail, titles,
           });
         });
       } else {
-        combinations.push({ videoId, titles });
+        combinations.push({videoId, titles});
       }
     });
     return combinations;

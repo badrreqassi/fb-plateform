@@ -66,8 +66,8 @@ export class UserEditComponent implements OnInit {
         // add USER role
         roles.push(2)
       }
-      if (this.user?.userId){
-        this.userService.updateUser( this.user.userId,{
+      if (this.user?.id){
+        this.userService.updateUser( this.user.id,{
           username: userValue.username,
           email: userValue.email,
           lastName: userValue.lastName,
