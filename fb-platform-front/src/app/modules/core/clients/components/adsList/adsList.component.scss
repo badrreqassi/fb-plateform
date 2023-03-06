@@ -17,9 +17,16 @@
   }
   .video{
     width: 100%;
+    height: 187px;
   }
   .chart{
     width: 100%;
     height: 255px;
   }
+ .p-card .p-card-body {
+   padding: 25px;
+   box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+   border-radius: 10px;
+ }
+
  }

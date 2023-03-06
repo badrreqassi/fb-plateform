@@ -21,6 +21,8 @@ import {BadgeModule} from "primeng/badge";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {MenuModule} from "primeng/menu";
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
+import {DialogService} from "primeng/dynamicdialog";
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
@@ -30,25 +32,26 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
     UserEditComponent,
     ChangePasswordComponent
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    TableModule,
-    InputSwitchModule,
-    FlexModule,
-    ButtonModule,
-    RippleModule,
-    DividerModule,
-    ReactiveFormsModule,
-    PasswordModule,
-    DropdownModule,
-    InputTextModule,
-    ConfirmDialogModule,
-    BadgeModule,
-    OverlayPanelModule,
-    MenuModule
-  ],
-  providers: [ConfirmationService,MessageService]
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        TableModule,
+        InputSwitchModule,
+        FlexModule,
+        ButtonModule,
+        RippleModule,
+        DividerModule,
+        ReactiveFormsModule,
+        PasswordModule,
+        DropdownModule,
+        InputTextModule,
+        ConfirmDialogModule,
+        BadgeModule,
+        OverlayPanelModule,
+        MenuModule,
+        ToastModule
+    ],
+  providers: [ConfirmationService,MessageService,DialogService]
 
 })
 export class AdminModule {

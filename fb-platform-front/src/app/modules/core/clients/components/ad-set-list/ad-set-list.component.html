@@ -8,14 +8,14 @@
         <button pButton label="Créer un nouveau test" (click)="show()" icon="pi pi-plus" iconPos="right"></button>
       </div>
     </div>
-    <div class="adSetList-list" style="max-width:1804px">
+    <div class="adSetList-list" style="max-width:1820px">
 
       <p-table #dt
                [value]="adSetList"
                [columns]="cols"
                dataKey="id"
                [rowHover]="true"
-               styleClass="p-datatable-gridlines"
+               styleClass="p-datatable-gridlines datatable-border"
                [(first)]="first"
                [(rows)]="rows"
                [reorderableColumns]="true"
@@ -26,7 +26,7 @@
                [paginator]="true"
                stateStorage="local"
                currentPageReportTemplate="{first} - {last} sur {totalRecords}"
-               scrollHeight="450px"
+               scrollHeight="475px  "
                [scrollable]="true"
       >
         <ng-template pTemplate="caption">
@@ -57,9 +57,16 @@
                 [alignFrozen]="'right'">
               <p-inputSwitch [trueValue]="rowData.active"></p-inputSwitch>
             </td>
-            <td *ngFor="let col of columns" style="width: 200px">
-              {{rowData[col.field]}}
-            </td>
+            <ng-container *ngFor="let col of columns">
+              <ng-container [ngSwitch]="col.field">
+                <td *ngSwitchCase="'status'" style="width: 200px ; justify-content: center">
+                  <app-status [value]="rowData[col.field]"></app-status>
+                </td>
+                <td *ngSwitchDefault style="width: 200px">
+                  {{rowData[col.field]}}
+                </td>
+              </ng-container>
+            </ng-container>
           </tr>
 
         </ng-template>

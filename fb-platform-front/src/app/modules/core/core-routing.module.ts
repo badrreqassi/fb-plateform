@@ -16,10 +16,6 @@ const routes: Routes = [
         path: 'client',
         loadChildren: () =>
           import('./clients/clients.module').then((m) => m.ClientsModule),
-      }, {
-        path: 'users',
-        loadChildren: () =>
-          import('./user/user.module').then((m) => m.UserModule),
       },
       {
         path: 'admin',

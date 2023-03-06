@@ -16,21 +16,32 @@ body {
 
 *{
   font-family: 'Poppins', sans-serif;
+  font-size: 16px;
 }
 .p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
-  padding: 8px
+  padding: 8px;
+  border-width: 0;
+  border-right : 1px solid  #dee2e6;
+  border-bottom : 1px solid  #dee2e6;
 }
 
 .p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
   padding: 10px;
+  border-width: 0;
+  border-right : 1px solid  #dee2e6;
+  border-bottom : 1px solid  #dee2e6;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-header {
+  padding: 10px;
+  border-width: 0;
+  border-right : 1px solid  #dee2e6;
+  border-bottom : 1px solid  #dee2e6;
 }
 .p-paginator {
    background: white;
    color: none;
-   border: none;
-   border-width: 0;
-   padding: 0px;
-   border-radius: 0px;
+   border-top: 0.5px solid #dee2e6 !important;
+   padding: 0;
 }
 .p-paginator .p-dropdown {
   height: 38px;
@@ -43,11 +54,16 @@ body {
   height: 38px;
   width: 38px;
 }
+.datatable-border{
+  border: 0.5px solid #dee2e6;
+}
 
-/* width */
+
+  /* width */
 ::-webkit-scrollbar {
   max-height: 6px;
   max-width: 6px;
+
 }
 
 /* Track */
@@ -60,6 +76,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
+
 }
 
 /* Handle on hover */

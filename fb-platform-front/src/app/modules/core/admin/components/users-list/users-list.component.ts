@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from "../../../../../models/User";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {UserCreateComponent} from "../user-create/user-create.component";
@@ -6,13 +6,14 @@ import {UserEditComponent} from "../user-edit/user-edit.component";
 import {ConfirmationService, MenuItem, MessageService} from "primeng/api";
 import {UserService} from "../../services/user.service";
 import {ChangePasswordComponent} from "../change-password/change-password.component";
+import {SharingDataService} from "../../../services/sharing-data.service";
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit,OnDestroy {
 
   totalRecords = 0;
 
@@ -56,12 +57,17 @@ export class UsersListComponent implements OnInit {
   constructor(private dialogService: DialogService,
               private userService: UserService,
               private confirmationService: ConfirmationService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sharingData: SharingDataService,) {
   }
 
   ngOnInit(): void {
-    this.userService.getUsersList(this.first, this.rows).subscribe(users => {
-      this.users = users;
+    setTimeout(() => {
+      this.sharingData.changeMenuItem([{id:'123456789',label: 'Home', routerLink: '/client/campaignsTesting'},{label:'List users'}] as MenuItem[])
+    })
+    this.userService.getUsersList(this.first, this.rows).subscribe(data => {
+      this.users = data.searchValue;
+      this.totalRecords = data.searchCount
     })
   }
 
@@ -76,8 +82,9 @@ export class UsersListComponent implements OnInit {
     );
 
     this.dialogRef.onClose.subscribe(() => {
-      this.userService.getUsersList(this.first, this.rows).subscribe(users => {
-        this.users = users;
+      this.userService.getUsersList(this.first, this.rows).subscribe(data => {
+        this.users = data.searchValue;
+        this.totalRecords = data.searchCount
       })
     })
   }
@@ -94,13 +101,14 @@ export class UsersListComponent implements OnInit {
     );
 
     this.dialogRef.onClose.subscribe(() => {
-      this.userService.getUsersList(this.first, this.rows).subscribe(users => {
-        this.users = users;
+      this.userService.getUsersList(this.first, this.rows).subscribe(data => {
+        this.users = data.searchValue;
+        this.totalRecords = data.searchCount
       })
     })
   }
 
-  showChangePassword(user:User) {
+  showChangePassword(user: User) {
     this.dialogRef = this.dialogService.open(ChangePasswordComponent, {
         width: '50%',
         showHeader: false,
@@ -112,8 +120,9 @@ export class UsersListComponent implements OnInit {
     );
 
     this.dialogRef.onClose.subscribe(() => {
-      this.userService.getUsersList(this.first, this.rows).subscribe(users => {
-        this.users = users;
+      this.userService.getUsersList(this.first, this.rows).subscribe(data => {
+        this.users = data.searchValue;
+        this.totalRecords = data.searchCount
       })
     })
   }
@@ -126,17 +135,20 @@ export class UsersListComponent implements OnInit {
       acceptIcon: 'pi pi-trash',
       acceptButtonStyleClass: 'delete-btn',
       accept: () => {
-        if (user?.userId) {
-          this.userService.deleteUser(user.userId).subscribe(() => {
+        if (user?.id) {
+          this.userService.deleteUser(user.id).subscribe((response) => {
+            console.log('response');
           }, error => {
-            if (error.status === 200) {
+
+            if (error.toUpperCase() === 'OK') {
               this.confirmationService.close();
               this.messageService.add({
                 severity: 'success',
                 summary: 'User deleted successfully',
               })
-              this.userService.getUsersList(this.first, this.rows).subscribe(users => {
-                this.users = users;
+              this.userService.getUsersList(this.first, this.rows).subscribe(data => {
+                this.users = data.searchValue;
+                this.totalRecords = data.searchCount
               })
             } else {
               this.messageService.add({
@@ -153,5 +165,9 @@ export class UsersListComponent implements OnInit {
   onRowClick(data: User): void {
     this.selectedUser = data;
   }
-
+  ngOnDestroy(): void {
+    setTimeout(() => {
+      this.sharingData.changeMenuItem([] as MenuItem[])
+    })
+  }
 }

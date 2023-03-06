@@ -1,58 +1,61 @@
-<div id="login-page" style="background-image: url(assets/img/testing_campaign_bg.svg);" >
-<div fxFlex="100%" fxLayout="row" fxLayoutAlign="center center" >
-  <div class="container" fxLayoutAlign="end center" style="margin-right:45px">
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <img src="./assets/img/logo.svg" class="logo">
-      <img src="./assets/img/Frame.svg" class="frame">
-      <img src="./assets/img/team.svg" class="team">
+<div id="login-page" style="background-image: url(assets/img/testing_campaign_bg.svg);">
+  <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center center">
+    <div class="container" fxLayoutAlign="end center" style="margin-right:45px">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <img src="./assets/img/logo.svg" class="logo">
+        <div class="frame"></div>
+        <img src="./assets/img/team.svg" class="team">
+      </div>
+
     </div>
-
-  </div>
-  <div class="container" fxLayoutAlign="start center" style="margin-left:45px">
-    <p-card fxLayoutAlign="start center">
-      <div fxLayout="column" fxLayoutAlign="center center" class="container-form">
-        <div class="container-title">
-          <div class="title"><span style="color:#4C6FBF">Connectez </span> vous<span style="color:#4C6FBF ; border-radius: 100%">. </span> </div>
-        </div>
-        <div fxFlexFill>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div fxLayout="column" fxLayoutAlign="center start" fxFlex="100%">
-
-
-                   <label class="block default-margin">Username</label>
-                  <div class="p-input-icon-left" style="width: 100% ; margin-bottom: 10px">
-                    <i class="pi pi-user"></i>
-                    <input style="width: 100%"
-                           type="text" pInputText
-                           placeholder="Type username"
-                           [class]="valid?'' : 'ng-invalid ng-dirty'"
-                           [formControlName]="'username'">
-                  </div>
+    <div class="container" fxLayoutAlign="start center" style="margin-left:45px">
+      <p-card fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center center" class="container-form">
+          <div class="container-title">
+            <div class="title"><span style="color:#4C6FBF ;font-size: 45px">Connectez </span> vous<span style="color:#4C6FBF ; border-radius: 100%">. </span></div>
+          </div>
+          <div class="loginFailed" *ngIf="errorMessage" fxLayout="row" [fxLayoutGap]="'10px'">
+            <span class="pi pi-times-circle"></span><span> {{errorMessage}}</span>
+          </div>
+          <div fxFlexFill>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div fxLayout="column" fxLayoutAlign="center start" fxFlex="100%">
 
 
-                  <label class="block default-margin">Password</label>
-                  <div class="p-input-icon-left p-input-icon-right" style="width: 100%">
-                    <i class="pi pi-lock"></i><i [class]=" showPassWord? 'pi pi-eye-slash': 'pi pi-eye'" (click)="click($event)"></i>
-                    <input style="width: 100%"
-                           [type]=" showPassWord ? 'text' :'password'"  pInputText
-                           placeholder="Enter password"
-                           [class]="valid? '' : 'ng-invalid ng-dirty'"
-                           [formControlName]="'passWord'"
-                    />
-                  </div>
+                <label class="block default-margin">Username</label>
+                <div class="p-input-icon-left" style="width: 100% ; margin-bottom: 10px">
+                  <i class="pi pi-user"></i>
+                  <input style="width: 100%"
+                         type="text" pInputText
+                         placeholder="Type username"
+                         [class]="valid?'' : 'ng-invalid ng-dirty'"
+                         [formControlName]="'username'">
+                </div>
 
 
-              <p-button   label="Connect" class="button-submit" type="submit"></p-button>
+                <label class="block default-margin">Password</label>
+                <div class="p-input-icon-left p-input-icon-right" style="width: 100%">
+                  <i class="pi pi-lock"></i><i [class]=" showPassWord? 'pi pi-eye-slash': 'pi pi-eye'" (click)="click($event)"></i>
+                  <input style="width: 100%"
+                         [type]=" showPassWord ? 'text' :'password'" pInputText
+                         placeholder="Enter password"
+                         [class]="valid? '' : 'ng-invalid ng-dirty'"
+                         [formControlName]="'passWord'"
+                  />
+                </div>
+
+
+                <p-button label="Connect" class="button-submit" type="submit"></p-button>
 
 
               </div>
 
-          </form>
+            </form>
+
+          </div>
 
         </div>
-
-      </div>
-    </p-card>
+      </p-card>
+    </div>
   </div>
-</div>
 </div>

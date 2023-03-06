@@ -26,7 +26,8 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   rowPerPageOptions = [5, 10, 15, 20, 50, 100];
   ref: DynamicDialogRef | undefined;
 
-  username!: string | null;constructor(private facebookService: FacebookService,
+  username!: string | null;
+  constructor(private facebookService: FacebookService,
               public dialogService: DialogService,
               public router: Router,
               private sharingData: SharingDataService
@@ -39,6 +40,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
     }, 0)
     this.username = localStorage.getItem("username");
     this.facebookService.getLoginStatus();
+    console.log()
     this.facebookService.authenticateUserSubject.subscribe(response => {
       if (response) {
         this.user = response;

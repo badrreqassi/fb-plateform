@@ -1,4 +1,13 @@
 <div id="createAd" fxLayout="column" [fxLayoutGap]="'10px'">
+  <p-confirmDialog #cd [style]="{width: '40vw'}">
+    <ng-template pTemplate="footer">
+      <button type="button" class="p-button-outlined p-button-danger" pButton label="No"
+              (click)="cd.reject()"></button>
+      <button type="button" class="p-button-danger" pButton label="Leave"
+              (click)="cd.accept()"></button>
+    </ng-template>
+  </p-confirmDialog>
+
   <div fxLayout="row" style="width: 100%">
     <div fxFlex="95%" class="title">
       <span class="bold">
@@ -29,7 +38,7 @@
         </div>
 
         <div fxLayout="row" style="width: 100%">
-          <div fxLayout="column"  style="width:calc(60% - 50px) ; margin-right: 50px">
+          <div fxLayout="column" style="width:calc(60% - 50px) ; margin-right: 50px">
             <label class="default-margin">Pour le Créateur <strong style="color: red ">&nbsp;*</strong></label>
             <p-dropdown [options]="compaigns"
                         [formControlName]="'campaign'"
@@ -39,7 +48,7 @@
                         optionLabel="name"></p-dropdown>
           </div>
           <!--slider-->
-          <div fxLayout="column" style="width: calc(60% - 50px)"  fxLayoutAlign="center center" [fxLayoutGap]="'10px'">
+          <div fxLayout="column" style="width: calc(60% - 50px)" fxLayoutAlign="center center" [fxLayoutGap]="'10px'">
             <div fxLayout="row" style="width: 100%;" [fxLayoutGap]="'8px'" fxLayoutAlign="start center" class="default-margin">
               <p-checkbox value="true" [binary]="true" (onChange)="activeBugetManul($event)"></p-checkbox>
               <span>Ajuster le montant à déposer </span> <span class="bold">{{ beanAds.value.budget }} €</span>
@@ -59,7 +68,7 @@
         </div>
         <!--  upload-->
         <div fxLayout="row" style="width: 100%; height: 200px" class="default-margin">
-          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px); margin-right: 50px" >
+          <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px); margin-right: 50px">
             <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
               <label fxFlex="70%" class="default-margin"> Importez vos videos <strong style="color: red ">&nbsp;*</strong> </label>
               <div fxFlex="30%" fxLayoutAlign="end center" class="message default-margin"> jusqu'à 5 videos</div>
@@ -74,7 +83,7 @@
               <ng-template let-file pTemplate="file">
               </ng-template>
               <ng-template pTemplate="content" let-files>
-                <div style="max-height: 150px; overflow: auto" class="default-margin" >
+                <div style="max-height: 150px; overflow: auto" class="default-margin">
                   <div *ngIf="uploadedFilesVideo.length>0 else video">
                     <app-show-upload-files [files]="uploadedFilesVideo" (onDelete)="setMinBudgetPerAd()"></app-show-upload-files>
                   </div>
@@ -89,7 +98,7 @@
 
           <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px);">
             <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
-              <label fxFlex="65%" class="default-margin"> Importez vos thumbnails  </label>
+              <label fxFlex="65%" class="default-margin"> Importez vos thumbnails </label>
               <div fxFlex="35%" fxLayoutAlign="end center" class="message default-margin"> jusqu'à 2 thumbnails</div>
             </div>
             <p-fileUpload
@@ -103,8 +112,8 @@
               <ng-template let-file pTemplate="file">
               </ng-template>
               <ng-template pTemplate="content" let-files>
-                <div style="max-height: 150px; overflow: auto" class="default-margin" >
-                  <div *ngIf="uploadedFiles.length>0 else thumbnail" >
+                <div style="max-height: 150px; overflow: auto" class="default-margin">
+                  <div *ngIf="uploadedFiles.length>0 else thumbnail">
                     <app-show-upload-files [uploadTypeIcon]="'pi pi-image'" [files]="uploadedFiles" (onDelete)="setMinBudgetPerAd()"></app-show-upload-files>
                   </div>
                   <ng-template #thumbnail>
@@ -142,7 +151,7 @@
             </div>
             <div fxLayout="column" style="width:calc(60% - 50px);">
               <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
-                <label fxFlex="70%" > Votre titres </label>
+                <label fxFlex="70%"> Votre titres </label>
                 <div fxFlex="30%" fxLayoutAlign="end center" class="message"> jusqu'à 5 titres</div>
               </div>
               <div style="max-height: 150px; overflow: auto">
@@ -165,7 +174,7 @@
 
         <!-- creer-->
 
-        <div fxLayout="column" style="width:100% " class="default-margin" fxLayoutAlign="center center">
+        <div fxLayout="column" style="width:100% "  fxLayoutAlign="center center">
           <button pButton style="width: 35%;" type="submit" label="Créer" class="p-button-rounded" [loading]="isLoading"></button>
         </div>
 

@@ -1,6 +1,7 @@
 <div id="users-list">
+  <p-toast></p-toast>
   <div fxFlex="100" fxLayout="column">
-    <div fxFlex="100" fxLayoutAlign="end center" style="margin: 20px">
+    <div fxFlex="100" fxLayoutAlign="end center" style="margin: 10px">
       <button pButton class="p-button-outlined create-btn" label="New User" icon="pi pi-plus"
               (click)="showCreationDialog()"></button>
     </div>
@@ -9,7 +10,7 @@
                [value]="users"
                dataKey="id"
                [rowHover]="true"
-               styleClass="p-datatable-gridlines users-table"
+               styleClass="p-datatable-gridlines users-table datatable-border"
                [(first)]="first"
                [(rows)]="rows"
                [showCurrentPageReport]="true"
@@ -18,7 +19,7 @@
                [paginator]="true"
                stateStorage="local"
                currentPageReportTemplate="{first} - {last} of {totalRecords}"
-               scrollHeight="500px"
+               scrollHeight="478px"
                [scrollable]="true"
       >
         <ng-template pTemplate="caption">
@@ -67,16 +68,20 @@
               {{ user.email }}
             </td>
             <td style="min-width: 200px; max-width: 200px">
-              <span *ngFor="let role of user.roles">
-                <ng-container [ngSwitch]="role.name">
+              <div *ngFor="let role of user.roles" fxLayout="row">
+                <ng-container [ngSwitch]="role">
                   <ng-template [ngSwitchCase]="'ADMIN'">
-                    <p-badge severity="danger" [value]="role.name"></p-badge>
+
+                  <p-badge severity="danger" [value]="role"></p-badge>
+
                   </ng-template>
                   <ng-template [ngSwitchCase]="'USER'">
-                    <p-badge severity="success" [value]="role.name"></p-badge>
+
+                    <p-badge severity="success" [value]="role"></p-badge>
+
                   </ng-template>
                 </ng-container>
-              </span>
+              </div>
             </td>
             <td style="min-width: 100px; max-width: 100px">
               <div fxFlexFill fxLayout="row" fxLayoutAlign="space-around center">

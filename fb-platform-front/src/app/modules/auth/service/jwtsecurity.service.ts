@@ -14,28 +14,31 @@ export class JWTsecurityService {
               private router: Router) {
   }
 
-  authenticate(username: string, password: string) {
-      this.http.post<any>("http://localhost:8080/api/auth/token", {username, password}).subscribe(response => {
-      localStorage.setItem("token", response?.token);
-      localStorage.setItem("roles", response?.roles);
-      localStorage.setItem("username", response?.username);
-      localStorage.setItem("userId", response?.userId);
-       this.messageService.add({
-         severity: 'success',
-         summary: 'Authenticated Successfully'
-       })
-      const admin = (response.roles as string[]).find(role => role === 'ADMIN');
-      if (admin) {
-        this.router.navigate(['admin']);
-      } else {
-        this.router.navigate(['client']);
-      }
-    }, () => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Failed to authenticate'
-      })
-    })
+  authenticate(username: string, password: string): Observable<any> {
+   return  this.http.post<any>("http://localhost:8080/api/auth/token", {username, password}).pipe(
+     map( response => {
+       {
+         if (response) {
+           console.log(response)
+           localStorage.setItem("token", response?.token);
+           localStorage.setItem("roles", response?.roles);
+           localStorage.setItem("username", response?.username);
+           localStorage.setItem("userId", response?.userId);
+           localStorage.setItem("logo", response?.firstName.charAt(0) + response?.lastName.charAt(0))
+
+           const admin = (response.roles as string[]).find(role => role === 'ADMIN');
+           if (admin) {
+             this.router.navigate(['admin']);
+           } else {
+             this.router.navigate(['client']);
+           }
+           return 'Authenticated Successfully'
+         } else {
+           return 'Failed to authenticate';
+         }
+       }
+     })
+   );
   }
 
 }

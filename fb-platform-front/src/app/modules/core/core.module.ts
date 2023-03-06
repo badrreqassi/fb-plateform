@@ -14,6 +14,9 @@ import {InputTextModule} from "primeng/inputtext";
 import {DividerModule} from "primeng/divider";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import { ChangePasswordComponent } from './shared/change-password/change-password.component';
+import {AvatarModule} from "primeng/avatar";
+import {ClientsModule} from "./clients/clients.module";
+import {MessageService} from "primeng/api";
 
 
 @NgModule({
@@ -35,7 +38,11 @@ import { ChangePasswordComponent } from './shared/change-password/change-passwor
     DividerModule,
     ButtonModule,
     PasswordModule,
+    AvatarModule,
+    ClientsModule,
   ],
+  providers :[MessageService]
+
 })
 export class CoreModule {
 }

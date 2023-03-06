@@ -5,13 +5,13 @@
         <span class="bold"><span> List des ads  </span> {{name}} </span>
       </div>
     </div>
-    <div fxLayout="row" [fxLayoutGap]="'10px'">
-      <div class="adSetList-list" fxFlex="calc(70%-10px)">
+    <div fxLayout="row" [fxLayoutGap]="'21px'">
+      <div class="adSetList-list" fxFlex="calc(70%-21px)">
         <p-table #dt
                  [value]="adsList"
                  [columns]="cols"
                  [rowHover]="true"
-                 styleClass="p-datatable-gridlines"
+                 styleClass="p-datatable-gridlines datatable-border"
                  [(first)]="first"
                  [(rows)]="rows"
                  [reorderableColumns]="true"
@@ -26,7 +26,7 @@
                  stateStorage="local"
                  dataKey="id"
                  currentPageReportTemplate="{first} - {last} sur {totalRecords}"
-                 scrollHeight="450px"
+                 scrollHeight="475px"
                  [scrollable]="true"
         >
           <ng-template pTemplate="caption">
@@ -54,9 +54,17 @@
               <td style="max-width: 70px">
                 <p-inputSwitch [trueValue]="rowData.active"></p-inputSwitch>
               </td>
-              <td *ngFor="let col of columns" style="width: 200px">
-                {{rowData[col.field]}}
-              </td>
+              <ng-container *ngFor="let col of columns">
+                <ng-container [ngSwitch]="col.field">
+                  <td *ngSwitchCase="'status'" style="width: 200px ; justify-content: center">
+                    <app-status [value]="rowData[col.field]"></app-status>
+                  </td>
+                  <td *ngSwitchDefault style="width: 200px">
+                    {{rowData[col.field]}}
+                  </td>
+                </ng-container>
+              </ng-container>
+
             </tr>
 
           </ng-template>
@@ -67,27 +75,30 @@
           </ng-template>
         </p-table>
       </div>
-      <div fxFlex="calc(30%-10px)" *ngIf="openChart">
+      <div fxFlex="calc(30%-21px)" *ngIf="openChart">
         <p-card>
           <div fxLayout="column" fxLayoutAlign="center center" [fxLayoutGap]="'5px'" fxFlex="100%">
-            <div style="width: 100% ; height: 24px"  fxLayoutAlign="end center">  <span class="pi pi-times" style="cursor: pointer" (click)="close()"> </span></div>
-            <div class="tilte">
-              <div><strong> Titre selectione - </strong> {{ titre }}</div>
-              <span> IN PROGRESS </span>
+
+            <div class="tilte" fxLayout="row" >
+              <div fxLayout="column" fxLayoutAlign="start center" fxFlex="calc(100%-26px)">
+              <div><strong> Titre selectione - </strong> {{ this.selectItem.title }}   </div>
+                <app-status [value]="selectItem.status"></app-status>
+
+              </div>
+              <div style="height: 24px"  fxLayoutAlign="end center" fxFlex="26px">
+                <span class="pi pi-times" style="cursor: pointer" (click)="close()"> </span></div>
+
             </div>
             <div class="video">
               <div *ngIf="videoSelection else video">
                 <video></video>
               </div>
               <ng-template #video>
-                <app-content-empty [message]="'No video'" [height]="'150'"></app-content-empty>
+                <app-content-empty [message]="'No video'" [height]="'187'"></app-content-empty>
               </ng-template>
             </div>
-            <div class="chart"  >
+            <div class="chart">
               <canvas [id]="'MyChart'"></canvas>
-              <!--               chart primeng
-                            <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
-              -->
             </div>
           </div>
         </p-card>

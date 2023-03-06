@@ -1,9 +1,8 @@
 <div  id="main" style="background-image: url(assets/img/testing_campaign_bg.svg);" fxLayout="column">
   <app-top-menu></app-top-menu>
   <div  fxLayout="column" fxLayoutAlign="space-around center" style="height: 100%"  >
-    <div fxLayoutAlign="center center" fxFlexFill>
+    <div fxLayoutAlign="center start" fxFlexFill>
       <p-card class="card" fxFlex="100%" >
-        <p-toast></p-toast>
         <div fxLayout="column" [fxLayoutGap]="'10px'">
              <div *ngIf="items.length>1">
               <p-breadcrumb [model]="items" [home]="home" (onItemClick)="onSelectItem($event)" ></p-breadcrumb>

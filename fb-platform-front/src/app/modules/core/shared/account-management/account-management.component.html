@@ -50,7 +50,7 @@
         </div>
       </form>
     </div>
-    <div class="facebook-info" fxFlex="50">
+    <div class="facebook-info" fxFlex="50" *ngIf="connected !='connected' else isConnected">
       <h2><i class="pi pi-facebook"></i> Facebook Account</h2>
       <div class="connect-facebook" fxLayout="column" fxLayoutGap="20px">
         <div fxFlex class="connect-btn">
@@ -59,7 +59,16 @@
       </div>
     </div>
   </div>
+  <ng-template #isConnected>
+    <div class="facebook-info" fxFlex="50">
+      <div class="connect-facebook" fxLayout="row" style="padding: 15px">
+        <app-connected-account [status]="connected" [userName]="facebookUser" fxFlexFill></app-connected-account>
+      </div>
+
+    </div>
+
+  </ng-template>
   <div class="submit-section" fxLayoutAlign="center space-around">
-    <button pButton class="submit-btn" icon="pi pi-save" label="Save" (click)="onSubmit()"></button>
+    <button pButton class="submit-btn" label="Save" (click)="onSubmit()"></button>
   </div>
 </div>

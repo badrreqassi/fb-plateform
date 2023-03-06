@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {MenuItem} from "primeng/api";
 import {Router} from "@angular/router";
@@ -11,8 +11,9 @@ export class SharingDataService {
   items = this.menuList.asObservable()
   listItemMenuCopy: MenuItem[] = [];
 
-  constructor() {
+  constructor(public  route :Router) {
   }
+
 
   changeMenuItem(menuItems: MenuItem[]) {
     this.listItemMenuCopy = menuItems
@@ -27,5 +28,7 @@ export class SharingDataService {
     this.changeMenuItem(this.listItemMenuCopy);
 
   }
+
+
 
 }
