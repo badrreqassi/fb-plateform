@@ -117,7 +117,11 @@ export class CreateAdsComponent implements OnInit {
         .subscribe({
           next: (data) => {
             this.isLoading = false;
-            console.log(data)
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Ads created Successfully'
+            })
+            console.log(data);
           },
           error: (err) => {
             this.messageService.add({
