@@ -3,9 +3,8 @@ import {FacebookService} from "../../../services/facebook.service";
 import {Campaign} from "../../../../../models/campaign";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CreateAdsComponent} from "../create-ads/create-ads.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {SharingDataService} from "../../../services/sharing-data.service";
-import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-list-creature',
@@ -26,7 +25,9 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   rowPerPageOptions = [5, 10, 15, 20, 50, 100];
   ref: DynamicDialogRef | undefined;
 
-  username!: string | null;constructor(private facebookService: FacebookService,
+  username!: string | null;
+
+  constructor(private facebookService: FacebookService,
               public dialogService: DialogService,
               public router: Router,
               private sharingData: SharingDataService
@@ -42,7 +43,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
     this.facebookService.authenticateUserSubject.subscribe(response => {
       if (response) {
         this.user = response;
-        this.facebookService.getAllCompaigns().subscribe(
+        this.facebookService.getAllCampaigns().subscribe(
           response => {
             this.creators = response;
             this.totalRecords = this.creators.length;
@@ -68,6 +69,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   onLogin() {
     this.facebookService.logWithFacebook();
   }
+
   show() {
     this.ref = this.dialogService.open(CreateAdsComponent, {
       width: '60%',
@@ -86,6 +88,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
 
 
   NavigateIntoListAdSet(creator: Campaign): void {
+    console.log(creator)
     this.sharingData.changeMenuItem([
       {id: '1', label: 'listCeateur', routerLink: '/client/campaignsTesting'},
       {id: creator.id.toString(), label: creator.name, routerLink: '/client/adSetList', queryParams: {id: creator.id}}])

@@ -15,6 +15,7 @@ import {JwtInterceptor} from "./interceptors/jwt.interceptor";
 import {MessageService} from "primeng/api";
 import {ErrorInterceptor} from "./interceptors/error.interceptor";
 import {ToastModule} from "primeng/toast";
+import {DialogService} from "primeng/dynamicdialog";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {ToastModule} from "primeng/toast";
   providers: [
     FacebookService,
     MessageService,
+    DialogService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

@@ -48,7 +48,7 @@ export class CreateAdsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.facebookApi.getAllCompaigns().subscribe((data) => {
+    this.facebookApi.getAllCampaigns().subscribe((data) => {
       this.compaigns = data;
     });
   }

@@ -1,13 +1,11 @@
-import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, Routes} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {AdSet} from "../../../../../models/adSet";
-import {CampaignStatusEnum} from "../../../../../Enums/campaign-status.enum";
-import {StatisticsResults} from "../../../../../models/StatisticsResults";
 import {CreateAdsComponent} from "../create-ads/create-ads.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MenuItem} from "primeng/api";
-import {Campaign} from "../../../../../models/campaign";
 import {SharingDataService} from "../../../services/sharing-data.service";
+import {FacebookService} from "../../../services/facebook.service";
 
 
 @Component({
@@ -16,26 +14,7 @@ import {SharingDataService} from "../../../services/sharing-data.service";
   styleUrls: ['./ad-set-list.component.scss']
 })
 export class AdSetListComponent implements OnInit {
-  adSetList: AdSet[] = [{
-    adSetId: '1274118596',
-    ads: [],
-    name: 'ads Test 1',
-    cimpaignId: '123',
-    status: CampaignStatusEnum.ACTIVE,
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }];
+  adSetList: AdSet[] = [];
   totalRecords = 0;
   first = 0;
   rows = 10;
@@ -43,24 +22,25 @@ export class AdSetListComponent implements OnInit {
   cols = [
     {field: 'name', header: 'name'},
     {field: 'status', header: 'Diffusion'},
-    {field: 'budget', header: 'Montant dépensé'},
-    {field: 'cost_per_results', header: 'Cout par résultat'},
-    {field: 'avg_vid_play_time', header: 'Durée moy lecture vid'},
-    {field: 'video_playback_25', header: 'Lecture video 25%'},
-    {field: 'video_playback_50', header: 'Lecture video 50%'},
-    {field: 'video_playback_75', header: 'Lecture video 75%'},
-    {field: 'video_playback_95', header: 'Lecture video 95%'},
-    {field: 'engagement_rate', header: 'Taux d\'engagement'},
-    {field: 'interaction_page', header: 'Intération avec page'},
+    {field: 'spend', header: 'Money spent'},
+    {field: 'cost_per_results', header: 'Cost per result'},
+    {field: 'avg_vid_play_time', header: 'AVG video playing time'},
+    {field: 'video_playback_25', header: 'Video playing 25%'},
+    {field: 'video_playback_50', header: 'Video playing 50%'},
+    {field: 'video_playback_75', header: 'Video playing 75%'},
+    {field: 'video_playback_95', header: 'Video playing 95%'},
+    {field: 'engagement_rate', header: 'Engagement rate'},
+    {field: 'interaction_page', header: 'Page interaction'},
     {field: 'cpm', header: 'CPM'},
-    {field: 'Impression', header: 'Impression'},
-    {field: '01/01/2023', header: 'Date de création'},
+    {field: 'Impression', header: 'Impressions'},
+    {field: 'created_time', header: 'Creation Date'},
   ];
   ref: DynamicDialogRef | undefined;
-  adSetId = '';
+  campaignId = '';
   name = ''
 
   constructor(private activatedRoute: ActivatedRoute,
+              public facebookService: FacebookService,
               public dialogService: DialogService,
               private sharingData: SharingDataService,
               private activatedroute: ActivatedRoute,
@@ -68,14 +48,14 @@ export class AdSetListComponent implements OnInit {
   ) {
     this.sharingData.items.subscribe((data) => {
       this.items = data;
-
     })
   }
 
 
   ngOnInit(): void {
     this.activatedroute.queryParams.subscribe((data) => {
-      this.adSetId = data['id']
+      this.campaignId = data['id'];
+      this.adSetList = this.facebookService.getAdSetsByCampaignId(this.campaignId);
     })
     if (this.items.length === 0) {
       this.items = JSON.parse(localStorage.getItem('menu') as string);
@@ -83,7 +63,7 @@ export class AdSetListComponent implements OnInit {
         this.sharingData.changeMenuItem(this.items)
       }, 0)
     }
-    this.name = (this.items.find(el => el.id === this.adSetId)?.label) as string
+    this.name = (this.items.find(el => el.id === this.campaignId)?.label) as string
 
   }
 
@@ -101,15 +81,15 @@ export class AdSetListComponent implements OnInit {
   NavigateIntoListAds(adSet: AdSet): void {
 
     this.items.push({
-        id: adSet.adSetId.toString(),
+        id: adSet.id,
         label: adSet.name,
         routerLink: '/client/adsList',
-        queryParams: {id: adSet.adSetId},
+        queryParams: {id: adSet.id},
       }
     );
     this.sharingData.changeMenuItem(this.items)
 
-    this.router.navigate(['/client/adsList'], {queryParams: {id: adSet.adSetId}});
+    this.router.navigate(['/client/adsList'], {queryParams: {id: adSet.id}});
 
   }
 
