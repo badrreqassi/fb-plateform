@@ -56,6 +56,9 @@ export class AdSetListComponent implements OnInit {
     this.activatedroute.queryParams.subscribe((data) => {
       this.campaignId = data['id'];
       this.adSetList = this.facebookService.getAdSetsByCampaignId(this.campaignId);
+      setTimeout(() => {
+        this.totalRecords = this.adSetList.length;
+      }, 500);
     })
     if (this.items.length === 0) {
       this.items = JSON.parse(localStorage.getItem('menu') as string);

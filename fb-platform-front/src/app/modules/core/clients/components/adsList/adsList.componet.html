@@ -36,11 +36,6 @@
           </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
-
-              <th pReorderableColumn
-                  pResizableColumn style="max-width: 70px">
-                Actif
-              </th>
               <th *ngFor="let col of columns"
                   pReorderableColumn
                   pResizableColumn
@@ -51,18 +46,22 @@
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
-              <td style="max-width: 70px">
-                <p-inputSwitch [trueValue]="rowData.active"></p-inputSwitch>
-              </td>
-              <td *ngFor="let col of columns" style="width: 200px">
-                {{rowData[col.field]}}
-              </td>
+              <ng-container *ngFor="let col of columns">
+                <ng-container [ngSwitch]="col.field">
+                  <td *ngSwitchCase="'created_time'" style="width: 200px">
+                    {{rowData[col.field] | date: 'YYYY-MM-dd HH:mm:ss'}}
+                  </td>
+                  <td [title]="rowData[col.field]" *ngSwitchDefault style="width: 200px">
+                    {{rowData[col.field]}}
+                  </td>
+                </ng-container>
+              </ng-container>
             </tr>
 
           </ng-template>
           <ng-template pTemplate="emptymessage">
             <tr>
-              <td colspan="8">No customers found.</td>
+              <td colspan="8">No ads found.</td>
             </tr>
           </ng-template>
         </p-table>
@@ -72,8 +71,8 @@
           <div fxLayout="column" fxLayoutAlign="center center" [fxLayoutGap]="'5px'" fxFlex="100%">
             <div style="width: 100% ; height: 24px"  fxLayoutAlign="end center">  <span class="pi pi-times" style="cursor: pointer" (click)="close()"> </span></div>
             <div class="tilte">
-              <div><strong> Titre selectione - </strong> {{ titre }}</div>
-              <span> IN PROGRESS </span>
+              <div><strong> Selected Title - </strong> {{ title }}</div>
+              <span> {{ status }} </span>
             </div>
             <div class="video">
               <div *ngIf="videoSelection else video">

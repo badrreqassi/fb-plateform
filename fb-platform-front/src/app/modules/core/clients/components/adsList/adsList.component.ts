@@ -5,6 +5,7 @@ import {SharingDataService} from "../../../services/sharing-data.service";
 import {Ad} from "../../../../../models/ad";
 import Chart, {ChartType} from 'chart.js/auto';
 import {CampaignStatusEnum} from "../../../../../Enums/campaign-status.enum";
+import {FacebookService} from "../../../services/facebook.service";
 
 @Component({
   selector: 'app-ads-list',
@@ -17,146 +18,29 @@ export class AdsListComponent implements OnInit {
   rows = 10;
   items: MenuItem[] = [];
   cols = [
-    {field: 'name', header: 'Name ads '},
+    {field: 'name', header: 'Ad name '},
     {field: 'title', header: 'Title'},
     {field: 'status', header: 'Diffusion'},
-    {field: 'budget', header: 'Montant dépensé'},
-    {field: 'cost_per_results', header: 'Cout par résultat'},
-    {field: 'avg_vid_play_time', header: 'Durée moy lecture vid'},
-    {field: 'video_playback_25', header: 'Lecture video 25%'},
-    {field: 'video_playback_50', header: 'Lecture video 50%'},
-    {field: 'video_playback_75', header: 'Lecture video 75%'},
-    {field: 'video_playback_95', header: 'Lecture video 95%'},
-    {field: 'engagement_rate', header: 'Taux d\'engagement'},
-    {field: 'interaction_page', header: 'Intération avec page'},
+    {field: 'spent', header: 'Money spent'},
+    {field: 'cost_per_results', header: 'Cost per result'},
+    {field: 'avg_vid_play_time', header: 'AVG video playing time'},
+    {field: 'video_playback_25', header: 'Video playing 25%'},
+    {field: 'video_playback_50', header: 'Video playing 50%'},
+    {field: 'video_playback_75', header: 'Video playing 75%'},
+    {field: 'video_playback_95', header: 'Video playing 95%'},
+    {field: 'engagement_rate', header: 'Engagement rate'},
+    {field: 'interaction_page', header: 'Page interaction'},
     {field: 'cpm', header: 'CPM'},
-    {field: 'couverture', header: 'Impression'},
-    {field: 'impression', header: 'Date de création'},
+    {field: 'impressions', header: 'Impressions'},
+    {field: 'created_time', header: 'Creation Date'},
   ];
-  adsList: Ad[] = [{
-    name: 'ads Test 1 V1',
-    status: CampaignStatusEnum.ACTIVE,
-    title: 'Titre 1 ',
-    id: '18745242',
-    thumbnails: 'thumbnails 1',
-    video: 'video 1',
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }, {
-    name: 'ads Test 1 V1',
-    status: CampaignStatusEnum.ACTIVE,
-    title: 'Titre 2 ',
-    id: '187452472',
-    thumbnails: 'thumbnails 1',
-    video: 'video 1',
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }, {
-    name: 'ads Test 1 V2',
-    status: CampaignStatusEnum.ACTIVE,
-    title: 'Titre 1 ',
-    id: '1845242',
-    thumbnails: 'thumbnails 1',
-    video: 'video 1',
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }, {
-    name: 'ads Test 1 V3',
-    status: CampaignStatusEnum.ACTIVE,
-    title: 'Titre 1 ',
-    id: '1874442',
-    thumbnails: 'thumbnails 1',
-    video: 'video 1',
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }, {
-    name: 'ads Test 1 V3',
-    status: CampaignStatusEnum.ACTIVE,
-    title: 'Titre 2 ',
-    id: '182245242',
-    thumbnails: 'thumbnails 1',
-    video: 'video 1',
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }, {
-    name: 'ads Test 1 V3',
-    status: CampaignStatusEnum.ACTIVE,
-    title: 'Titre 3 ',
-    id: '1871242',
-    thumbnails: 'thumbnails 1',
-    video: 'video 1',
-    budget: 100,
-    couverture: 'couverture',
-    cpm: 'cpm',
-    avg_vid_play_time: 15,
-    cost_per_results: 7,
-    engagement_rate: 'engagement_rate',
-    impression: 'impression',
-    interaction_page: 'interaction_page',
-    video_playback_25: 15,
-    video_playback_50: 44,
-    video_playback_75: 42,
-    video_playback_95: 12
-
-  }];
+  adsList: Ad[] = [];
 
   videoSelection: any;
-  titre = 'Eternal Sunshine of the Spotless Mind';
+  title = 'Eternal Sunshine of the Spotless Mind';
+  status: any;
+
+  selectedAd = {} as Ad;
 
   // chart primeng
   /*basicData = {
@@ -208,10 +92,11 @@ export class AdsListComponent implements OnInit {
   private chart!: Chart<ChartType, string[], unknown> ;
 
   name: string = '';
-  adId: string = '';
+  adSetId: string = '';
   openChart: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
+              private facebookService: FacebookService,
               private sharingData: SharingDataService,
               private activatedroute: ActivatedRoute,
   ) {
@@ -219,7 +104,11 @@ export class AdsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedroute.queryParams.subscribe((data) => {
-      this.adId = data['id']
+      this.adSetId = data['id']
+      this.adsList = this.facebookService.getAdsByAdSetId(this.adSetId);
+      setTimeout(() => {
+        this.totalRecords = this.adsList.length;
+      }, 500);
     })
     if (this.items.length === 0) {
       this.items = JSON.parse(localStorage.getItem('menu') as string);
@@ -227,13 +116,14 @@ export class AdsListComponent implements OnInit {
         this.sharingData.changeMenuItem(this.items)
       }, 0)
     }
-    this.name = (this.items.find(el => el.id === this.adId)?.label) as string
-
-
+    this.name = (this.items.find(el => el.id === this.adSetId)?.label) as string
   }
 
 
-  onRowSelect($event: any): void {
+  onRowSelect(event: any): void {
+    this.selectedAd = event.data;
+    this.title = event.data?.title;
+    this.status = event.data?.status;
      setTimeout(() => {
        this.chart = new Chart("MyChart", {
          type: 'scatter', //this denotes tha type of chart
@@ -254,8 +144,6 @@ export class AdsListComponent implements OnInit {
                  // @ts-ignore
                  return value < 2000 ? 'red' :  // draw negative values in red
                    'green'   // else, alternate values in blue and green
-
-
                },
                backgroundColor: function (context) {
                  const index = context.dataIndex;
@@ -278,7 +166,7 @@ export class AdsListComponent implements OnInit {
            plugins: {
              title: {
                display: true,
-               text: 'Statictic of Ads' + this.titre
+               text: 'Statictic of Ads' + this.title
              },
              tooltip: {
                callbacks: {
