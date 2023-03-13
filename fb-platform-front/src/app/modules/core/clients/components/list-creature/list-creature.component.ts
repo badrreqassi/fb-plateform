@@ -40,7 +40,6 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
     }, 0)
     this.username = localStorage.getItem("username");
     this.facebookService.getLoginStatus();
-    console.log()
     this.facebookService.authenticateUserSubject.subscribe(response => {
       if (response) {
         this.user = response;
@@ -70,6 +69,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   onLogin() {
     this.facebookService.logWithFacebook();
   }
+
   show() {
     this.ref = this.dialogService.open(CreateAdsComponent, {
       width: '60%',
@@ -88,6 +88,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
 
 
   NavigateIntoListAdSet(creator: Campaign): void {
+    console.log(creator)
     this.sharingData.changeMenuItem([
       {id: '1', label: 'listCeateur', routerLink: '/client/campaignsTesting'},
       {id: creator.id.toString(), label: creator.name, routerLink: '/client/adSetList', queryParams: {id: creator.id}}])
