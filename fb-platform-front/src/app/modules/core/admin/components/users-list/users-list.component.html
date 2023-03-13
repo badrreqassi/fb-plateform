@@ -1,10 +1,14 @@
 <div id="users-list">
   <p-toast></p-toast>
   <div fxFlex="100" fxLayout="column">
-    <div fxFlex="100" fxLayoutAlign="end center" style="margin: 10px">
-      <button pButton class="p-button-outlined create-btn" label="New User" icon="pi pi-plus"
+    <div fxFlex="100" fxLayoutAlign="start center" style="margin-bottom: 10px">
+       <div class="header-title" fxFlex="90%">
+      <strong class="header-title">Manage </strong>List Users
+    </div>
+      <button fxFlex="10%" pButton class="p-button-outlined create-btn" label="New User" icon="pi pi-plus"
               (click)="showCreationDialog()"></button>
     </div>
+
     <div fxFlex="100">
       <p-table #dt
                [value]="users"

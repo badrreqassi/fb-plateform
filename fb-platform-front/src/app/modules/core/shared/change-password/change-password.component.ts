@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../admin/services/user.service";
 import {MenuItem, MessageService} from "primeng/api";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-change-password',
@@ -17,6 +18,7 @@ export class ChangePasswordComponent implements OnInit {
   });
   constructor(private userService: UserService,
               private messageService: MessageService,
+              private  router :Router
               ) { }
 
   ngOnInit(): void {
@@ -45,7 +47,9 @@ export class ChangePasswordComponent implements OnInit {
               severity: 'success',
               summary: 'Password updated successfully!'
             })
-          }, () => {
+            this.router.navigate(['/my-account'])
+          }, (er) => {
+            console.log(er)
             this.messageService.add({
               severity: 'error',
               summary: 'Failed to update password!'

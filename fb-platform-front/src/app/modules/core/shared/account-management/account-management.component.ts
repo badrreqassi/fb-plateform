@@ -23,8 +23,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     firstName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
-   connected = '';
-   facebookUser!: FacebookUser ;
+  connected = '';
+  facebookUsername = '';
 
   constructor(private userService: UserService,
               private messageService: MessageService,
@@ -35,9 +35,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.facebookUser = this.faceBookService.facebookUser;
-    console.log( this.faceBookService.facebookUser);
-    this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string).status;
+    this.facebookUsername = localStorage.getItem('userNameFacebook') as string;
+    this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string)?.status;
     const userId = localStorage.getItem('userId');
     if (userId && !isNaN(+userId)) {
       this.userService.getUserById(+userId).subscribe(response => {
@@ -52,6 +51,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     }
     setTimeout(() => {
       this.sharingData.changeMenuItem([{id: '123456789', label: 'Home', routerLink: '/client/campaignsTesting'}, {label: 'Account'}] as MenuItem[])
+
     })
 
 
@@ -90,7 +90,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
   }
 
   onLogin() {
-    this.faceBookService.logWithFacebook();
+  this.faceBookService.logWithFacebook();
+    console.log('logOut');
 
   }
 

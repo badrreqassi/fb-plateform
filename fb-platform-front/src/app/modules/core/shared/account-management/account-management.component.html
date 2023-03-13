@@ -1,7 +1,7 @@
 <div id="my-account">
   <div>
     <div fxFlex="100">
-      <span fxFlex="85" class="account-title">Manage your account.</span>
+      <span fxFlex="85" class="account-title  header-title"> <strong class="header-title">Manage</strong>  your account.</span>
       <div fxFlex="15" fxLayoutAlign="end center">
         <button pButton type="button" label="Change Password" routerLink="/change-password" class="p-button-secondary"></button>
       </div>
@@ -62,7 +62,7 @@
   <ng-template #isConnected>
     <div class="facebook-info" fxFlex="50">
       <div class="connect-facebook" fxLayout="row" style="padding: 15px">
-        <app-connected-account [status]="connected" [userName]="facebookUser" fxFlexFill></app-connected-account>
+        <app-connected-account [status]="connected" [userName]="facebookUsername"  (onClickLogOut)="onLogin()"  fxFlexFill></app-connected-account>
       </div>
 
     </div>

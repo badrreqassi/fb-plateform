@@ -40,7 +40,8 @@ export class TopMenuComponent implements OnInit {
           {
             label: 'Change password',
             icon: 'pi pi-lock',
-            routerLink: '/change-password'
+            routerLink: '/change-password',
+            visible: false
           },
           {
             label: 'Logout',

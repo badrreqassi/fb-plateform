@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-connected-account',
@@ -7,7 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ConnectedAccountComponent implements OnInit {
   @Input() status!:string ;
-  @Input() userName!:any;
+  @Input() userName = '';
+  @Output() onClickLogOut : EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -15,4 +16,7 @@ export class ConnectedAccountComponent implements OnInit {
     console.log(this.userName)
   }
 
+  onLogOut() {
+    this.onClickLogOut.emit(true);
+  }
 }

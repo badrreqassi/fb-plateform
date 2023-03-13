@@ -79,6 +79,7 @@ export class FacebookService {
         this.facebookUser.id = response?.id;
         this.facebookUser.name = response?.name;
         this.facebookUser.adAccounts = response?.adaccounts.data;
+       localStorage.setItem('userNameFacebook',response?.name);
         this.authenticateUserSubject.next(response);
       }
     });
