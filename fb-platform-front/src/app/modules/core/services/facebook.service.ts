@@ -7,6 +7,7 @@ import {Campaign} from "../../../models/campaign";
 import {HttpClient} from "@angular/common/http";
 import { CampaignStatusEnum } from 'src/app/Enums/campaign-status.enum';
 import Combination from 'src/app/models/Combination';
+import {AdSet} from "../../../models/adSet";
 
 let PERMISSION_SCOPES = 'public_profile, pages_show_list,business_management, ads_management,ads_read,publish_video';
 
@@ -111,6 +112,35 @@ export class FacebookService {
     return concat(...observables).pipe(
       reduce((all, res: { data: Campaign[] }) => all.concat(res.data), [] as Campaign[])
     );
+  }
+
+  getAdSetsByCampaignId(campaignId: string) : any[] {
+    let adSets: any[] = [];
+    FB.api(`/${campaignId}?fields=id ,name, adsets{id, name, status, effective_status, created_time}`, (response: any) => {
+      response.adsets.data.forEach((adset: any) => {
+        let adSet = {
+          id: adset?.id,
+          name: adset?.name,
+          status: adset?.effective_status,
+          created_time: adset?.created_time
+        } as AdSet;
+        FB.api(`/${adset?.id}/insights?fields=spend, video_avg_time_watched_actions, video_p25_watched_actions, video_p50_watched_actions, video_p75_watched_actions, video_p95_watched_actions, frequency,cpm, interactive_component_tap,impressions & date_preset = data_maximum`, (response: any) => {
+          adSet.spend = response.data?.spend
+          adSet.avg_vid_play_time = response.data?.video_avg_time_watched_actions;
+          adSet.video_playback_25 = response.data?.video_p25_watched_actions;
+          adSet.video_playback_50 = response.data?.video_p50_watched_actions;
+          adSet.video_playback_75 = response.data?.video_p75_watched_actions;
+          adSet.video_playback_95 = response.data?.video_p95_watched_actions;
+          adSet.engagement_rate = response.data?.frequency;
+          adSet.interaction_page = response.data?.interactive_component_tap;
+          adSet.cpm = response.data?.cpm;
+          adSet.impressions = response.data?.impressions;
+        })
+        adSets.push(adSet);
+      })
+    })
+
+    return adSets;
   }
 
   logoutFacebook() {

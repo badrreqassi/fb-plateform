@@ -97,7 +97,7 @@ export class AdsListComponent implements OnInit {
 
   }, {
     name: 'ads Test 1 V3',
-    status: CampaignStatusEnum.PAUSED,
+    status: CampaignStatusEnum.ACTIVE,
     title: 'Titre 1 ',
     id: '1874442',
     thumbnails: 'thumbnails 1',
@@ -117,7 +117,7 @@ export class AdsListComponent implements OnInit {
 
   }, {
     name: 'ads Test 1 V3',
-    status: CampaignStatusEnum.ARCHIVED,
+    status: CampaignStatusEnum.ACTIVE,
     title: 'Titre 2 ',
     id: '182245242',
     thumbnails: 'thumbnails 1',
@@ -137,7 +137,7 @@ export class AdsListComponent implements OnInit {
 
   }, {
     name: 'ads Test 1 V3',
-    status: CampaignStatusEnum.DELETED,
+    status: CampaignStatusEnum.ACTIVE,
     title: 'Titre 3 ',
     id: '1871242',
     thumbnails: 'thumbnails 1',
