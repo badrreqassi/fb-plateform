@@ -1,6 +1,4 @@
-import {CampaignStatusEnum} from "../Enums/campaign-status.enum";
 import {Ad} from "./ad";
-import {StatisticsResults} from "./StatisticsResults";
 
 export interface AdSet {
   id?: string;
@@ -16,7 +14,7 @@ export interface AdSet {
   engagement_rate?: string;
   interaction_page?: string;
   cpm?: string;
-  couverture?: string
-  impressions?: string
+  currency?: string;
+  impressions?: string;
   ads?: Ad[];
 }

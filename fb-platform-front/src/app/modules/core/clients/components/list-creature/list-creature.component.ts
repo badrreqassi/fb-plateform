@@ -3,9 +3,8 @@ import {FacebookService} from "../../../services/facebook.service";
 import {Campaign} from "../../../../../models/campaign";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CreateAdsComponent} from "../create-ads/create-ads.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {SharingDataService} from "../../../services/sharing-data.service";
-import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-list-creature',
@@ -27,6 +26,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   ref: DynamicDialogRef | undefined;
 
   username!: string | null;
+
   constructor(private facebookService: FacebookService,
               public dialogService: DialogService,
               public router: Router,
@@ -43,20 +43,12 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
     this.facebookService.authenticateUserSubject.subscribe(response => {
       if (response) {
         this.user = response;
-        this.facebookService.getAllCompaigns().subscribe(
+        this.facebookService.getAllCampaigns().subscribe(
           response => {
             this.creators = response;
             this.totalRecords = this.creators.length;
           }
         );
-        //
-        // this.facebookService.getAdSetById().subscribe(adSetData => {
-        //   console.log('adSetData', adSetData);
-        //
-        //   this.facebookService.duplicateAdSets(adSetData).subscribe(data => {
-        //     console.log('adSet has been created', data)
-        //   })
-        // })
         this.loggedIn = true;
         this.disabled = false;
       } else {
@@ -88,9 +80,8 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
 
 
   NavigateIntoListAdSet(creator: Campaign): void {
-    console.log(creator)
     this.sharingData.changeMenuItem([
-      {id: '1', label: 'listCeateur', routerLink: '/client/campaignsTesting'},
+      {id: '1', label: 'Campaigns List', routerLink: '/client/campaignsTesting'},
       {id: creator.id.toString(), label: creator.name, routerLink: '/client/adSetList', queryParams: {id: creator.id}}])
     this.router.navigate(['/client/adSetList'], {queryParams: {id: creator.id}});
 

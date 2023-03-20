@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AdSet} from "../../../../../models/adSet";
-import {CampaignStatusEnum} from "../../../../../Enums/campaign-status.enum";
-import {StatisticsResults} from "../../../../../models/StatisticsResults";
 import {CreateAdsComponent} from "../create-ads/create-ads.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MenuItem} from "primeng/api";
-import {Campaign} from "../../../../../models/campaign";
 import {SharingDataService} from "../../../services/sharing-data.service";
 import {FacebookService} from "../../../services/facebook.service";
 
@@ -23,7 +20,7 @@ export class AdSetListComponent implements OnInit {
   rows = 10;
   items: MenuItem[] = [];
   cols = [
-    {field: 'name', header: 'name'},
+    {field: 'name', header: 'Ad name '},
     {field: 'status', header: 'Diffusion'},
     {field: 'spend', header: 'Money spent'},
     {field: 'cost_per_results', header: 'Cost per result'},
@@ -35,7 +32,7 @@ export class AdSetListComponent implements OnInit {
     {field: 'engagement_rate', header: 'Engagement rate'},
     {field: 'interaction_page', header: 'Page interaction'},
     {field: 'cpm', header: 'CPM'},
-    {field: 'Impression', header: 'Impressions'},
+    {field: 'impressions', header: 'Impressions'},
     {field: 'created_time', header: 'Creation Date'},
   ];
   ref: DynamicDialogRef | undefined;

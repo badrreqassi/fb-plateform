@@ -7,8 +7,8 @@ import {CampaignStatusEnum} from "../../../../../../Enums/campaign-status.enum";
   styleUrls: ['./status.component.scss']
 })
 export class StatusComponent implements OnInit {
-   status = '';
-  @Input() set value (val :string){
+   status : string | undefined;
+  @Input() set value (val :string | undefined){
     this.status = val;
     switch (val) {
       case CampaignStatusEnum.ACTIVE : {
@@ -28,7 +28,7 @@ export class StatusComponent implements OnInit {
         break;
       }
       default :{
-        this.colorStatus= 'success'
+        this.colorStatus= 'warning'
         break
       }
     }

@@ -1,4 +1,5 @@
 import {NgModule} from "@angular/core";
+import "@angular/compiler";
 import {MainComponent} from "./main.component";
 import {AccountManagementComponent} from "./shared/account-management/account-management.component";
 import {CommonModule} from "@angular/common";

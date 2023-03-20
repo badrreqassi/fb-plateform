@@ -8,8 +8,9 @@ import {HttpClient} from "@angular/common/http";
 import { CampaignStatusEnum } from 'src/app/Enums/campaign-status.enum';
 import Combination from 'src/app/models/Combination';
 import {AdSet} from "../../../models/adSet";
+import {Ad} from "../../../models/ad";
 
-let PERMISSION_SCOPES = 'public_profile, pages_show_list,business_management, ads_management,ads_read,publish_video';
+let PERMISSION_SCOPES = 'public_profile, pages_show_list,business_management, ads_management,ads_read,publish_video, pages_read_engagement';
 
 
 @Injectable({
@@ -100,7 +101,7 @@ export class FacebookService {
     });
   }
 
-  getAllCompaigns(): Observable<Campaign[]> {
+  getAllCampaigns(): Observable<Campaign[]> {
     const fbApiAsObservable = bindCallback(FB.api);
     const observables: Observable<{ data: Campaign[] }>[] = [];
     this.facebookUser.campaigns = [];
@@ -114,7 +115,7 @@ export class FacebookService {
     );
   }
 
-  getAdSetsByCampaignId(campaignId: string) : any[] {
+  getAdSetsByCampaignId(campaignId: string): any[] {
     let adSets: any[] = [];
     FB.api(`/${campaignId}?fields=id ,name, adsets{id, name, status, effective_status, created_time}`, (response: any) => {
       response.adsets.data.forEach((adset: any) => {
@@ -124,23 +125,87 @@ export class FacebookService {
           status: adset?.effective_status,
           created_time: adset?.created_time
         } as AdSet;
-        FB.api(`/${adset?.id}/insights?fields=spend, video_avg_time_watched_actions, video_p25_watched_actions, video_p50_watched_actions, video_p75_watched_actions, video_p95_watched_actions, frequency,cpm, interactive_component_tap,impressions & date_preset = data_maximum`, (response: any) => {
-          adSet.spend = response.data?.spend
-          adSet.avg_vid_play_time = response.data?.video_avg_time_watched_actions;
-          adSet.video_playback_25 = response.data?.video_p25_watched_actions;
-          adSet.video_playback_50 = response.data?.video_p50_watched_actions;
-          adSet.video_playback_75 = response.data?.video_p75_watched_actions;
-          adSet.video_playback_95 = response.data?.video_p95_watched_actions;
-          adSet.engagement_rate = response.data?.frequency;
-          adSet.interaction_page = response.data?.interactive_component_tap;
-          adSet.cpm = response.data?.cpm;
-          adSet.impressions = response.data?.impressions;
+        FB.api(`/${adset?.id}/insights?fields=account_currency,spend,cpc,video_avg_time_watched_actions,video_p25_watched_actions,video_p50_watched_actions,video_p75_watched_actions,video_p95_watched_actions,frequency,cpm,interactive_component_tap,impressions&date_preset=maximum`, (response: any) => {
+          if (response.data?.length > 0) {
+            adSet.spend = response.data[0]?.spend;
+            adSet.cost_per_results = response.data[0]?.cpc;
+            adSet.currency = response.data[0]?.account_currency;
+            if (response.data[0]?.video_avg_time_watched_actions?.length > 0) {
+              adSet.avg_vid_play_time = response.data[0]?.video_avg_time_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p25_watched_actions?.length > 0) {
+              adSet.video_playback_25 = response.data[0]?.video_p25_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p50_watched_actions?.length > 0) {
+              adSet.video_playback_50 = response.data[0]?.video_p50_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p75_watched_actions?.length > 0) {
+              adSet.video_playback_75 = response.data[0]?.video_p75_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p95_watched_actions?.length > 0) {
+              adSet.video_playback_95 = response.data[0]?.video_p95_watched_actions[0]?.value;
+            }
+            adSet.engagement_rate = response.data[0]?.frequency;
+            if (response.data[0]?.interactive_component_tap?.length > 0) {
+              adSet.interaction_page = response.data[0]?.interactive_component_tap[0]?.value;
+            }
+            adSet.cpm = response.data[0]?.cpm;
+            adSet.impressions = response.data[0]?.impressions;
+          }
         })
         adSets.push(adSet);
       })
     })
-
     return adSets;
+  }
+
+  getAdsByAdSetId(adSetId: string): any[] {
+    let ads: any[] = [];
+    FB.api(`/${adSetId}?fields=id ,name, ads{id,name,status,creative{id,title, status,video_id},effective_status,created_time}`, (response: any) => {
+      response.ads.data.forEach((item: any) => {
+        let ad = {
+          id: item?.id,
+          name: item?.name,
+          title: item?.creative?.title,
+          status: item?.effective_status,
+          created_time: item?.created_time,
+          video: item?.creative?.video_id
+        } as Ad;
+        FB.api(`/${item?.id}/insights?fields=account_currency,spend,cpc,video_avg_time_watched_actions,video_p25_watched_actions,video_p50_watched_actions,video_p75_watched_actions,video_p95_watched_actions,video_p100_watched_actions,frequency,cpm,interactive_component_tap,impressions&date_preset=maximum`, (response: any) => {
+          if (response.data?.length > 0) {
+            ad.spend = response.data[0]?.spend;
+            ad.cost_per_results = response.data[0]?.cpc;
+            ad.currency = response.data[0]?.account_currency;
+            if (response.data[0]?.video_avg_time_watched_actions?.length > 0) {
+              ad.avg_vid_play_time = response.data[0]?.video_avg_time_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p25_watched_actions?.length > 0) {
+              ad.video_playback_25 = response.data[0]?.video_p25_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p50_watched_actions?.length > 0) {
+              ad.video_playback_50 = response.data[0]?.video_p50_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p75_watched_actions?.length > 0) {
+              ad.video_playback_75 = response.data[0]?.video_p75_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p95_watched_actions?.length > 0) {
+              ad.video_playback_95 = response.data[0]?.video_p95_watched_actions[0]?.value;
+            }
+            if (response.data[0]?.video_p100_watched_actions?.length > 0) {
+              ad.video_playback_100 = response.data[0]?.video_p100_watched_actions[0]?.value;
+            }
+            ad.engagement_rate = response.data[0]?.frequency;
+            if (response.data[0]?.interactive_component_tap?.length > 0) {
+              ad.interaction_page = response.data[0]?.interactive_component_tap[0]?.value;
+            }
+            ad.cpm = response.data[0]?.cpm;
+            ad.impressions = response.data[0]?.impressions;
+          }
+        })
+        ads.push(ad);
+      })
+    })
+    return ads;
   }
 
   logoutFacebook() {
@@ -153,6 +218,24 @@ export class FacebookService {
   getAdSetById(adsetId: number): Observable<any> {
     return from(new Promise((resolve) => {
       FB.api(`/${adsetId}?fields=name,campaign_id,billing_event,targeting,daily_budget,account_id,promoted_object,optimization_goal,destination_type,bid_strategy`, (response: any) => {
+        resolve(response);
+        this.accountId = response.account_id;
+      });
+    }));
+  }
+
+  getThumbnailByVideoId(videoId: string): string {
+    let thumbnailSrc = "";
+    FB.api(`/${videoId}/picture?redirect=false`, (response: any) => {
+      console.log('thumbnail', response);
+      thumbnailSrc = response?.data?.url;
+    });
+    return thumbnailSrc;
+  }
+
+  getVideoSrcByVideoId(videoId: string): Observable<any> {
+    return from(new Promise((resolve) => {
+      FB.api(`/${videoId}?fields=permalink_url,embed_html,length`, (response: any) => {
         resolve(response);
         this.accountId = response.account_id;
       });

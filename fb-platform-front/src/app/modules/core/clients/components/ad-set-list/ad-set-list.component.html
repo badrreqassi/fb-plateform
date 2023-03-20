@@ -54,6 +54,15 @@
                 <td *ngSwitchCase="'status'" style="width: 200px ; justify-content: center">
                   <app-status [value]="rowData[col.field]"></app-status>
                 </td>
+                <td *ngSwitchCase="'spend'" style="width: 200px">
+                  {{rowData[col.field] + ' ' + rowData['currency']}}
+                </td>
+                <td *ngSwitchCase="'cost_per_results'" style="width: 200px">
+                  {{rowData[col.field] + ' ' + rowData['currency']}}
+                </td>
+                <td *ngSwitchCase="'cpm'" style="width: 200px">
+                  {{rowData[col.field] + ' ' + rowData['currency']}}
+                </td>
                 <td *ngSwitchDefault style="width: 200px">
                   {{rowData[col.field]}}
                 </td>

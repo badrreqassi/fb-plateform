@@ -2,7 +2,7 @@
   <img src="/assets/img/logo_topBar.svg"  alt ="topBarLogo" class="logo" [routerLink]="'/client/campaignsTesting'">
   <div class="account" fxLayout="row" fxLayoutAlign="end center" >
     <div fxLayoutAlign="center center" >
-      <div class="user-img" fxLayoutAlign="center center" > {{logo.toUpperCase()}} </div>
+      <div class="user-img" fxLayoutAlign="center center" > {{logo?.toUpperCase()}} </div>
       <span style="color: #f1f5ff "> {{username}} </span>
     </div>
     <div class="pi pi-angle-down angle-down"  fxLayoutAlign="center center" (click)="menu.toggle($event)" ></div>
