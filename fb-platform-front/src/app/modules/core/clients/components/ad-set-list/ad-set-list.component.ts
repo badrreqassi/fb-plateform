@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AdSet} from "../../../../../models/adSet";
 import {CreateAdsComponent} from "../create-ads/create-ads.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {MenuItem} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {SharingDataService} from "../../../services/sharing-data.service";
 import {FacebookService} from "../../../services/facebook.service";
 
@@ -37,12 +37,15 @@ export class AdSetListComponent implements OnInit {
   ];
   ref: DynamicDialogRef | undefined;
   campaignId = '';
-  name = ''
+  name = '';
+  checked: any;
+
 
   constructor(private activatedRoute: ActivatedRoute,
               public facebookService: FacebookService,
               public dialogService: DialogService,
               private sharingData: SharingDataService,
+              private messageService: MessageService,
               private activatedroute: ActivatedRoute,
               public router: Router
   ) {
@@ -92,6 +95,19 @@ export class AdSetListComponent implements OnInit {
 
     this.router.navigate(['/client/adsList'], {queryParams: {id: adSet.id}});
 
+  }
+
+
+  onChangeStatus(adSet: any) {
+    this.facebookService.changeItemStatus(adSet).subscribe(data => {
+      adSet.status = data.itemStatus;
+    }, error => {
+      this.messageService.add({
+        severity: 'error',
+        summary: error?.message,
+        detail: error?.error_user_msg
+      });
+    });
   }
 
 }

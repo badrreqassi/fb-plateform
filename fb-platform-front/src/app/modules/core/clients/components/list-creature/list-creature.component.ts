@@ -5,6 +5,7 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CreateAdsComponent} from "../create-ads/create-ads.component";
 import {Router} from "@angular/router";
 import {SharingDataService} from "../../../services/sharing-data.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-list-creature',
@@ -30,7 +31,8 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   constructor(private facebookService: FacebookService,
               public dialogService: DialogService,
               public router: Router,
-              private sharingData: SharingDataService
+              private sharingData: SharingDataService,
+              private messageService: MessageService
   ) {
   }
 
@@ -59,7 +61,13 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   }
 
   onLogin() {
-    this.facebookService.logWithFacebook();
+    this.facebookService.logWithFacebook().subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Linked successfully',
+        detail: 'Your facebook linked with your account'
+      });
+    });
   }
 
   show() {
@@ -85,5 +93,17 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
       {id: creator.id.toString(), label: creator.name, routerLink: '/client/adSetList', queryParams: {id: creator.id}}])
     this.router.navigate(['/client/adSetList'], {queryParams: {id: creator.id}});
 
+  }
+
+  onChangeStatus(adSet: any) {
+    this.facebookService.changeItemStatus(adSet).subscribe(data => {
+      adSet.status = data.itemStatus;
+    }, error => {
+      this.messageService.add({
+        severity: 'error',
+        summary: error?.message,
+        detail: error?.error_user_msg
+      });
+    });
   }
 }

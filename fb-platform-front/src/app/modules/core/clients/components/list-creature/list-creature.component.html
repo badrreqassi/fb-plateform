@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div id="creature-card">
   <div fxFlexFill fxLayout="row">
     <div class="creature-title" fxFlex="50">
@@ -70,14 +71,12 @@
         <ng-template pTemplate="body" let-creator>
           <tr class="p-selectable-row" (dblclick)="NavigateIntoListAdSet(creator)">
             <td style="min-width: 80px; max-width: 80px">
-              <ng-container [ngSwitch]="creator.status">
-                <div *ngSwitchCase="'ACTIVE'">
-                  <p-inputSwitch [trueValue]="true"></p-inputSwitch>
-                </div>
-                <div *ngSwitchDefault>
-                  <p-inputSwitch [falseValue]="false"></p-inputSwitch>
-                </div>
-              </ng-container>
+              <div *ngIf="creator.status === 'ACTIVE' else unchecked;">
+                <p-inputSwitch (onChange)="onChangeStatus(creator)" [trueValue]="false"></p-inputSwitch>
+              </div>
+              <ng-template #unchecked>
+                <p-inputSwitch (onChange)="onChangeStatus(creator)" [falseValue]="false"></p-inputSwitch>
+              </ng-template>
             </td>
             <td>
               {{creator.name}}

@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div id="my-account">
   <div>
     <div fxFlex="100">
@@ -62,7 +63,7 @@
   <ng-template #isConnected>
     <div class="facebook-info" fxFlex="50">
       <div class="connect-facebook" fxLayout="row" style="padding: 15px">
-        <app-connected-account [status]="connected" [userName]="facebookUsername"  (onClickLogOut)="onLogin()"  fxFlexFill></app-connected-account>
+        <app-connected-account [status]="connected" [userName]="facebookUsername"  (onClickLogOut)="onLogout()"  fxFlexFill></app-connected-account>
       </div>
 
     </div>

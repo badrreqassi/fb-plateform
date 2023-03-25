@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, bindCallback, concat, from, Observable, reduce, map} from "rxjs";
+import {BehaviorSubject, bindCallback, concat, from, map, Observable, reduce} from "rxjs";
 import {ApiEndPoints} from "../../../constants/ApiEndPoints";
 import {FacebookUser} from "../../../models/facebookUser";
 import {AdAccount} from "../../../models/adAccount";
 import {Campaign} from "../../../models/campaign";
 import {HttpClient} from "@angular/common/http";
-import { CampaignStatusEnum } from 'src/app/Enums/campaign-status.enum';
+import {CampaignStatusEnum} from 'src/app/Enums/campaign-status.enum';
 import Combination from 'src/app/models/Combination';
 import {AdSet} from "../../../models/adSet";
 import {Ad} from "../../../models/ad";
@@ -51,15 +51,18 @@ export class FacebookService {
       version: 'v15.0'
     });
 
-    FB.login(response => {
-      localStorage.setItem('facebookAccessToken', JSON.stringify(response));
-      if (response.status === "connected") {
-        if (this.facebookUser) {
-          this.facebookUser.authResponse = response.authResponse;
+    return from(new Promise(resolve => {
+      FB.login(response => {
+        localStorage.setItem('facebookAccessToken', JSON.stringify(response));
+        if (response.status === "connected") {
+          if (this.facebookUser) {
+            this.facebookUser.authResponse = response.authResponse;
+          }
+          this.storeLoggedUser();
+          resolve(response);
         }
-        this.storeLoggedUser();
-      }
-    }, {scope: PERMISSION_SCOPES});
+      }, {scope: PERMISSION_SCOPES});
+    }));
   }
 
 
@@ -81,7 +84,7 @@ export class FacebookService {
         this.facebookUser.id = response?.id;
         this.facebookUser.name = response?.name;
         this.facebookUser.adAccounts = response?.adaccounts.data;
-       localStorage.setItem('userNameFacebook',response?.name);
+        localStorage.setItem('userNameFacebook', response?.name);
         this.authenticateUserSubject.next(response);
       }
     });
@@ -159,6 +162,30 @@ export class FacebookService {
     return adSets;
   }
 
+  changeItemStatus(item: any): Observable<any> {
+    return from(new Promise((resolve, reject) => {
+      if (item.status !== 'ACTIVE') {
+        FB.api(`/${item.id}`, 'post', {status: "ACTIVE"}, (response: any) => {
+          if (response?.error) {
+            reject(response?.error)
+          } else {
+            response.itemStatus = 'ACTIVE';
+            resolve(response);
+          }
+        });
+      } else {
+        FB.api(`/${item.id}`, 'post', {status: "PAUSED"}, (response: any) => {
+          if (response?.error) {
+            reject(response?.error)
+          } else {
+            response.itemStatus = 'PAUSED';
+            resolve(response);
+          }
+        });
+      }
+    }));
+  }
+
   getAdsByAdSetId(adSetId: string): any[] {
     let ads: any[] = [];
     FB.api(`/${adSetId}?fields=id ,name, ads{id,name,status,creative{id,title, status,video_id},effective_status,created_time}`, (response: any) => {
@@ -209,10 +236,14 @@ export class FacebookService {
   }
 
   logoutFacebook() {
-    FB.logout((response) => {
-      this.authenticateUserSubject.next(null);
-      this.facebookUser = {} as FacebookUser;
-    });
+    return from(new Promise((resolve) => {
+      FB.logout((response) => {
+        this.authenticateUserSubject.next(null);
+        this.facebookUser = {} as FacebookUser;
+        resolve(response);
+      });
+    }))
+
   }
 
   getAdSetById(adsetId: number): Observable<any> {
@@ -242,7 +273,7 @@ export class FacebookService {
     }));
   }
 
-  duplicateAdSets(name:string, adSetData: any, budget: number): Observable<any> {
+  duplicateAdSets(name: string, adSetData: any, budget: number): Observable<any> {
     const duplicateAdSetData = {
       name: name,
       campaign_id: adSetData.campaign_id,
@@ -258,7 +289,7 @@ export class FacebookService {
 
     return from(new Promise((resolve, reject) => {
       FB.api(`/act_${this.accountId}/adsets?fields=promoted_object`, "post", duplicateAdSetData, (response: any) => {
-        if(response?.error){
+        if (response?.error) {
           reject(response?.error)
         } else {
           resolve(response);
@@ -273,13 +304,13 @@ export class FacebookService {
     videoData.append("source", videoFile);
     const authResponse = FB.getAuthResponse();
     return this.http
-        .post(
-          `https://graph.facebook.com/v16.0/act_${this.accountId}/advideos?access_token=${authResponse?.accessToken}`,
-          videoData
-        )
-        .pipe(
-          map((result: any) => result.id)
-        );
+      .post(
+        `https://graph.facebook.com/v16.0/act_${this.accountId}/advideos?access_token=${authResponse?.accessToken}`,
+        videoData
+      )
+      .pipe(
+        map((result: any) => result.id)
+      );
   }
 
 
@@ -288,24 +319,27 @@ export class FacebookService {
     thumbnailData.append("file", thumbnailFile, thumbnailFile.name);
     const authResponse = FB.getAuthResponse();
     return this.http
-    .post(
-      `https://graph.facebook.com/v16.0/act_${this.accountId}/adimages?access_token=${authResponse?.accessToken}`,
-      thumbnailData
-    )
-    .pipe(
-      map((result: any) => ({hash: result.images[thumbnailFile.name].hash, url: result.images[thumbnailFile.name].url}))
-    );
+      .post(
+        `https://graph.facebook.com/v16.0/act_${this.accountId}/adimages?access_token=${authResponse?.accessToken}`,
+        thumbnailData
+      )
+      .pipe(
+        map((result: any) => ({
+          hash: result.images[thumbnailFile.name].hash,
+          url: result.images[thumbnailFile.name].url
+        }))
+      );
   }
 
   getVideoStatus(videoId: string): Observable<any> {
     const authResponse = FB.getAuthResponse();
     return this.http
-    .get(
-      `https://graph.facebook.com/v16.0/${videoId}?fields=status&access_token=${authResponse?.accessToken}`
-    )
-    .pipe(
-      map((result: any) => result.status.video_status)
-    );
+      .get(
+        `https://graph.facebook.com/v16.0/${videoId}?fields=status&access_token=${authResponse?.accessToken}`
+      )
+      .pipe(
+        map((result: any) => result.status.video_status)
+      );
   }
 
   createAd(adset: any, combiniation: Combination, index: number): Observable<any> {
@@ -338,7 +372,7 @@ export class FacebookService {
     };
     return from(new Promise((resolve, reject) => {
       FB.api(`/act_${this.accountId}/ads?fields=name,creative,tracking_specs,adset`, "post", ad, (response: any) => {
-        if(response?.error){
+        if (response?.error) {
           reject(response?.error)
         } else {
           resolve(response);

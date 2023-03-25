@@ -6,7 +6,6 @@ import {MenuItem, MessageService} from "primeng/api";
 import {Role} from "../../../../models/Role";
 import {SharingDataService} from "../../services/sharing-data.service";
 import {FacebookService} from "../../services/facebook.service";
-import {FacebookUser} from "../../../../models/facebookUser";
 
 @Component({
   selector: 'app-account-management',
@@ -29,7 +28,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private messageService: MessageService,
               private sharingData: SharingDataService,
-              private faceBookService: FacebookService
+              private facebookService: FacebookService
   ) {
   }
 
@@ -50,7 +49,11 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
       })
     }
     setTimeout(() => {
-      this.sharingData.changeMenuItem([{id: '123456789', label: 'Home', routerLink: '/client/campaignsTesting'}, {label: 'Account'}] as MenuItem[])
+      this.sharingData.changeMenuItem([{
+        id: '123456789',
+        label: 'Home',
+        routerLink: '/client/campaignsTesting'
+      }, {label: 'Account'}] as MenuItem[])
 
     })
 
@@ -61,7 +64,6 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     this.accountForm.markAllAsTouched();
     if (this.accountForm.valid) {
       const accountValue = this.accountForm.value;
-      console.log(this.user);
       let roles = [] as number[];
       (this.user.roles as Role[]).forEach((role) => roles.push(role.id));
       if (this.user.id) {
@@ -90,9 +92,28 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
   }
 
   onLogin() {
-  this.faceBookService.logWithFacebook();
-    console.log('logOut');
+    this.facebookService.logWithFacebook().subscribe(() => {
+      setTimeout(() => {
+        this.facebookUsername = localStorage.getItem('userNameFacebook') as string;
+        this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string)?.status;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Linked successfully',
+          detail: 'Your facebook linked with your account'
+        });
+      }, 300);
+    })
+  }
 
+  onLogout() {
+    this.connected = '';
+    localStorage.removeItem('userNameFacebook');
+    localStorage.removeItem('facebookAccessToken');
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Unlinked Facebook',
+      detail: 'Your facebook unlinked from your account'
+    });
   }
 
   ngOnDestroy(): void {

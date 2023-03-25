@@ -33,6 +33,7 @@ import { StatusComponent } from './components/utils/status/status.component';
 import {TagModule} from "primeng/tag";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { ConnectedAccountComponent } from './components/utils/connected-account/connected-account.component';
+import {ToastModule} from "primeng/toast";
 
 
 
@@ -74,6 +75,7 @@ import { ConnectedAccountComponent } from './components/utils/connected-account/
         ChartModule,
         TagModule,
         ConfirmDialogModule,
+        ToastModule,
 
     ],
     exports: [

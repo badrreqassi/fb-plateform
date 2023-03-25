@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FacebookService} from "../../../../services/facebook.service";
 
 @Component({
   selector: 'app-connected-account',
@@ -10,7 +11,9 @@ export class ConnectedAccountComponent implements OnInit {
   @Input() userName = '';
   @Output() onClickLogOut : EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private facebookService: FacebookService
+  ) { }
 
   ngOnInit(): void {
     console.log(this.userName)
@@ -18,5 +21,11 @@ export class ConnectedAccountComponent implements OnInit {
 
   onLogOut() {
     this.onClickLogOut.emit(true);
+  }
+
+  logOut() {
+    this.facebookService.logoutFacebook().subscribe(() => {
+      this.onClickLogOut.emit(false);
+    });
   }
 }

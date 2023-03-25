@@ -37,6 +37,11 @@
           </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
+              <th style="min-width: 80px; max-width: 80px">
+                <div class="align-center">
+                  Active
+                </div>
+              </th>
               <th *ngFor="let col of columns"
                   pReorderableColumn
                   pResizableColumn
@@ -47,6 +52,14 @@
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
+              <td style="min-width: 80px; max-width: 80px">
+                <div *ngIf="rowData.status === 'ACTIVE' else unchecked;">
+                  <p-inputSwitch (onChange)="onChangeStatus(rowData)" [trueValue]="false"></p-inputSwitch>
+                </div>
+                <ng-template #unchecked>
+                  <p-inputSwitch (onChange)="onChangeStatus(rowData)" [falseValue]="false"></p-inputSwitch>
+                </ng-template>
+              </td>
               <ng-container *ngFor="let col of columns">
                 <ng-container [ngSwitch]="col.field">
                   <td *ngSwitchCase="'created_time'" style="width: 200px">

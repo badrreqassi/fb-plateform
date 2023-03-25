@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {MenuItem} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 import {SharingDataService} from "../../../services/sharing-data.service";
 import {Ad} from "../../../../../models/ad";
 import Chart from 'chart.js/auto';
@@ -45,12 +45,14 @@ export class AdsListComponent implements OnInit {
   adSetId: string = '';
   openChart: boolean = false;
   selectedAd = {} as Ad;
-  thumbnail?: string;
+
   @ViewChild('videoFrame') videoFrame!: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute,
               private facebookService: FacebookService,
               private sharingData: SharingDataService,
+              private messageService: MessageService
+
   ) {
   }
 
@@ -136,6 +138,19 @@ export class AdsListComponent implements OnInit {
     this.selectedAd = {};
     this.chart?.destroy();
     this.openChart = false
+  }
+
+
+  onChangeStatus(adSet: any) {
+    this.facebookService.changeItemStatus(adSet).subscribe(data => {
+      adSet.status = data.itemStatus;
+    }, error => {
+      this.messageService.add({
+        severity: 'error',
+        summary: error?.message,
+        detail: error?.error_user_msg
+      });
+    });
   }
 }
 
