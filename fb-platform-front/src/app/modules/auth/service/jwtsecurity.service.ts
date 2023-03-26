@@ -25,12 +25,13 @@ export class JWTsecurityService {
             localStorage.setItem("userId", response?.userId);
             localStorage.setItem("logo", response?.firstName.charAt(0) + response?.lastName.charAt(0))
 
-            const admin = (response.roles as string[]).find(role => role === 'ADMIN');
+           /* const admin = (response.roles as string[]).find(role => role === 'ADMIN');
             if (admin) {
-              this.router.navigate(['admin']);
+              this.router.navigate(['client']);
             } else {
               this.router.navigate(['client']);
-            }
+            }*/
+            this.router.navigate(['client']);
             return 'Authenticated Successfully'
           } else {
             return 'Failed to authenticate';

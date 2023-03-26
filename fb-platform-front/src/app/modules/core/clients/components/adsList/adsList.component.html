@@ -65,20 +65,27 @@
                   <td *ngSwitchCase="'created_time'" style="width: 200px">
                     {{rowData[col.field] | date: 'YYYY-MM-dd HH:mm:ss'}}
                   </td>
-                  <td *ngSwitchCase="'spend'" style="width: 200px">
-                    {{rowData[col.field] + ' ' + rowData['currency']}}
+                  <td *ngSwitchCase="'spend'" style="width: 200px"  >
+                    <div *ngIf="rowData[col.field]">
+                      {{rowData[col.field] + ' ' + rowData['currency']}}
+                    </div>
                   </td>
                   <td *ngSwitchCase="'cost_per_results'" style="width: 200px">
-                    {{rowData[col.field] + ' ' + rowData['currency']}}
-                  </td>
+                    <div *ngIf="rowData[col.field]">
+                      {{rowData[col.field] + ' ' + rowData['currency']}}
+                    </div>                  </td>
                   <td *ngSwitchCase="'cpm'" style="width: 200px">
-                    {{rowData[col.field] + ' ' + rowData['currency']}}
+                    <div *ngIf="rowData[col.field]">
+                      {{rowData[col.field] + ' ' + rowData['currency']}}
+                    </div>
                   </td>
                   <td *ngSwitchCase="'status'" style="width: 200px ; justify-content: center">
                     <app-status [value]="rowData[col.field]"></app-status>
                   </td>
                   <td [title]="rowData[col.field]" *ngSwitchDefault style="width: 200px">
-                    {{rowData[col.field]}}
+                    <div *ngIf="rowData[col.field]">
+                      {{rowData[col.field]}}
+                    </div>
                   </td>
                 </ng-container>
               </ng-container>

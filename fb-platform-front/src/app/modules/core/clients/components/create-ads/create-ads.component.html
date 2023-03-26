@@ -1,9 +1,9 @@
 <div id="createAd" fxLayout="column" [fxLayoutGap]="'10px'">
-  <p-confirmDialog #cd [style]="{width: '40vw'}">
+  <p-confirmDialog #cd [style]="{width: '40vw'}" id="confirm">
     <ng-template pTemplate="footer">
-      <button type="button" class="p-button-outlined p-button-danger" pButton label="No"
+      <button type="button" class="p-button-outlined p-button-warning" pButton label="No"
               (click)="cd.reject()"></button>
-      <button type="button" class="p-button-danger" pButton label="Leave"
+      <button type="button" class="p-button-warning" pButton label="Leave"
               (click)="cd.accept()"></button>
     </ng-template>
   </p-confirmDialog>
@@ -11,7 +11,7 @@
   <div fxLayout="row" style="width: 100%">
     <div fxFlex="95%" class="title">
       <span class="bold">
-        Nouveau
+        New
         </span>
       <span>
           Testing
@@ -29,29 +29,29 @@
       <div fxLayout="row wrap" fxLayoutAlign="none start">
 
         <div fxLayout="column" class="default-margin" style="width: 100% ">
-          <label class="default-margin"> <span> Nom de test <strong style="color: red ">&nbsp;*</strong></span></label>
+          <label class="default-margin"> <span> Test name <strong style="color: red ">&nbsp;*</strong></span></label>
           <input
             [formControlName]="'name'"
             type="text" pInputText
-            placeholder="Entrez un nom pour le test..."
+            placeholder="Enter a name for the test..."
             [class]="valid?'' : 'ng-invalid ng-dirty'">
         </div>
 
         <div fxLayout="row" style="width: 100%">
           <div fxLayout="column" style="width:calc(60% - 50px) ; margin-right: 50px">
-            <label class="default-margin">Pour le Créateur <strong style="color: red ">&nbsp;*</strong></label>
+            <label class="default-margin">For the Creator <strong style="color: red ">&nbsp;*</strong></label>
             <p-dropdown [options]="compaigns"
                         [formControlName]="'campaign'"
                         (onChange)="onchangeCompaigns($event)"
                         [class]="valid?'' : 'ng-invalid ng-dirty'"
-                        placeholder="Choisissez un créateur ..."
+                        placeholder="Choose a creator..."
                         optionLabel="name"></p-dropdown>
           </div>
           <!--slider-->
           <div fxLayout="column" style="width: calc(60% - 50px)" fxLayoutAlign="center center" [fxLayoutGap]="'10px'">
             <div fxLayout="row" style="width: 100%;" [fxLayoutGap]="'8px'" fxLayoutAlign="start center" class="default-margin">
               <p-checkbox value="true" [binary]="true" (onChange)="activeBugetManul($event)"></p-checkbox>
-              <span>Ajuster le montant à déposer </span> <span class="bold">{{ beanAds.value.budget }} €</span>
+              <span>Adjust the amount to deposit </span> <span class="bold">{{ beanAds.value.budget }} €</span>
             </div>
             <div style="width: 100%;">
               <p-slider [min]="0" [max]="50"
@@ -70,8 +70,8 @@
         <div fxLayout="row" style="width: 100%; height: 200px" class="default-margin">
           <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px); margin-right: 50px">
             <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
-              <label fxFlex="70%" class="default-margin"> Importez vos videos <strong style="color: red ">&nbsp;*</strong> </label>
-              <div fxFlex="30%" fxLayoutAlign="end center" class="message default-margin"> jusqu'à 5 videos</div>
+              <label fxFlex="70%" class="default-margin"> Import your videos <strong style="color: red ">&nbsp;*</strong> </label>
+              <div fxFlex="30%" fxLayoutAlign="end center" class="message default-margin"> up to 5 videos</div>
             </div>
             <p-fileUpload
               [auto]="true"
@@ -98,8 +98,8 @@
 
           <div fxLayout="column" class="default-margin" style="width:calc(60% - 50px);">
             <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
-              <label fxFlex="65%" class="default-margin"> Importez vos thumbnails </label>
-              <div fxFlex="35%" fxLayoutAlign="end center" class="message default-margin"> jusqu'à 2 thumbnails</div>
+              <label fxFlex="65%" class="default-margin"> Importez vos miniatures </label>
+              <div fxFlex="35%" fxLayoutAlign="end center" class="message default-margin"> Up to 2 thumbnails</div>
             </div>
             <p-fileUpload
               [class]="valid?'' : 'ng-invalid ng-dirty'"
@@ -117,7 +117,7 @@
                     <app-show-upload-files [uploadTypeIcon]="'pi pi-image'" [files]="uploadedFiles" (onDelete)="setMinBudgetPerAd()"></app-show-upload-files>
                   </div>
                   <ng-template #thumbnail>
-                    <app-content-empty [valid]="valid" [icon]="'pi pi-image'" [message]="'Aucune thumbnail importée'"></app-content-empty>
+                    <app-content-empty [valid]="valid" [icon]="'pi pi-image'" [message]="'No thumbnail uploaded'"></app-content-empty>
                   </ng-template>
 
                 </div>
@@ -133,15 +133,15 @@
         <div fxLayout="column" style="width:100%" fxLayoutAlign="center center">
           <div fxLayout="row" style="width: 100%; height: 200px">
             <div fxLayout="column" style="width:calc(60% - 50px) ; margin-right: 50px" [fxLayoutGap]="'15px'">
-              <label class="default-margin">Ajoutez vos titres : <strong style="color: red ">&nbsp;*</strong> </label>
+              <label class="default-margin">Add your titles: <strong style="color: red ">&nbsp;*</strong> </label>
               <input
                 type="text" pInputText
-                placeholder="Entrez un titre..."
+                placeholder="Enter a title..."
                 [formControlName]="'title'">
               <div fxLayoutAlign="end center">
                 <button pButton
                         type="button"
-                        label="Ajouter"
+                        label="Add"
                         icon="pi pi-plus"
                         [iconPos]="'right'"
                         (click)="addTitle()"
@@ -151,8 +151,8 @@
             </div>
             <div fxLayout="column" style="width:calc(60% - 50px);">
               <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
-                <label fxFlex="70%"> Votre titres </label>
-                <div fxFlex="30%" fxLayoutAlign="end center" class="message"> jusqu'à 5 titres</div>
+                <label fxFlex="70%"> Your titles </label>
+                <div fxFlex="30%" fxLayoutAlign="end center" class="message"> Up to 5 titles</div>
               </div>
               <div style="max-height: 150px; overflow: auto">
 
@@ -160,7 +160,7 @@
                   <app-show-upload-files [uploadTypeIcon]="'pi pi-align-center'" [operationType]="'titles'" [files]="listTitre"></app-show-upload-files>
                 </div>
                 <ng-template #titre>
-                  <app-content-empty [valid]="valid" [icon]="'pi pi-align-center'" [message]="'Aucune titre importée'"></app-content-empty>
+                  <app-content-empty [valid]="valid" [icon]="'pi pi-align-center'" [message]="'No title imported'"></app-content-empty>
                 </ng-template>
               </div>
             </div>
@@ -175,7 +175,7 @@
         <!-- creer-->
 
         <div fxLayout="column" style="width:100% "  fxLayoutAlign="center center">
-          <button pButton style="width: 35%;" type="submit" label="Créer" class="p-button-rounded" [loading]="isLoading"></button>
+          <button pButton style="width: 35%;" type="submit" label=" Create" class="p-button-rounded" [loading]="isLoading"></button>
         </div>
 
         <!--end creer-->

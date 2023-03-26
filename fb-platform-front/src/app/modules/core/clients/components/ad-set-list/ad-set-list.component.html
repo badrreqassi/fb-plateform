@@ -2,10 +2,10 @@
   <div fxLayout="column" [fxLayoutGap]="'20px'">
     <div fxFlexFill fxLayout="row">
       <div class="title" fxFlex="50%">
-        <span class="bold"><span> List des Tests de </span> {{name}}</span>
+        <span class="bold"><span> Tests list: </span> {{name}}</span>
       </div>
       <div fxFlex="50" fxLayoutAlign="end center">
-        <button pButton label="Créer un nouveau test" (click)="show()" icon="pi pi-plus" iconPos="right"></button>
+        <button pButton label="Create new test" (click)="show()" icon="pi pi-plus" iconPos="right"></button>
       </div>
     </div>
     <div class="adSetList-list" style="max-width:1820px">
@@ -15,6 +15,7 @@
                [columns]="cols"
                dataKey="id"
                [rowHover]="true"
+               [totalRecords]="totalRecords"
                styleClass="p-datatable-gridlines datatable-border"
                [(first)]="first"
                [(rows)]="rows"
@@ -31,7 +32,7 @@
       >
         <ng-template pTemplate="caption">
           <div class="table-header">
-            List des tests
+            Tests list
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -62,23 +63,30 @@
             <ng-container *ngFor="let col of columns">
               <ng-container [ngSwitch]="col.field">
                 <td *ngSwitchCase="'created_time'" style="width: 200px">
-                  {{rowData[col.field] | date: 'YYYY-MM-dd HH:mm:ss'}}
+                  <div *ngIf="rowData[col.field] ">
+                    {{rowData[col.field] | date: 'YYYY-MM-dd HH:mm:ss'}}
+                  </div>
                 </td>
                 <td *ngSwitchCase="'status'" style="width: 200px ; justify-content: center">
                   <app-status [value]="rowData[col.field]"></app-status>
                 </td>
                 <td *ngSwitchCase="'spend'" style="width: 200px">
-                  {{rowData[col.field] + ' ' + rowData['currency']}}
+                 <div *ngIf="rowData[col.field]">
+                   {{rowData[col.field] + ' ' + rowData['currency']}}
+                 </div>
                 </td>
                 <td *ngSwitchCase="'cost_per_results'" style="width: 200px">
-                  {{rowData[col.field] + ' ' + rowData['currency']}}
-                </td>
+                  <div *ngIf="rowData[col.field]">
+                    {{rowData[col.field] + ' ' + rowData['currency']}}
+                  </div>                </td>
                 <td *ngSwitchCase="'cpm'" style="width: 200px">
-                  {{rowData[col.field] + ' ' + rowData['currency']}}
-                </td>
+                  <div *ngIf="rowData[col.field]">
+                    {{rowData[col.field] + ' ' + rowData['currency']}}
+                  </div>                </td>
                 <td *ngSwitchDefault style="width: 200px">
-                  {{rowData[col.field]}}
-                </td>
+                  <div *ngIf="rowData[col.field]">
+                    {{rowData[col.field]}}
+                  </div>                </td>
               </ng-container>
             </ng-container>
           </tr>

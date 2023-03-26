@@ -147,7 +147,9 @@ export class CreateAdsComponent implements OnInit {
 
     this.confirmationService.confirm({
       header: 'Confirmation',
-      message: 'Are you sure that you want to leave?',
+      message: 'If you leave your inputs won’t be saved ! are you sure you want to leave ?',
+      icon: ' pi pi-info-circle',
+
       dismissableMask: true,
       accept: () => {
         this.dialogRef.close()
@@ -166,7 +168,7 @@ export class CreateAdsComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Vous avez dépassé le nombre de thumbnails autorisés !"',
+        detail: 'The number of allowed thumbnails has been exceeded!',
       });
     }
   }
@@ -182,7 +184,7 @@ export class CreateAdsComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Vous avez dépassé le nombre de videos autorisés !"',
+        detail: 'The number of allowed videos has been exceeded!"',
       });
     }
   }
@@ -197,7 +199,7 @@ export class CreateAdsComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Vous avez dépassé le nombre de titres autorisés !"',
+          detail: 'The number of allowed titles has been exceeded! !"',
         });
       }
     }

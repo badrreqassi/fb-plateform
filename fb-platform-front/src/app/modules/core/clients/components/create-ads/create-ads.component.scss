@@ -29,7 +29,13 @@
   }
 
 }
-
+#confirm{
+  ::ng-deep {
+    .p-dialog .p-dialog-content {
+      padding: 22px !important;
+    }
+  }
+}
 ::ng-deep {
   .p-dialog .p-dialog-content {
     padding: 0 !important;

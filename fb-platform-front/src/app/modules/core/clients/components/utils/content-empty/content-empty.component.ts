@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ContentEmptyComponent implements OnInit {
   @Input() icon = 'pi pi-video'
-  @Input() message = 'Aucune vidéo importée'
+  @Input() message = 'No video imported'
   @Input()  valid = true;
   @Input() height = '130'
 

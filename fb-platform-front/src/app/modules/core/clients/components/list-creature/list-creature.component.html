@@ -5,14 +5,14 @@
       <span ><span class="bold">Hello</span> {{username}} </span>
     </div>
     <div fxFlex="50" fxLayoutAlign="end center">
-      <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Create new ad" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
+      <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Create new test" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
     </div>
   </div>
   <div class="connect-fb-section" fxLayoutAlign="center center" *ngIf="!loggedIn else LogIn">
     <div fxLayout="column" fxLayoutGap="20px">
       <div fxFlex class="connect-message">
         <i class="pi pi-info-circle"></i>
-        <h3>Vous devez connecter votre compte Facebook</h3>
+        <h3> You need to connect your Facebook account.</h3>
       </div>
       <div fxFlex class="connect-btn">
         <button pButton class="p-button-outlined create-btn" label="Link your Facebook account" icon="pi pi-facebook" (click)="onLogin()"></button>
@@ -41,7 +41,7 @@
       >
         <ng-template pTemplate="caption">
           <div class="table-header">
-            List of Creators
+             Creators List
           </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -53,7 +53,7 @@
             </th>
             <th>
               <div class="flex justify-content-between align-items-center">
-                Creator
+                Creators
               </div>
             </th>
             <th style="min-width: 200px; max-width: 200px">

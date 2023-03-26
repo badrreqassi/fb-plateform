@@ -65,5 +65,6 @@ export class TopMenuComponent implements OnInit {
     localStorage.removeItem('username');
     localStorage.removeItem('roles');
     this.router.navigate(['/Auth/login'])
+
   }
 }

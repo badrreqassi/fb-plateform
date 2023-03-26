@@ -89,7 +89,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
 
   NavigateIntoListAdSet(creator: Campaign): void {
     this.sharingData.changeMenuItem([
-      {id: '1', label: 'Campaigns List', routerLink: '/client/campaignsTesting'},
+      {id: '1', label: 'Creators List', routerLink: '/client/campaignsTesting'},
       {id: creator.id.toString(), label: creator.name, routerLink: '/client/adSetList', queryParams: {id: creator.id}}])
     this.router.navigate(['/client/adSetList'], {queryParams: {id: creator.id}});
 
