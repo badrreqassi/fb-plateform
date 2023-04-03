@@ -24,6 +24,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
   });
   connected = '';
   facebookUsername = '';
+   usersId!: number;
 
   constructor(private userService: UserService,
               private messageService: MessageService,
@@ -34,6 +35,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.usersId = parseInt(localStorage.getItem('userId') as string);
     this.facebookUsername = localStorage.getItem('userNameFacebook') as string;
     this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string)?.status;
     const userId = localStorage.getItem('userId');
@@ -72,7 +74,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
           email: accountValue.email,
           firstName: accountValue.firstName,
           lastName: accountValue.lastName,
-          roles: roles
+          roles: roles,
+          adminId: this.usersId
         }).subscribe(response => {
           localStorage.setItem('username', response.username);
           this.messageService.add({

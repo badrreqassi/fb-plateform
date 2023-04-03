@@ -25,19 +25,19 @@
               [class]="userForm.controls['password'].invalid && userForm.controls['password'].touched ?'ng-invalid ng-dirty' : ''"></p-password>
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-            <label class="default-margin">FirstName <span class="required-indicator">*</span></label>
+            <label class="default-margin">First Name <span class="required-indicator">*</span></label>
             <input
               [formControlName]="'lastName'"
               type="text" pInputText
-              placeholder="Type lastname"
+              placeholder="Type last name"
               [class]="userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched ?'ng-invalid ng-dirty' : ''">
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
-            <label class="default-margin">LastName <span class="required-indicator">*</span></label>
+            <label class="default-margin">Last Name <span class="required-indicator">*</span></label>
             <input
               [formControlName]="'firstName'"
               type="text" pInputText
-              placeholder="Type firstname"
+              placeholder="Type first name"
               [class]="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched ?'ng-invalid ng-dirty' : ''">
           </div>
           <div fxFlex="48" fxLayout="column" class="default-margin" style="width: 100% ">
@@ -52,9 +52,10 @@
             <label class="default-margin">Role <span class="required-indicator">*</span></label>
             <p-dropdown [options]="roles"
                         [formControlName]="'role'"
+
                         [class]="userForm.controls['role'].invalid && userForm.controls['role'].touched ? 'ng-invalid ng-dirty w-100' : 'w-100'"
                         placeholder="Select a role"
-                        optionLabel="name"></p-dropdown>
+                        optionLabel="label"></p-dropdown>
           </div>
         </div>
       </div>

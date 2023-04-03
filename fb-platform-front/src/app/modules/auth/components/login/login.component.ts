@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.passWord;
     if (this.loginForm.valid) {
-      this.Jwt.authenticate(username, password).subscribe(res => {
+      this.Jwt.authenticate(username.trim(), password.trim()).subscribe(res => {
         this.errorMessage = ''
       }, error => {
         this.errorMessage = 'Username or Password is not valid';

@@ -73,15 +73,15 @@
             </td>
             <td style="min-width: 200px; max-width: 200px">
               <div *ngFor="let role of user.roles" fxLayout="row">
-                <ng-container [ngSwitch]="role">
+                <ng-container [ngSwitch]="role?.name">
                   <ng-template [ngSwitchCase]="'ADMIN'">
 
-                  <p-badge severity="danger" [value]="role"></p-badge>
+                  <p-badge severity="danger" [value]="role.name"></p-badge>
 
                   </ng-template>
                   <ng-template [ngSwitchCase]="'USER'">
 
-                    <p-badge severity="success" [value]="role"></p-badge>
+                    <p-badge severity="success" [value]="role.name"></p-badge>
 
                   </ng-template>
                 </ng-container>

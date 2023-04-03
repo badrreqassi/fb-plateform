@@ -22,16 +22,8 @@ export class UserEditComponent implements OnInit {
 
   user = {} as User
 
-  roles = [
-    {
-      id: 1,
-      name: 'ADMIN'
-    },
-    {
-      id: 2,
-      name: 'USER'
-    }
-  ];
+  roles = [];
+   usersId!: number;
 
   constructor(private userService: UserService,
               private dialogRef: DynamicDialogRef,
@@ -40,14 +32,18 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usersId = parseInt(localStorage.getItem('userId') as string);
     if (this.dialogConfig.data) {
       this.user = this.dialogConfig.data;
+      console.log(this.user)
+      // @ts-ignore
+      this.roles =this.user.roles;
       this.userForm.setValue({
         username: this.user.username,
         lastName: this.user.lastName,
         firstName: this.user.firstName,
         email: this.user.email,
-        role: this.user.roles.length > 1 ? this.roles[0] : this.roles[1]
+        role: this.user.roles
       })
     }
   }
@@ -58,13 +54,12 @@ export class UserEditComponent implements OnInit {
       const userValue = this.userForm.value;
       console.log('userValue', userValue)
       let roles = [];
-      if (userValue.role.id == 1){
-        // add ADMIN & USER roles
+      if (userValue.role[0].name==='ADMIN'){
+        // add ADMIN  roles
         roles.push(1);
-        roles.push(2);
-      }else {
+      } else {
         // add USER role
-        roles.push(2)
+        roles.push(3)
       }
       if (this.user?.id){
         this.userService.updateUser( this.user.id,{
@@ -73,6 +68,7 @@ export class UserEditComponent implements OnInit {
           lastName: userValue.lastName,
           firstName: userValue.firstName,
           roles: roles,
+          adminId:this.usersId
         }).subscribe(() => {
           this.dialogRef.close();
           this.messageService.add({

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api";
 import {Router} from "@angular/router";
+import {FacebookService} from "../../../modules/core/services/facebook.service";
 
 @Component({
   selector: 'app-top-menu',
@@ -10,7 +11,9 @@ import {Router} from "@angular/router";
 export class TopMenuComponent implements OnInit {
   logo = ''
 
-  constructor(public router: Router) {
+  constructor(public router: Router,
+              private facebookApi: FacebookService,
+  ) {
   }
 
   items: MenuItem[] = [] as MenuItem[];
@@ -61,6 +64,7 @@ export class TopMenuComponent implements OnInit {
   }
 
   logOut(): void {
+    this.facebookApi.logoutFacebook();
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('roles');

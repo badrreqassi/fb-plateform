@@ -28,13 +28,7 @@
     color: #9CA3AF;
   }
 
-}
-#confirm{
-  ::ng-deep {
-    .p-dialog .p-dialog-content {
-      padding: 22px !important;
-    }
-  }
+
 }
 ::ng-deep {
   .p-dialog .p-dialog-content {
@@ -75,8 +69,12 @@
   .p-progressbar {
     background-color: white !important;
   }
+}
 
- /*.p-disabled {
-   opacity: 1%;
- }*/
+#confirm{
+  ::ng-deep {
+    .p-dialog .p-dialog-content {
+      padding: 22px !important;
+    }
+  }
 }

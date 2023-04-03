@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
-import {MessageService} from "primeng/api";
+import {MenuItem, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-user-create',
@@ -20,37 +20,46 @@ export class UserCreateComponent implements OnInit {
     role: new FormControl(null, [Validators.required]),
   });
 
-  roles = [
-    {
-      id: 1,
-      name: 'ADMIN',
+  roles !: MenuItem []
 
-    },
-    {
-      id: 2,
-      name: 'USER'
-    }
-  ];
+  usersId!: number;
 
   constructor(private userService: UserService,
               private dialogRef: DynamicDialogRef,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+  }
 
   ngOnInit(): void {
+    this.usersId = parseInt(localStorage.getItem('userId') as string);
+    if (this.hasSuperAdmin()) {
+       this.roles = [
+        {
+          id: '1',
+          label: 'ADMIN',
+        }];
+
+    } else {
+       this.roles = [
+        {
+          id: '2',
+          label: 'USER',
+        }
+      ];
+    }
+
   }
 
   onSubmit() {
     this.userForm.markAllAsTouched();
-    if (this.userForm.valid){
+    if (this.userForm.valid) {
       const userValue = this.userForm.value;
       let roles = [];
-      if (userValue.role.id == 1){
-        // add ADMIN & USER roles
+      if (userValue.role.id == 1) {
+        // add ADMIN
         roles.push(1);
-        roles.push(2);
-      }else {
+      } else {
         // add USER role
-        roles.push(2)
+        roles.push(3)
       }
       this.userService.createUser({
         username: userValue.username,
@@ -59,6 +68,7 @@ export class UserCreateComponent implements OnInit {
         lastName: userValue.lastName,
         firstName: userValue.firstName,
         roles: roles,
+        adminId: this.usersId
       }).subscribe(() => {
         this.dialogRef.close();
         this.messageService.add({
@@ -72,5 +82,12 @@ export class UserCreateComponent implements OnInit {
         })
       ));
     }
+  }
+
+
+  hasSuperAdmin(): boolean {
+    const roles = localStorage.getItem('roles');
+    // @ts-ignore
+    return roles.includes('SUPER ADMIN');
   }
 }

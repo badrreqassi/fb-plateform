@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsersList(pageNum = 0 as number, pageSize = 10 as number) : Observable<any>{
-    return this.http.post<any>(`${environment.server.mainApiUrl}/api/users/${pageNum}/${pageSize}`,[]).pipe(
+  getUsersList(pageNum = 0 as number, pageSize = 10 as number, searchReq : any = []) : Observable<any>{
+    return this.http.post<any>(`${environment.server.mainApiUrl}/api/users/${pageNum}/${pageSize}`,searchReq).pipe(
       map( response => {
         return response.data ;
       })
