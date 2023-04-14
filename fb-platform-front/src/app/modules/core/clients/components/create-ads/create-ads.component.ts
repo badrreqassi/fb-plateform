@@ -193,7 +193,7 @@ export class CreateAdsComponent implements OnInit {
     if (this.beanAds.value.title) {
       console.log(this.listTitre.length)
       if (this.listTitre.length < 5) {
-        this.listTitre.push({ text: this.beanAds.value.title });
+        this.listTitre.push({ name: this.beanAds.value.title });
         this.beanAds.get('title')?.setValue('');
       } else {
         this.messageService.add({

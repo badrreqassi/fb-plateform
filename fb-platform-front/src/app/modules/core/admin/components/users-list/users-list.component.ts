@@ -72,6 +72,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
   private getListUsers() {
+    console.log('is here');
     this.userService.getUsersList(this.first, this.rows, [{
       "field": "adminId",
       "value": this.usersId
@@ -92,8 +93,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.getListUsers();
-  }
+    this.dialogRef.onClose.subscribe(() => {
+      this.getListUsers();
+    });  }
 
   showEditDialog(user: User) {
     this.dialogRef = this.dialogService.open(UserEditComponent, {
@@ -105,8 +107,10 @@ export class UsersListComponent implements OnInit, OnDestroy {
         data: user
       }
     );
+    this.dialogRef.onClose.subscribe(() => {
+      this.getListUsers();
+    });
 
-    this.getListUsers();
   }
 
   showChangePassword(user: User) {
@@ -120,8 +124,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.getListUsers();
-  }
+    this.dialogRef.onClose.subscribe(() => {
+      this.getListUsers();
+    });  }
 
   confirmDelete(user: User) {
     this.confirmationService.confirm({

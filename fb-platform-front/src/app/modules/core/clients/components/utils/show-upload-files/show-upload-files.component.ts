@@ -13,7 +13,8 @@ export class ShowUploadFilesComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   open(file: any): void {
     const url = window.URL.createObjectURL(file);
