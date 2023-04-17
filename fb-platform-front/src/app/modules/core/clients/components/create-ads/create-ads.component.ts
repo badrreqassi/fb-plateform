@@ -36,7 +36,7 @@ export class CreateAdsComponent implements OnInit {
   uploadedFilesVideo: any[] = [];
   @ViewChild('upload') upload!: FileUpload;
   titre: string = '';
-  listTitre: any[] = [];
+  listTitre: {name:string}[] = [];
   disableSlider = true;
   budgetValue = 0;
   adsCount = 1;
@@ -229,7 +229,7 @@ export class CreateAdsComponent implements OnInit {
   private getCombinations(
     videos: string[],
     thumbnails: Thumbnail[],
-    titles: string[]
+    titles: {name:string}[]
   ): Combination[] {
     let combinations: Combination[] = [];
     videos.forEach((videoId) => {

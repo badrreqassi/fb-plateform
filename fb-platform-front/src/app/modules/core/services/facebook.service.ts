@@ -349,7 +349,7 @@ export class FacebookService {
       creative: {
         name: `Creative ${suffix}`,
         asset_feed_spec: {
-          titles: combiniation.titles,
+          titles: combiniation.titles.map(t=>({text:t.name})),
           optimization_type: 'DEGREES_OF_FREEDOM',
         },
         object_story_spec: {

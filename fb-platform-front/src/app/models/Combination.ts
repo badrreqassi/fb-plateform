@@ -6,5 +6,5 @@ export interface Thumbnail{
 export default interface Combination{
     videoId: string;
     thumbnail?: Thumbnail;
-    titles: string[];
+    titles: {name:string}[];
 }
