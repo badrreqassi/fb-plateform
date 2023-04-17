@@ -6,6 +6,7 @@ import {CreateAdsComponent} from "../create-ads/create-ads.component";
 import {Router} from "@angular/router";
 import {SharingDataService} from "../../../services/sharing-data.service";
 import {MessageService} from "primeng/api";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-list-creature',
@@ -17,7 +18,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
 
   user: any;
 
-  loggedIn = false;
+  connected = false;
   creators: Campaign[] = [];
   totalRecords = 0;
   first = 0;
@@ -27,6 +28,8 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   ref: DynamicDialogRef | undefined;
 
   username!: string | null;
+  _subscriptions: Subscription[] = [];
+  loading = false;
 
   constructor(private facebookService: FacebookService,
               public dialogService: DialogService,
@@ -37,12 +40,15 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.facebookService.getLoginStatus();
     setTimeout(() => {
       this.sharingData.changeMenuItem([])
     }, 0)
+    this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string)?.status;
     this.username = localStorage.getItem("username");
-    this.facebookService.getLoginStatus();
+    this._subscriptions.push(
     this.facebookService.authenticateUserSubject.subscribe(response => {
+      console.log('response', response)
       if (response) {
         this.user = response;
         this.facebookService.getAllCampaigns().subscribe(
@@ -51,23 +57,23 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
             this.totalRecords = this.creators.length;
           }
         );
-        this.loggedIn = true;
         this.disabled = false;
       } else {
-        this.loggedIn = false;
+        this.creators = [];
         this.disabled = true;
       }
-    });
+    }));
   }
 
   onLogin() {
-    this.facebookService.logWithFacebook().subscribe(() => {
+    this._subscriptions.push(this.facebookService.logWithFacebook().subscribe(() => {
+      window.location.reload();
       this.messageService.add({
         severity: 'success',
         summary: 'Linked successfully',
         detail: 'Your facebook linked with your account'
       });
-    });
+    }));
   }
 
   show() {
@@ -84,6 +90,9 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
     if (this.ref) {
       this.ref.close();
     }
+    this._subscriptions.forEach(sub => {
+      sub.unsubscribe();
+    })
   }
 
 
@@ -96,7 +105,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
   }
 
   onChangeStatus(adSet: any) {
-    this.facebookService.changeItemStatus(adSet).subscribe(data => {
+    this._subscriptions.push(this.facebookService.changeItemStatus(adSet).subscribe(data => {
       adSet.status = data.itemStatus;
     }, error => {
       this.messageService.add({
@@ -104,6 +113,6 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
         summary: error?.message,
         detail: error?.error_user_msg
       });
-    });
+    }));
   }
 }
