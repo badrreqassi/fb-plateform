@@ -8,7 +8,7 @@
       <button pButton [ngClass]="disabled? 'p-button-outlined p-button-secondary create-btn' : 'create-btn' " (click)="show()" label="Create new test" icon="pi pi-plus" iconPos="right" [disabled]="disabled"></button>
     </div>
   </div>
-  <div class="connect-fb-section" fxLayoutAlign="center center" *ngIf="!loggedIn else LogIn">
+  <div class="connect-fb-section" fxLayoutAlign="center center" *ngIf="!connected else LogIn">
     <div fxLayout="column" fxLayoutGap="20px">
       <div fxFlex class="connect-message">
         <i class="pi pi-info-circle"></i>
@@ -30,6 +30,7 @@
                styleClass="p-datatable-gridlines datatable-border"
                [(first)]="first"
                [(rows)]="rows"
+               [loading]="loading"
                [showCurrentPageReport]="true"
                [rowsPerPageOptions]="rowPerPageOptions"
                [totalRecords]="totalRecords"
@@ -71,7 +72,7 @@
         <ng-template pTemplate="body" let-creator>
           <tr class="p-selectable-row" (dblclick)="NavigateIntoListAdSet(creator)">
             <td style="min-width: 80px; max-width: 80px">
-              <div *ngIf="creator.status === 'ACTIVE' else unchecked;">
+              <div *ngIf="creator?.status === 'ACTIVE' else unchecked;">
                 <p-inputSwitch (onChange)="onChangeStatus(creator)" [trueValue]="false"></p-inputSwitch>
               </div>
               <ng-template #unchecked>
@@ -79,13 +80,13 @@
               </ng-template>
             </td>
             <td>
-              {{creator.name}}
+              {{creator?.name}}
             </td>
             <td style="min-width: 200px; max-width: 200px">
-              {{creator.ads?.data?.length}}
+              {{creator?.ads?.data?.length}}
             </td>
             <td style="min-width: 200px; max-width: 200px">
-              {{creator.status}}
+              {{creator?.status}}
             </td>
           </tr>
         </ng-template>

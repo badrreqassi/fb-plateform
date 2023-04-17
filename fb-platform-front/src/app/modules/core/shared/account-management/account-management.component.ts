@@ -104,7 +104,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
           summary: 'Linked successfully',
           detail: 'Your facebook linked with your account'
         });
-      }, 300);
+      }, 500);
     })
   }
 

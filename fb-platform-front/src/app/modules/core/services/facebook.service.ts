@@ -18,7 +18,7 @@ let PERMISSION_SCOPES = 'public_profile, pages_show_list,business_management, ad
 })
 
 export class FacebookService {
-  authenticateUserSubject = new BehaviorSubject<any>(null);
+  authenticateUserSubject = new BehaviorSubject<any>(undefined);
   facebookUser = {} as FacebookUser;
 
   constructor(private http: HttpClient) {
@@ -68,39 +68,34 @@ export class FacebookService {
 
   getLoginStatus() {
     FB.getLoginStatus((response => {
+      console.log('login status', response)
       if (response.status === "connected") {
         if (this.facebookUser) {
           this.facebookUser.authResponse = response.authResponse;
         }
         this.storeLoggedUser();
+      } else {
+        this.facebookUser = {} as FacebookUser;
       }
     }))
   }
 
 
   storeLoggedUser() {
-    FB.api(`${ApiEndPoints.ME}?fields=id,name,adaccounts`, (response: { id: number, name: string, adaccounts: { data: AdAccount[] } }) => {
-      if (this.facebookUser) {
+    FB.api(`${ApiEndPoints.ME}?fields=id,name,adaccounts`, (response: {
+      id: number,
+      name: string,
+      adaccounts: { data: AdAccount[] }
+    }) => {
+      if (this.facebookUser?.authResponse) {
         this.facebookUser.id = response?.id;
         this.facebookUser.name = response?.name;
         this.facebookUser.adAccounts = response?.adaccounts.data;
         localStorage.setItem('userNameFacebook', response?.name);
         this.authenticateUserSubject.next(response);
+      } else {
+        this.authenticateUserSubject.next(undefined);
       }
-    });
-  }
-
-  getPages() {
-    FB.api(`${ApiEndPoints.ME}${ApiEndPoints.ACCOUNTS}?fields=name,access_token`, (response: unknown[]) => {
-      console.log('pages', response)
-      this.facebookUser.pages = response;
-    });
-  }
-
-  getBusinessManager() {
-    FB.api('/' + this.facebookUser.authResponse?.userID + ApiEndPoints.BUSINESSES, (response: unknown[]) => {
-      console.log('business manager', response);
-      this.facebookUser.businessManagers = response;
     });
   }
 
@@ -108,9 +103,11 @@ export class FacebookService {
     const fbApiAsObservable = bindCallback(FB.api);
     const observables: Observable<{ data: Campaign[] }>[] = [];
     this.facebookUser.campaigns = [];
-    for (let adAccount of this.facebookUser.adAccounts) {
-      // @ts-ignore
-      observables.push(fbApiAsObservable(`${adAccount.id}/campaigns?fields=account_id,id, name,status,ads{adset_id}`));
+    if (this.facebookUser.adAccounts){
+      for (let adAccount of this.facebookUser?.adAccounts) {
+        // @ts-ignore
+        observables.push(fbApiAsObservable(`${adAccount.id}/campaigns?fields=account_id,id, name,status,ads{adset_id}`));
+      }
     }
 
     return concat(...observables).pipe(
@@ -238,7 +235,8 @@ export class FacebookService {
   logoutFacebook() {
     return from(new Promise((resolve) => {
       FB.logout((response) => {
-        this.authenticateUserSubject.next(null);
+        this.authenticateUserSubject.next(undefined);
+        localStorage.removeItem('facebookAccessToken');
         this.facebookUser = {} as FacebookUser;
         resolve(response);
       });
@@ -253,15 +251,6 @@ export class FacebookService {
         this.accountId = response.account_id;
       });
     }));
-  }
-
-  getThumbnailByVideoId(videoId: string): string {
-    let thumbnailSrc = "";
-    FB.api(`/${videoId}/picture?redirect=false`, (response: any) => {
-      console.log('thumbnail', response);
-      thumbnailSrc = response?.data?.url;
-    });
-    return thumbnailSrc;
   }
 
   getVideoSrcByVideoId(videoId: string): Observable<any> {
