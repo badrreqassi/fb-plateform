@@ -1,3 +1,7 @@
+export interface AdTitle{
+    name: string;
+}
+
 export interface Thumbnail{
     hash: string;
     url: string;
@@ -6,5 +10,5 @@ export interface Thumbnail{
 export default interface Combination{
     videoId: string;
     thumbnail?: Thumbnail;
-    titles: string[];
+    titles: AdTitle[];
 }
