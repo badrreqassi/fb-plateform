@@ -1,4 +1,9 @@
 #creature-card::ng-deep {
+  .link-btn {
+    .p-button-label {
+       font-family: inherit !important;
+    }
+  }
     .creature-title {
       max-height: 35px;
       span {
@@ -37,3 +42,4 @@
 
 
 }
+
