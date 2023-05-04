@@ -44,7 +44,7 @@ export class ListCreatureComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.sharingData.changeMenuItem([])
     }, 0)
-    this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string)?.status;
+    this.connected = JSON.parse(localStorage.getItem('facebookAccessToken') as string)?.status == 'connected';
     this.username = localStorage.getItem("username");
     this._subscriptions.push(
     this.facebookService.authenticateUserSubject.subscribe(response => {
