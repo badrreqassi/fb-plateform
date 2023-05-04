@@ -1,4 +1,10 @@
 #my-account::ng-deep {
+
+    .link-btn {
+      .p-button-label {
+        font-family: inherit !important;
+      }
+    }
   .account-title {
     max-height: 35px;
 

@@ -1,5 +1,5 @@
 #createAd {
-  padding: 25px;
+
 
   .title {
     span {
@@ -28,11 +28,11 @@
     color: #9CA3AF;
   }
 
+  }
 
-}
 ::ng-deep {
   .p-dialog .p-dialog-content {
-    padding: 0 !important;
+    padding: 25px !important;
   }
 
   .p-inputtext {

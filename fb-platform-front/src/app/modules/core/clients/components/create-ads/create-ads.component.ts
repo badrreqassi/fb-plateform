@@ -6,7 +6,7 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {FileUpload} from "primeng/fileupload";
 import { forkJoin, map, iif, of, switchMap, repeat, filter, take } from 'rxjs';
-import Combination, { Thumbnail } from 'src/app/models/Combination';
+import Combination, { AdTitle, Thumbnail } from 'src/app/models/Combination';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class CreateAdsComponent implements OnInit {
   uploadedFilesVideo: any[] = [];
   @ViewChild('upload') upload!: FileUpload;
   titre: string = '';
-  listTitre: {name:string}[] = [];
+  listTitre: AdTitle[] = [];
   disableSlider = true;
   budgetValue = 0;
   adsCount = 1;
@@ -191,7 +191,6 @@ export class CreateAdsComponent implements OnInit {
 
   addTitle(): void {
     if (this.beanAds.value.title) {
-      console.log(this.listTitre.length)
       if (this.listTitre.length < 5) {
         this.listTitre.push({ name: this.beanAds.value.title });
         this.beanAds.get('title')?.setValue('');
@@ -229,7 +228,7 @@ export class CreateAdsComponent implements OnInit {
   private getCombinations(
     videos: string[],
     thumbnails: Thumbnail[],
-    titles: {name:string}[]
+    titles: AdTitle[]
   ): Combination[] {
     let combinations: Combination[] = [];
     videos.forEach((videoId) => {
